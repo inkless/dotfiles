@@ -1,0 +1,49 @@
+[alias]
+	co = checkout
+	ci = commit
+	rb = rebase
+	sync = !git pull --rebase && git push
+	com = !git add . && git commit -am
+	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+	st = status
+	cp = cherry-pick
+[user]
+	name = Guangda Zhang
+	email = zhangxiaoyu9350@gmail.com
+[color]
+	ui = true
+[filter "media"]
+	required = true
+	clean = git media clean %f
+	smudge = git media smudge %f
+[merge]
+	tool = diffmerge
+  conflictstyle = diff3
+[mergetool]
+  prompt = false
+[diff]
+	tool = diffmerge
+[difftool]
+  prompt = false
+# [merge]
+# 	tool = diffmerge
+# [mergetool "diffmerge"]
+# 	cmd = "diffmerge --merge --result=\"$MERGED\" \"$LOCAL\" \"$(if test -f \"$BASE\"; then echo \"$BASE\"; else echo \"$LOCAL\"; fi)\" \"$REMOTE\""
+# 	trustExitCode = true
+# [diff]
+# 	tool = diffmerge
+# [difftool "diffmerge"]
+# 	cmd = diffmerge \"$LOCAL\" \"$REMOTE\"
+[push]
+	default = simple
+	default = simple
+[filter "hawser"]
+	clean = git hawser clean %f
+	smudge = git hawser smudge %f
+	required = true
+[filter "lfs"]
+	clean = git lfs clean %f
+	smudge = git lfs smudge %f
+	required = true
+[core]
+	excludesfile = /home/inkless/.gitignore_global
