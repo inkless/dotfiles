@@ -1,0 +1,212 @@
+##############################
+#  _
+# | |_ _ __ ___  _   ___  __
+# | __| '_ ` _ \| | | \ \/ /
+# | |_| | | | | | |_| |>  < 
+#  \__|_| |_| |_|\__,_/_/\_\
+#
+#############################
+#
+# COPY AND PASTE
+# http://robots.thoughtbot.com/tmux-copy-paste-on-os-x-a-better-future
+#
+# Use vim keybindings in copy mode
+setw -g mode-keys vi
+
+# Setup 'v' to begin selection as in Vim
+bind-key -t vi-copy v begin-selection
+bind-key -t vi-copy V rectangle-toggle
+bind-key -t vi-copy y copy-pipe "reattach-to-user-namespace pbcopy"
+
+# Copy to mac in vim
+# :w !reattach-to-user-namespace pbcopy
+# :'<,'>w !reattach-to-user-namespace pbcopy
+
+# Update default binding of `Enter` to also use copy-pipe
+# unbind -t vi-copy Enter
+# bind-key -t vi-copy Enter copy-pipe "reattach-to-user-namespace pbcopy"
+#
+############################################################################
+#########################################################################
+# Reset Prefix
+############################################################################
+# set -g prefix C-a
+# bind-key a send-prefix # for nested tmux sessions
+
+############################################################################
+# Global options
+############################################################################
+# large history
+set-option -g history-limit 10000
+set-option -g default-command "reattach-to-user-namespace -l zsh"
+
+# colors
+# setw -g mode-bg black
+set-option -g default-terminal "screen-256color" #"xterm-256color" # "screen-256color"
+set-option -g pane-active-border-fg green
+
+# utf8 support
+# set-window-option -g utf8 on
+
+
+# basic settings
+set-window-option -g xterm-keys on # for vim
+set-window-option -g monitor-activity on
+# set-window-option -g window-status-current-fg white
+# setw -g window-status-current-attr reverse
+
+# Automatically set window title
+setw -g automatic-rename on
+
+# use mouse # More on mouse support http://floriancrouzat.net/2010/07/run-tmux-with-mouse-support-in-mac-os-x-terminal-app/
+set-window-option -g mouse on
+# setw -g mode-mouse on
+#setw -g mouse-resize-pane on
+#set -g mouse-select-window on
+# set -g mouse-select-pane on
+set -g terminal-overrides 'xterm*:smcup@:rmcup@'
+
+# vi movement keys
+# set-option -g status-keys vi
+
+############################################################################
+# Status Bar
+############################################################################
+set-option -g status on
+set-option -g status-interval 2
+# set-option -g status-utf8 on
+set-option -g status-justify "centre"
+set-option -g status-left-length 70
+set-option -g status-right-length 80
+# set-option -g status-left "#(/home/inkless/resources/tmux-powerline/powerline.sh left)"
+# set-option -g status-right "#(/home/inkless/resources/tmux-powerline/powerline.sh right)"
+
+# set-window-option -g window-status-current-format "#[fg=colour235, bg=colour27]#[fg=colour255, bg=colour27] #I  #W #[fg=colour27, bg=colour235]""
+# bind C-[ run '/Users/joe/lib/tmux-powerline/mute_powerline.sh left'      # Mute left statusbar.
+# bind C-] run '/Users/joe/lib/tmux-powerline/mute_powerline.sh right'     # Mute right statusbar.
+
+
+# set-option -g status-utf8 on
+# set-option -g status-justify right
+# set-option -g status-bg colour235 # colour213 # pink
+# set-option -g status-fg cyan
+# set-option -g status-interval 5
+# set-option -g status-bg blue
+# set-option -g status-fg black
+# set-option -g status-left " "
+# set -g status-right "#[fg=white,bg=black] [#S]#[fg=red,bright] [ #[fg=cyan]#H #[fg=red,bright]] #[fg=yellow,bright]%Y.%m.%d #[fg=green]%H:%M #[default]#[fg=magenta,bright]#[default] "
+# set -g status-right "#[fg=white,bg=black] [#S]#[fg=red,bright] [ #[fg=cyan]#H #[fg=red,bright]] #[fg=yellow,bright]%Y.%m.%d %R#[default] "
+# set -g status-right-length 100
+# setw -g window-status-current-fg colour235
+# setw -g window-status-current-bg cyan
+# setw -g window-status-current-format " [#I#F] #W "
+# setw -g window-status-format "[#I#F#W]"
+# setw -g window-status-activity-fg black
+# setw -g window-status-activity-bg white
+# setw -g window-status-activity-attr default
+
+# set-option -g status-left-length 30
+# set-option -g status-left '#[fg=magenta]» #[fg=blue,bold]#T#[default]'
+# set-option -g status-right '#[fg=red,bold][[ #(git branch) branch ]] #[fg=cyan]»» #[fg=blue,bold]###S #[fg=magenta]%R %m-%d#(acpi | cut -d ',' -f 2)#[default]'
+# set-option -g visual-activity on
+
+# Titles (window number, program name, active (or not)
+# set-option -g set-titles on
+# set-option -g set-titles-string '#H:#S.#I.#P #W #T'
+
+
+############################################################################
+# Unbindings
+############################################################################
+#unbind [ # copy mode bound to escape key
+unbind j
+# unbind C-b # unbind default leader key
+unbind '"' # unbind horizontal split
+unbind %   # unbind vertical split
+
+
+############################################################################
+# Bindings
+############################################################################
+# reload tmux conf
+bind-key r source-file ~/.tmux.conf
+
+#bind Escape copy-mode
+
+# new split in current pane (horizontal / vertical)
+bind C-s split-window -v -c '#{pane_current_path}' # split pane horizontally
+bind C-v split-window -h -c '#{pane_current_path}' # split pane vertically
+
+# list panes
+# bind-key Space list-panes
+
+# break-pane
+bind-key Enter break-pane
+
+# join-pane [-dhv] [-l size | -p percentage] [-s src-pane]
+# [-t:dst-window.dst-pane] (destination window (dot) destination pane
+#                (alias: joinp)
+#
+#bind C-j command-prompt "joinp"
+#bind C-j command-prompt "join-pane"
+#bind-key j command-prompt "join-pane -s '%%'"
+#bind-key j command-prompt "joinp -t:0"
+bind-key Space command-prompt "joinp -t:%%" # %% = prompt for window.pane [-V|H] # vert|hor split
+
+#previous pane
+bind-key -n C-up prev
+bind-key -n C-left prev
+
+#next pane
+bind-key -n C-right next
+bind-key -n C-down next
+
+############################################################################
+# windows
+############################################################################
+# set-window-option -g window-status-current-bg red
+bind C-j previous-window
+bind C-k next-window
+bind-key C-a last-window # C-b C-a for last active window
+bind A command-prompt "rename-window %%"
+# By default, all windows in a session are constrained to the size of the 
+# smallest client connected to that session, 
+# even if both clients are looking at different windows. 
+# It seems that in this particular case, Screen has the better default 
+# where a window is only constrained in size if a smaller client 
+# is actively looking at it.
+set-window-option -g aggressive-resize on
+
+############################################################################
+# panes
+############################################################################
+# Navigation ---------------------------------------------------------------
+# use the vim motion keys to move between panes
+bind-key h select-pane -L
+bind-key j select-pane -D
+bind-key k select-pane -U
+bind-key l select-pane -R
+
+# Resizing ---------------------------------------------------------------
+bind C-h resize-pane -L 5
+bind C-j resize-pane -D 5
+bind C-k resize-pane -U 5
+bind C-l resize-pane -R 5
+
+############################################################################
+# layouts
+############################################################################
+bind o select-layout "active-only"
+bind M-- select-layout "even-vertical"
+bind M-| select-layout "even-horizontal"
+bind M-r rotate-window
+
+############################################################################
+# layouts
+############################################################################
+
+# focus on first window
+# select-window -t 0
+
+run-shell "powerline-daemon -q"
+source "/usr/local/lib/python2.7/site-packages/powerline/bindings/tmux/powerline.conf"
