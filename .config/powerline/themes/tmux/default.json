@@ -5,13 +5,15 @@
         "function": "powerline.segments.common.net.hostname",
         "args": {
           "only_if_ssh": true
-        }
+        },
+        "priority": 10
       },
       {
         "function": "powerline.segments.common.net.external_ip"
       },
       {
-        "function": "powerline.segments.common.net.internal_ip"
+        "function": "powerline.segments.common.net.internal_ip",
+        "priority": 50
       }
     ],
     "right": [
@@ -27,10 +29,12 @@
         "function": "powerline.segments.common.bat.battery",
         "args": {
           "offline": "\uf241"
-        }
+        },
+        "priority": 30
       },
       {
-        "function": "powerline.segments.common.wthr.weather"
+        "function": "powerline.segments.common.wthr.weather",
+        "priority": 40
       },
       {
         "function": "powerline.segments.common.time.date",
