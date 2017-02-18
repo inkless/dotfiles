@@ -2,7 +2,16 @@
   "segments": {
     "left": [
       {
+        "function": "powerline.segments.common.net.hostname",
+        "args": {
+          "only_if_ssh": true
+        }
+      },
+      {
         "function": "powerline.segments.common.net.external_ip"
+      },
+      {
+        "function": "powerline.segments.common.net.internal_ip"
       }
     ],
     "right": [

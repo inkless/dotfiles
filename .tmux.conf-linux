@@ -73,12 +73,17 @@ set -g terminal-overrides 'xterm*:smcup@:rmcup@'
 ############################################################################
 # Status Bar
 ############################################################################
-set-option -g status on
-set-option -g status-interval 2
+
+## powerline
+run-shell "powerline-daemon -q"
+source "/usr/local/lib/python2.7/dist-packages/powerline/bindings/tmux/powerline.conf"
+
+# set-option -g status on
+# set-option -g status-interval 2
 # set-option -g status-utf8 on
 set-option -g status-justify "centre"
 set-option -g status-left-length 70
-set-option -g status-right-length 90
+set-option -g status-right-length 150
 # set-option -g status-left "#(/home/inkless/resources/tmux-powerline/powerline.sh left)"
 # set-option -g status-right "#(/home/inkless/resources/tmux-powerline/powerline.sh right)"
 
@@ -89,8 +94,8 @@ set-option -g status-right-length 90
 
 # set-option -g status-utf8 on
 # set-option -g status-justify right
-set-option -g status-bg colour235 # colour213 # pink
-set-option -g status-fg cyan
+# set-option -g status-bg colour235 # colour213 # pink
+# set-option -g status-fg cyan
 # set-option -g status-interval 5
 # set-option -g status-bg blue
 # set-option -g status-fg black
@@ -98,10 +103,10 @@ set-option -g status-fg cyan
 # set -g status-right "#[fg=white,bg=black] [#S]#[fg=red,bright] [ #[fg=cyan]#H #[fg=red,bright]] #[fg=yellow,bright]%Y.%m.%d #[fg=green]%H:%M #[default]#[fg=magenta,bright]#[default] "
 # set -g status-right "#[fg=white,bg=black] [#S]#[fg=red,bright] [ #[fg=cyan]#H #[fg=red,bright]] #[fg=yellow,bright]%Y.%m.%d %R#[default] "
 # set -g status-right-length 100
-setw -g window-status-current-fg colour235
-setw -g window-status-current-bg cyan
-setw -g window-status-current-format " [#I#F] #W "
-setw -g window-status-format "[#I#F#W]"
+# setw -g window-status-current-fg colour235
+# setw -g window-status-current-bg cyan
+# setw -g window-status-current-format " [#I#F] #W "
+# setw -g window-status-format "[#I#F#W]"
 # setw -g window-status-activity-fg black
 # setw -g window-status-activity-bg white
 # setw -g window-status-activity-attr default
@@ -208,6 +213,3 @@ bind M-r rotate-window
 
 # focus on first window
 # select-window -t 0
-
-run-shell "powerline-daemon -q"
-source "/usr/local/lib/python2.7/dist-packages/powerline/bindings/tmux/powerline.conf"
