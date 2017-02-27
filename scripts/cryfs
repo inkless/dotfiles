@@ -1,0 +1,3 @@
+#!/bin/bash
+
+cryfs ~/Google\ Drive/private ~/private
