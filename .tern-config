@@ -2,13 +2,12 @@
   "libs": [
     "browser",
     "jquery",
-    "lodash"
+    "ecma5",
+    "ecma6"
   ],
   "plugins": {
     "node": {},
-    "modules": {},
-    "es_modules": {},
-    "angular": {},
-    "webpack": {}
-  }
+    "es_modules": {}
+  },
+  "ecmaVersion": 6
 }
