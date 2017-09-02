@@ -38,6 +38,8 @@ bind-key -t vi-copy y copy-pipe "xclip -sel clip -i"
 ############################################################################
 # Global options
 ############################################################################
+set -sg escape-time 0
+
 # large history
 set-option -g history-limit 10000
 # set-option -g default-command "reattach-to-user-namespace -l zsh"
