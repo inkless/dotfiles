@@ -756,6 +756,8 @@ endif
 if count(g:ivim_bundle_groups, 'complete')
 
     let g:deoplete#enable_at_startup = 1
+    let g:deoplete#enable_debug = 1
+    call deoplete#enable_logging('DEBUG', 'deoplete.log')
 
     let g:tern#command = ["tern"]
     let g:tern#arguments = ["--persistent"]
