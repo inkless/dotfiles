@@ -664,7 +664,11 @@ if count(g:ivim_bundle_groups, 'enhance')
     map <silent> <leader>3 :diffget 3<CR>
     map <silent> <leader>4 :diffget 4<CR>
 
-    set clipboard=unnamed
+    if has('macunix')
+        set clipboard=unnamed
+    else
+        set clipboard=unnamedplus
+    endif
 
     let g:golden_ratio_autocommand = 0
 
