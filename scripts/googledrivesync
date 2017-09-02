@@ -16,7 +16,7 @@ else
     # check if Google Drive can be accessed
     if wget -O /dev/null -q https://drive.google.com;
     then
-      grive -p /home/inkless/Google\ Drive/ --ignore '^Google Photos$'
+      grive -p /home/inkless/Google\ Drive/ -n
       echo $today > /home/inkless/lastsync
     else
       kdialog --passivepopup 'Google drive sync failed and sync is out of date' 3600

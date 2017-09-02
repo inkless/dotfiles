@@ -2,10 +2,30 @@
   "libs": [
     "browser",
     "jquery"
+    "lodash"
+  ],
+  "loadEagerly": [],
+  "dontLoad":[
+    "node_modules",
+    "dist",
+    "tmp",
+    "vendor"
+  ],
+  "exclude": [
+    "node_modules/**",
+    ".git/**",
+    "*.min.js",
+    "*.prod.js",
+    "*.debug.js",
+    "tmp",
+    "vendor"
   ],
   "plugins": {
     "node": {},
-    "es_modules": {}
+    "es_modules": {},
+    "modules": {},
+    "complete_strings": {},
+    "webpack": {}
   },
   "ecmaVersion": 6
 }
