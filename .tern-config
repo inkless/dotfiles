@@ -1,9 +1,7 @@
 {
   "libs": [
     "browser",
-    "jquery",
-    "ecma5",
-    "ecma6"
+    "jquery"
   ],
   "plugins": {
     "node": {},
