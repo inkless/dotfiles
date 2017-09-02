@@ -39,7 +39,7 @@ let g:ivim_email='zhangxiaoyu9350@gmail.com' " User email
 let g:ivim_github='https://github.com/inkless' " User github
 
 " ivim color settings (OceanNext, PaperColor, hybrid, gruvbox or tender)
-let g:ivim_default_scheme='OceanicNext'
+let g:ivim_default_scheme='onedark'
 " ivim ui setting
 let g:ivim_fancy_font=1 " Enable using fancy font
 let g:ivim_show_number=1 " Enable showing number
@@ -152,11 +152,7 @@ call plug#begin('~/.local/share/nvim/plugged')
 if count(g:ivim_bundle_groups, 'ui') " UI setting
     Plug 'w0ng/vim-hybrid' " Colorscheme hybrid
     Plug 'morhetz/gruvbox' " Colorscheme gruvbox
-    Plug 'jacoborus/tender.vim' " Colorscheme tender
-    Plug 'inkless/papercolor-theme' " Colorscheme papercolor
-    Plug 'jpo/vim-railscasts-theme' " Color theme railscacts
-    Plug 'altercation/vim-colors-solarized'
-    Plug 'jdkanani/vim-material-theme'
+    Plug 'joshdick/onedark.vim'
     Plug 'mhartington/oceanic-next'
     Plug 'vim-airline/vim-airline' | Plug 'vim-airline/vim-airline-themes' " Status line
     Plug 'ryanoasis/vim-devicons' " Devicons

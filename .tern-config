@@ -1,8 +1,7 @@
 {
   "libs": [
     "browser",
-    "jquery",
-    "lodash"
+    "jquery"
   ],
   "loadEagerly": [],
   "dontLoad":[
@@ -22,9 +21,7 @@
   ],
   "plugins": {
     "node": {},
-    "es_modules": {},
     "modules": {},
-    "complete_strings": {},
     "webpack": {}
   },
   "ecmaVersion": 6
