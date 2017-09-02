@@ -60,7 +60,10 @@ endif
 "------------------------------------------------
 
 " nvim
-set termguicolors
+if has('macunix')
+    set termguicolors
+endif
+
 set nocompatible " Get out of vi compatible mode
 
 filetype plugin indent on " Enable filetype
@@ -379,9 +382,7 @@ set mouse=a
 syntax on " Enable syntax
 set synmaxcol=150
 set background=dark " Set background
-if !has('gui_running')
-    set t_Co=256 " Use 256 colors
-endif
+set t_Co=256 " Use 256 colors
 
 " Load a colorscheme
 if count(g:ivim_bundle_groups, 'ui')
@@ -392,16 +393,16 @@ endif
 
 " Set GUI font
 if has('gui_running')
-    if has('gui_gtk')
-        " set guifont=Inconsolata\ for\ Powerline\ Nerd\ Font\ Complete\ Mono\ 14
-        " set guifont=Sauce\ Code\ Pro\ Light\ Nerd\ Font\ Complete\ Mono\ 12
-        set guifont=Sauce\ Code\ Pro\ Light\ Nerd\ Font\ Complete\ Mono\ 12
-    else
+    if has('macunix')
         " set guifont=Inconsolata\ for\ Powerline\ Nerd\ Font\ Complete\ Mono:h14
         " set guifont=Sauce\ Code\ Pro\ Light\ Nerd\ Font\ Complete\ Mono:h12
         set guifont=Sauce\ Code\ Pro\ Light\ Nerd\ Font\ Complete\ Mono:h12
 
         set macmeta
+    else
+        " set guifont=Inconsolata\ for\ Powerline\ Nerd\ Font\ Complete\ Mono\ 14
+        " set guifont=Sauce\ Code\ Pro\ Light\ Nerd\ Font\ Complete\ Mono\ 12
+        set guifont=Sauce\ Code\ Pro\ Light\ Nerd\ Font\ Complete\ Mono\ 12
     endif
     set linespace=2
 endif
