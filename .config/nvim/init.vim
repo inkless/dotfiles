@@ -203,6 +203,7 @@ if count(g:ivim_bundle_groups, 'complete') " Completion
     Plug 'ternjs/tern_for_vim'
     Plug 'mhartington/nvim-typescript'
     Plug 'zchee/deoplete-jedi'
+    Plug 'sebastianmarkow/deoplete-rust'
 endif
 
 if count(g:ivim_bundle_groups, 'compile') " Compiling
@@ -781,6 +782,12 @@ if count(g:ivim_bundle_groups, 'complete')
     let g:snips_email=g:ivim_email
     let g:snips_github=g:ivim_github
 
+    " rust
+    let g:deoplete#sources#rust#racer_binary=$HOME.'/.cargo/bin/racer'
+    let g:deoplete#sources#rust#rust_source_path=$HOME.'/opensource/rust/src'
+    " let g:deoplete#sources#rust#show_duplicates=1
+    " let g:deoplete#sources#rust#disable_keymap=1
+    " let g:deoplete#sources#rust#documentation_max_height=20
 endif
 
 " Setting for compiling plugins
