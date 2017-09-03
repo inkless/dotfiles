@@ -437,7 +437,7 @@ set incsearch " Find as you type search
 " Use sane regexes
 nnoremap / /\v
 vnoremap / /\v
-cnoremap s/ s/\v
+" cnoremap s/ s/\v
 nnoremap ? ?\v
 vnoremap ? ?\v
 cnoremap s? s?\v
