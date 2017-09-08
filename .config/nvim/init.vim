@@ -381,7 +381,7 @@ set mouse=a
 "-------------------------------------------------
 
 syntax on " Enable syntax
-set synmaxcol=150
+set synmaxcol=300
 set background=dark " Set background
 set t_Co=256 " Use 256 colors
 
@@ -676,6 +676,15 @@ if count(g:ivim_bundle_groups, 'enhance')
     nnoremap <silent> - :exe "vertical resize " . (winwidth(0) * 2/3)<CR>
 
     nnoremap <silent> <Leader>y :YRShow<CR>
+
+    " Allow run macro in multi lines
+    " https://github.com/stoeffel/.dotfiles/blob/master/vim/visual-at.vim
+    xnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<CR>
+
+    function! ExecuteMacroOverVisualRange()
+        echo "@".getcmdline()
+        execute ":'<,'>normal @".nr2char(getchar())
+    endfunction
 
 endif
 
