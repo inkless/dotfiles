@@ -206,6 +206,7 @@ endif
 
 if count(g:ivim_bundle_groups, 'git') " Git
     Plug 'tpope/vim-fugitive' " Git wrapper
+    Plug 'tpope/vim-rhubarb' " Github extension for vim fugitive
     Plug 'gregsexton/gitv' " Gitk clone
     if has('signs')
         Plug 'airblade/vim-gitgutter' " Git diff sign
