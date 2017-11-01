@@ -1,0 +1,5 @@
+#!/bin/bash
+tmux new -s prosperworks -d
+tmux source-file ~/scripts/tmux-prosperworks.source
+tmux a -t prosperworks
+
