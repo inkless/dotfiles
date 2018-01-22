@@ -228,6 +228,7 @@ if count(g:ivim_bundle_groups, 'language') " Language Specificity
     Plug 'greyblake/vim-preview' " vim preview
     Plug 'maksimr/vim-jsbeautify' " javascript format
     Plug 'tpope/vim-bundler' " gem bundler
+    Plug 'editorconfig/editorconfig-vim'
 endif
 
 if filereadable(expand($HOME . '/.config/nvim/local.bundles.vim')) " Load local bundles

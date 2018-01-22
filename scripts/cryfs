@@ -1,4 +1,34 @@
 #!/bin/bash
 
-cryfs ~/Google\ Drive/private ~/private
-# fusermount -u ~/private
+umount=false
+force=false
+
+args=$(getopt -l "force,umount" -o "uf" -- "$@")
+eval set -- "$args"
+
+while [ $# -ge 1 ]; do
+  case "$1" in
+    --)
+      shift
+      break
+      ;;
+    -u|--umount)
+      umount=true
+      shift
+      ;;
+    -f|--force)
+      force=true
+      shift
+      ;;
+  esac
+done
+
+if [ "$umount" = true ]; then
+  if [ "$force" = true ]; then
+    umount -l ~/private
+  else
+    fusermount -u ~/private
+  fi
+else
+  cryfs ~/Google\ Drive/private ~/private
+fi
