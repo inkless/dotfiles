@@ -130,12 +130,6 @@ endif
 "-------------------------------------------------
 " => Platform Specific Setting
 "-------------------------------------------------
-
-" On Windows, also use .vim instead of vimfiles
-if has('win32') || has('win64')
-    set runtimepath=$HOME/.vim,$VIM/vimfiles,$VIMRUNTIME,$VIM/vimfiles/after,$HOME/.vim/after
-endif
-
 set viewoptions+=slash,unix " Better Unix/Windows compatibility
 set viewoptions-=options " in case of mapping change
 
@@ -167,9 +161,8 @@ endif
 if count(g:ivim_bundle_groups, 'enhance') " Vim enhancement
     Plug 'Raimondi/delimitMate' " Closing of quotes
     Plug 'tomtom/tcomment_vim' " Commenter
-    Plug 'tpope/vim-abolish' " Abolish
     Plug 'tpope/vim-repeat' " Repeat
-    Plug 'kristijanhusak/vim-multiple-cursors' " Multiple cursors
+    Plug 'terryma/vim-multiple-cursors' " Multiple cursors
     Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' } " Undo tree
     Plug 'tpope/vim-surround' " Surround
     Plug 'AndrewRadev/splitjoin.vim' " Splitjoin
@@ -213,6 +206,7 @@ endif
 
 if count(g:ivim_bundle_groups, 'git') " Git
     Plug 'tpope/vim-fugitive' " Git wrapper
+    Plug 'tpope/vim-rhubarb' " Github extension for vim fugitive
     Plug 'gregsexton/gitv' " Gitk clone
     if has('signs')
         Plug 'airblade/vim-gitgutter' " Git diff sign
@@ -383,6 +377,7 @@ set mouse=a
 
 syntax on " Enable syntax
 set synmaxcol=300
+set lazyredraw
 set background=dark " Set background
 set t_Co=256 " Use 256 colors
 
@@ -812,7 +807,7 @@ if count(g:ivim_bundle_groups, 'compile')
 
     let g:ale_linters = {
     \   'javascript': ['eslint'],
-    \   'typescript': ['tslint']
+    \   'typescript': ['tslint', 'tsserver']
     \}
 
     " -> Singlecompile
