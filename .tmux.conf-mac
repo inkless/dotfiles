@@ -77,7 +77,7 @@ set -g terminal-overrides 'xterm*:smcup@:rmcup@'
 ############################################################################
 
 run-shell "powerline-daemon -q"
-source "/usr/local/lib/python2.7/site-packages/powerline/bindings/tmux/powerline.conf"
+source "/usr/local/lib/python3.6/site-packages/powerline/bindings/tmux/powerline.conf"
 # set-option -g status on
 # set-option -g status-interval 2
 # set-option -g status-utf8 on
