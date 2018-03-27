@@ -765,7 +765,7 @@ if count(g:ivim_bundle_groups, 'complete')
     let g:deoplete#enable_at_startup = 1
 
     let g:tern#command = ["tern"]
-    let g:tern#arguments = ["--persistent"]
+    let g:tern#arguments = ["--no-port-file"]
 
     inoremap <expr><tab> pumvisible() ? "\<C-N>" : "\<tab>"
     inoremap <expr><S-Tab> pumvisible() ? "\<C-P>" : "\<S-Tab>"
@@ -868,6 +868,11 @@ if count(g:ivim_bundle_groups, 'language')
     " -> javascript.vim
     let g:javascript_plugin_jsdoc = 1
     autocmd BufNewFile,BufRead *.es6 set filetype=javascript
+
+    " prettier-eslint
+    autocmd FileType javascript set formatprg=prettier-eslint\ --stdin
+    " prettier on save
+    " autocmd BufWritePre *.js :normal gggqG
 
 endif
 
