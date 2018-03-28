@@ -220,7 +220,6 @@ if count(g:ivim_bundle_groups, 'language') " Language Specificity
     Plug 'mattn/emmet-vim' " Emmet
     Plug 'heavenshell/vim-jsdoc' " JSDoc for vim
     Plug 'greyblake/vim-preview' " vim preview
-    Plug 'maksimr/vim-jsbeautify' " javascript format
     Plug 'tpope/vim-bundler' " gem bundler
     Plug 'editorconfig/editorconfig-vim'
 endif
@@ -810,6 +809,17 @@ if count(g:ivim_bundle_groups, 'compile')
     \   'typescript': ['tslint', 'tsserver']
     \}
 
+    let g:ale_fixers = {}
+    let g:ale_fixers['javascript'] = ['prettier_eslint']
+    let g:ale_javascript_prettier_options = '--single-quote --trailing-comma es5'
+    let g:ale_javascript_prettier_use_local_config = 1
+
+    nnoremap <Leader>p :ALEFix<CR>
+
+    autocmd FileType javascript set formatprg=prettier-eslint\ --stdin
+    " prettier on save
+    " autocmd BufWritePre *.js :normal gggqG
+
     " -> Singlecompile
     nnoremap <Leader>r :SingleCompileRun<CR>
     nnoremap <Leader>B :SingleCompile<CR>
@@ -849,30 +859,9 @@ if count(g:ivim_bundle_groups, 'language')
     let g:jsdoc_enable_es6=1
     let g:jsdoc_param_description_separator='-'
 
-    " -> JS beautify
-    function! Beautify()
-        if &filetype == "javascript"
-            call JsBeautify()
-        elseif &filetype == "javascript.jsx"
-            call JsxBeautify()
-        elseif &filetype == "html"
-            call HtmlBeautify()
-        elseif &filetype == "css"
-            call CSSBeautify()
-        elseif &filetype == "json"
-            call JsonBeautify()
-        endif
-    endfunction
-    command! -nargs=0 Beautify call Beautify()
-
     " -> javascript.vim
     let g:javascript_plugin_jsdoc = 1
     autocmd BufNewFile,BufRead *.es6 set filetype=javascript
-
-    " prettier-eslint
-    autocmd FileType javascript set formatprg=prettier-eslint\ --stdin
-    " prettier on save
-    " autocmd BufWritePre *.js :normal gggqG
 
 endif
 
