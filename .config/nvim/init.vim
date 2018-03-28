@@ -562,6 +562,7 @@ nnoremap <leader>b :ls<cr>:b<space>
 
 " new tab
 nnoremap <leader>t :tabnew<cr>:Startify<cr>
+nnoremap <leader>tx :tabclose<cr>
 
 set pastetoggle=<F10>
 
