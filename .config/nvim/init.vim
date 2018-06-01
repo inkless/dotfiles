@@ -849,6 +849,7 @@ endif
 
 " Setting for git plugins
 if count(g:ivim_bundle_groups, 'git')
+    set updatetime=1000
 endif
 
 " Setting for language specificity
