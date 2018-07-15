@@ -812,12 +812,16 @@ if count(g:ivim_bundle_groups, 'compile')
 
     let g:ale_fixers = {}
     let g:ale_fixers['javascript'] = ['prettier', 'eslint']
+    let g:ale_fixers['json'] = ['prettier']
+    let g:ale_fixers['typescript'] = ['prettier', 'tslint']
     let g:ale_javascript_prettier_options = '--single-quote --trailing-comma es5'
     let g:ale_javascript_prettier_use_local_config = 1
 
     nnoremap <Leader>p :ALEFix<CR>
 
     autocmd FileType javascript set formatprg=prettier\ --stdin
+    autocmd FileType json set formatprg=prettier\ --stdin\ --parser\ json
+    autocmd FileType typescript set formatprg=prettier\ --stdin\ --parser\ typescript
     " prettier on save
     " autocmd BufWritePre *.js :normal gggqG
 
