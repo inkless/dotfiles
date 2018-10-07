@@ -64,6 +64,9 @@ if has('macunix')
     set termguicolors
 endif
 
+let $NVIM_TUI_ENABLE_CURSOR_SHAPE=0
+set guicursor=
+
 set nocompatible " Get out of vi compatible mode
 
 filetype plugin indent on " Enable filetype

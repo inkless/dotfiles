@@ -17,7 +17,7 @@ setw -g mode-keys vi
 bind-key -T copy-mode-vi v send-keys -X begin-selection
 bind-key -T copy-mode-vi V send-keys -X rectangle-toggle
 bind-key -T copy-mode-vi y send-keys -X copy-selection
-bind-key -T copy-mode-vi y send-keys -X copy-pipe-and-cancel "xclip -sel clip -i"
+bind-key -T copy-mode-vi y send-keys -X copy-pipe-and-cancel "xclip -i -selection clipboard"
 
 # Copy to mac in vim
 # :w !reattach-to-user-namespace pbcopy
