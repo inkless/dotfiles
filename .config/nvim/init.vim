@@ -78,6 +78,7 @@ set timeoutlen=500 " Time to wait for a command
 autocmd BufWritePost $MYVIMRC source $MYVIMRC
 " Fast edit the .vimrc file using ,x
 nnoremap <Leader>x :tabedit $MYVIMRC<CR>
+nnoremap Q <Nop>
 
 set autoread " Set autoread when a file is changed outside
 set autowrite " Write on make/shell commands
