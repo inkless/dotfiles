@@ -3,29 +3,25 @@
 rename-window ali
 
 send-keys -t 0 'cd ~/ali' enter C-l
-split-window -h
-send-keys -t 1 'cd ~/ali' enter C-l
-send-keys -t 1 'g st' enter
-
-select-pane -t 0
-split-window -v
-
-send-keys -t 0 'cd ~/ali' enter C-l
 send-keys -t 0 'pwserver' enter
 
+split-window -v
 send-keys -t 1 'cd ~/ali' enter C-l
 send-keys -t 1 'pwunicorn' enter
 
 new-window -t 'prosperworks:1' -n 'ali-client'
 select-window -t 'prosperworks:1'
 
-split-window -h
-send-keys -t 0 'cd ~/ali/client/web_app' enter C-l
-send-keys -t 1 'cd ~/ali' enter C-l
-send-keys -t 1 'g st' enter
-
-select-pane -t 0
 split-window -v
+split-window -v
+select-layout even-vertical
+
+send-keys -t 0 'cd ~/ali/client/web_app' enter C-l
 send-keys -t 0 'ember s' enter
+
 send-keys -t 1 'cd ~/ali/client/web_app' enter C-l
+
+send-keys -t 2 'cd ~/ali' enter C-l
+send-keys -t 2 'g st' enter
+
 select-pane -t 2
