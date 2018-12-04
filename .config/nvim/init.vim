@@ -179,12 +179,14 @@ if count(g:ivim_bundle_groups, 'enhance') " Vim enhancement
     Plug 'ap/vim-css-color', { 'for': ['css', 'less', 'scss', 'vim'] } " hmm
     Plug 'KabbAmine/vCoolor.vim' " Color Picker
     Plug 'godlygeek/tabular' " Vim script for text filtering and alignment
+    Plug 'benmills/vimux' " Vim plugin to interact with tmux
 endif
 
 if count(g:ivim_bundle_groups, 'move') " Moving
     Plug 'tpope/vim-unimpaired' " Pairs of mappings
     Plug 'Lokaltog/vim-easymotion' " Easy motion
     Plug 'unblevable/quick-scope' " Quick scope
+    Plug 'christoomey/vim-tmux-navigator' " Tmux navigation
 endif
 
 if count(g:ivim_bundle_groups, 'navigate') " Navigation
@@ -521,6 +523,9 @@ set nofoldenable
 " => Key Mapping
 "-------------------------------------------------
 
+" avoid ESC
+imap jj <Esc>
+
 " Make j and k work the way you expect
 nnoremap j gj
 nnoremap k gk
@@ -565,10 +570,27 @@ command! DiffOrig vert new | set bt=nofile | r ++edit # | 0d_
 nnoremap <leader>b :ls<cr>:b<space>
 
 " new tab
+nnoremap <silent> tt :tabnew<cr>
 nnoremap <leader>t :tabnew<cr>:Startify<cr>
 nnoremap <leader>tx :tabclose<cr>
 
+" split
+nnoremap <silent> vv <C-w>v
+nnoremap <silent> ss <C-w>s
+
 set pastetoggle=<F10>
+
+" Prompt for a command to run
+map <Leader>vp :VimuxPromptCommand<CR>
+
+" Run last command executed by VimuxRunCommand
+map <Leader>vl :VimuxRunLastCommand<CR>
+
+" Inspect runner pane
+map <Leader>vi :VimuxInspectRunner<CR>
+
+" Zoom the tmux runner pane
+map <Leader>vz :VimuxZoomRunner<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 

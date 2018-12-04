@@ -19,9 +19,14 @@ select-layout even-vertical
 send-keys -t 0 'cd ~/ali/client/web_app' enter C-l
 send-keys -t 0 'ember s' enter
 
-send-keys -t 1 'cd ~/ali/client/web_app' enter C-l
+send-keys -t 1 'cd ~/ali/client/core' enter C-l
 
-send-keys -t 2 'cd ~/ali' enter C-l
+send-keys -t 2 'cd ~/ali/client/web_app' enter C-l
 send-keys -t 2 'g st' enter
 
 select-pane -t 2
+
+new-window -t 'prosperworks:2' -n 'ali-client'
+select-window -t 'prosperworks:2'
+send-keys -t 0 'cd ~/ali' enter C-l
+send-keys -t 0 'g st' enter
