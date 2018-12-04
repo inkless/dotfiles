@@ -200,7 +200,7 @@ if count(g:ivim_bundle_groups, 'complete') " Completion
     Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
     Plug 'carlitux/deoplete-ternjs'
     Plug 'ternjs/tern_for_vim'
-    Plug 'mhartington/nvim-typescript'
+    Plug 'mhartington/nvim-typescript', {'do': './install.sh'}
     Plug 'zchee/deoplete-jedi'
     Plug 'sebastianmarkow/deoplete-rust'
 endif
@@ -571,8 +571,8 @@ nnoremap <leader>b :ls<cr>:b<space>
 
 " new tab
 nnoremap <silent> tt :tabnew<cr>
-nnoremap <leader>t :tabnew<cr>:Startify<cr>
-nnoremap <leader>tx :tabclose<cr>
+" nnoremap <leader>t :tabnew<cr>:Startify<cr>
+nnoremap <silent> tx :tabclose<cr>
 
 " split
 nnoremap <silent> vv <C-w>v
@@ -819,6 +819,14 @@ if count(g:ivim_bundle_groups, 'complete')
     " let g:deoplete#sources#rust#show_duplicates=1
     " let g:deoplete#sources#rust#disable_keymap=1
     " let g:deoplete#sources#rust#documentation_max_height=20
+
+    " typescript
+    " K              :TSDoc
+    " <leader>tdp    :TSDefPreview
+    " <c-]>          :TSTypeDef
+    " <leader>jd     :TSDef
+    let g:nvim_typescript#default_mappings = 1
+    nnoremap <leader>ti :TSImport<CR>
 endif
 
 " Setting for compiling plugins
