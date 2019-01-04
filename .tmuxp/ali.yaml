@@ -20,7 +20,9 @@ windows:
       -
   - window_name: ali
     panes:
-      - shell_command: gst
+      - shell_command:
+        - tmux select-window -t 0
+        - gst
   - window_name: server
     panes:
       - shell_command: pwserver

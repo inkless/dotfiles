@@ -228,6 +228,8 @@ if count(g:ivim_bundle_groups, 'language') " Language Specificity
     Plug 'greyblake/vim-preview' " vim preview
     Plug 'tpope/vim-bundler' " gem bundler
     Plug 'editorconfig/editorconfig-vim'
+    Plug 'slashmili/alchemist.vim'
+    Plug 'elixir-editors/vim-elixir'
 endif
 
 if filereadable(expand($HOME . '/.config/nvim/local.bundles.vim')) " Load local bundles
@@ -827,6 +829,7 @@ if count(g:ivim_bundle_groups, 'complete')
     " <leader>jd     :TSDef
     let g:nvim_typescript#default_mappings = 1
     nnoremap <leader>ti :TSImport<CR>
+    nnoremap <leader>jds :TSDefPreview<CR>
 endif
 
 " Setting for compiling plugins

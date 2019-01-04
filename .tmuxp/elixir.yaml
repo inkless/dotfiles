@@ -1,0 +1,15 @@
+session_name: elixir
+start_directory: ~/playground/elixir/learning
+windows:
+  - window_name: editor
+    layout: main-horizontal
+    focus: true
+    options:
+      main-pane-height: 40
+    panes:
+      - shell_command: vim .
+        focus: true
+      - shell_command: iex
+  - window_name: iex
+    panes:
+      - shell_command: iex

@@ -1,0 +1,22 @@
+session_name: valyrn
+start_directory: ~/griffin/api.report.valyrn.com
+windows:
+  - window_name: editor
+    layout: main-horizontal
+    focus: true
+    options:
+      main-pane-height: 40
+    panes:
+      - shell_command: vim .
+        focus: true
+      - shell_command: gst
+      - shell_command: pm2-dev start ecosystem.config.js
+  - window_name: command
+    panes:
+      - shell_command:
+        - tmux select-window -t 0
+        - gst
+  - window_name: griffin-server
+    panes:
+      - shell_command: vim .
+    start_directory: ~/griffin/griffin-server
