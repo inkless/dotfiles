@@ -1,0 +1,23 @@
+session_name: griffin
+windows:
+  - window_name: client
+    start_directory: ~/griffin/griffin-client
+    layout: main-horizontal
+    focus: true
+    options:
+      main-pane-height: 40
+    panes:
+      - shell_command: vim .
+        focus: true
+      - shell_command: gst
+      - shell_command: PORT=3010 yarn start
+  - window_name: server
+    start_directory: ~/griffin/griffin-server
+    layout: main-horizontal
+    options:
+      main-pane-height: 40
+    panes:
+      - shell_command: vim .
+        focus: true
+      - shell_command: gst
+      - shell_command: npm run dev

@@ -851,6 +851,7 @@ if count(g:ivim_bundle_groups, 'compile')
     let g:ale_fixers['javascript'] = ['prettier', 'eslint']
     let g:ale_fixers['json'] = ['prettier']
     let g:ale_fixers['typescript'] = ['prettier', 'tslint']
+    let g:ale_fixers['elixir'] = ['mix_format']
     let g:ale_javascript_prettier_options = '--single-quote --trailing-comma es5'
     let g:ale_javascript_prettier_use_local_config = 1
 
