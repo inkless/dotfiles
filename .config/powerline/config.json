@@ -13,7 +13,7 @@
 			}
 		},
 		"pdb": {
-			"colorscheme": "default",
+			"colorscheme": "gruvbox_dark",
 			"theme": "default"
 		},
 		"shell": {
@@ -25,7 +25,7 @@
 			}
 		},
 		"tmux": {
-			"colorscheme": "default",
+			"colorscheme": "gruvbox_dark",
 			"theme": "default"
 		},
 		"vim": {

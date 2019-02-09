@@ -39,7 +39,7 @@ let g:ivim_email='zhangxiaoyu9350@gmail.com' " User email
 let g:ivim_github='https://github.com/inkless' " User github
 
 " ivim color settings (OceanNext, PaperColor, hybrid, gruvbox or tender)
-let g:ivim_default_scheme='onedark'
+let g:ivim_default_scheme='gruvbox'
 " ivim ui setting
 let g:ivim_fancy_font=1 " Enable using fancy font
 let g:ivim_show_number=1 " Enable showing number
@@ -154,6 +154,7 @@ if count(g:ivim_bundle_groups, 'ui') " UI setting
     Plug 'w0ng/vim-hybrid' " Colorscheme hybrid
     Plug 'morhetz/gruvbox' " Colorscheme gruvbox
     Plug 'joshdick/onedark.vim'
+    Plug 'NLKNguyen/papercolor-theme'
     Plug 'mhartington/oceanic-next'
     Plug 'vim-airline/vim-airline' | Plug 'vim-airline/vim-airline-themes' " Status line
     Plug 'ryanoasis/vim-devicons' " Devicons
@@ -400,13 +401,13 @@ if has('gui_running')
     if has('macunix')
         " set guifont=Inconsolata\ for\ Powerline\ Nerd\ Font\ Complete\ Mono:h14
         " set guifont=Sauce\ Code\ Pro\ Light\ Nerd\ Font\ Complete\ Mono:h12
-        set guifont=Sauce\ Code\ Pro\ Light\ Nerd\ Font\ Complete\ Mono:h12
+        set guifont=Sauce\ Code\ Pro\ Medium\ Nerd\ Font\ Complete\ Mono:h12
 
         set macmeta
     else
         " set guifont=Inconsolata\ for\ Powerline\ Nerd\ Font\ Complete\ Mono\ 14
         " set guifont=Sauce\ Code\ Pro\ Light\ Nerd\ Font\ Complete\ Mono\ 12
-        set guifont=Sauce\ Code\ Pro\ Light\ Nerd\ Font\ Complete\ Mono\ 12
+        set guifont=Sauce\ Code\ Pro\ Medium\ Nerd\ Font\ Complete\ Mono\ 12
     endif
     set linespace=2
 endif

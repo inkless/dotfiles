@@ -1,0 +1,39 @@
+session_name: embedded-app
+start_directory: ~/ali
+windows:
+  - window_name: editor
+    layout: main-horizontal
+    focus: true
+    options:
+      main-pane-height: 40
+    panes:
+      - shell_command: vim
+        focus: true
+      - shell_command: gst
+    start_directory: ~/ali/client
+  - window_name: pw-app-sdk-test
+    layout: main-horizontal
+    options:
+      main-pane-height: 40
+    start_directory: ~/prosperworks/pw-app-sdk-test
+    panes:
+      - shell_command: vim
+      - shell_command: gst
+      - shell_command: yarn start
+  - window_name: copper-sdk
+    layout: main-horizontal
+    options:
+      main-pane-height: 40
+    start_directory: ~/prosperworks/copper-sdk
+    panes:
+      - shell_command: vim
+      - shell_command: gst
+      - shell_command: yarn dev
+  - window_name: background
+    layout: 3448,239x63,0,0[240x22,0,0,39,240x21,0,23,94,240x18,0,45{119x18,0,45,34,120x18,120,45,75}]
+    panes:
+      - shell_command: pwserver
+      - shell_command: pwunicorn
+      - shell_command: ember s
+        start_directory: ~/ali/client/web_app
+      - start_directory: ~/ali/client/core
