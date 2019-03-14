@@ -151,11 +151,11 @@ endif
 call plug#begin('~/.local/share/nvim/plugged')
 
 if count(g:ivim_bundle_groups, 'ui') " UI setting
-    Plug 'w0ng/vim-hybrid' " Colorscheme hybrid
+    " Plug 'w0ng/vim-hybrid' " Colorscheme hybrid
     Plug 'morhetz/gruvbox' " Colorscheme gruvbox
-    Plug 'joshdick/onedark.vim'
-    Plug 'NLKNguyen/papercolor-theme'
-    Plug 'mhartington/oceanic-next'
+    " Plug 'joshdick/onedark.vim'
+    " Plug 'NLKNguyen/papercolor-theme'
+    " Plug 'mhartington/oceanic-next'
     Plug 'vim-airline/vim-airline' | Plug 'vim-airline/vim-airline-themes' " Status line
     Plug 'ryanoasis/vim-devicons' " Devicons
     Plug 'mhinz/vim-startify' " Start page
@@ -175,7 +175,7 @@ if count(g:ivim_bundle_groups, 'enhance') " Vim enhancement
     Plug 'roman/golden-ratio' " Resize windows
     Plug 'chrisbra/vim-diff-enhanced' " Create better diffs
     Plug 'mhinz/vim-hugefile' " Largefile
-    Plug 'vim-scripts/YankRing.vim' "yank history for vim
+    " Plug 'vim-scripts/YankRing.vim' "yank history for vim
     Plug 'amiorin/vim-project' " Project
     Plug 'ap/vim-css-color', { 'for': ['css', 'less', 'scss', 'vim'] } " hmm
     Plug 'KabbAmine/vCoolor.vim' " Color Picker
@@ -208,7 +208,7 @@ endif
 
 if count(g:ivim_bundle_groups, 'compile') " Compiling
     Plug 'w0rp/ale' " Async syntax checking
-    Plug 'xuhdev/SingleCompile' " Single compile
+    " Plug 'xuhdev/SingleCompile' " Single compile
 endif
 
 if count(g:ivim_bundle_groups, 'git') " Git
@@ -223,7 +223,7 @@ endif
 if count(g:ivim_bundle_groups, 'language') " Language Specificity
     Plug 'sheerun/vim-polyglot' " Language Support (includes javascript and all other types)
     Plug 'davidhalter/jedi-vim', { 'for': 'python' } " Python jedi plugin
-    Plug 'tpope/vim-rails' " Rails
+    " Plug 'tpope/vim-rails' " Rails
     Plug 'mattn/emmet-vim' " Emmet
     Plug 'heavenshell/vim-jsdoc' " JSDoc for vim
     Plug 'greyblake/vim-preview' " vim preview
@@ -475,6 +475,7 @@ nnoremap <Leader><Space> :set hlsearch!<CR>
 " => Fold Related
 "-------------------------------------------------
 
+" Note: zi Invert 'foldenable'.
 set foldlevelstart=0 " Start with all folds closed
 set foldcolumn=1 " Set fold column
 
@@ -694,13 +695,15 @@ if count(g:ivim_bundle_groups, 'enhance')
     endif
 
     let g:golden_ratio_autocommand = 0
+    nnoremap <silent> <Leader>g :GoldenRatioToggle<CR>
 
     nnoremap <silent> <Leader>0 :exe "resize " . (winheight(0) * 3/2)<CR>
     nnoremap <silent> <Leader>9 :exe "resize " . (winheight(0) * 2/3)<CR>
     nnoremap <silent> + :exe "vertical resize " . (winwidth(0) * 3/2)<CR>
     nnoremap <silent> - :exe "vertical resize " . (winwidth(0) * 2/3)<CR>
 
-    nnoremap <silent> <Leader>y :YRShow<CR>
+    " YankRing is really slow so comment it out for now
+    " nnoremap <silent> <Leader>y :YRShow<CR>
 
     " Allow run macro in multi lines
     " https://github.com/stoeffel/.dotfiles/blob/master/vim/visual-at.vim
@@ -865,16 +868,17 @@ if count(g:ivim_bundle_groups, 'compile')
     " autocmd BufWritePre *.js :normal gggqG
 
     " -> Singlecompile
-    nnoremap <Leader>r :SingleCompileRun<CR>
-    nnoremap <Leader>B :SingleCompile<CR>
-    let g:SingleCompile_showquickfixiferror=1
+    " Singlecompile is really slow, so comment it out for now
+    " nnoremap <Leader>r :SingleCompileRun<CR>
+    " nnoremap <Leader>B :SingleCompile<CR>
+    " let g:SingleCompile_showquickfixiferror=1
 
-    call SingleCompile#SetCompilerTemplate('markdown', 'pandoc',
-                \ 'Discount Markdown Processor for Pandoc', 'pandoc',
-                \ '-f markdown_github $(FILE_NAME)$ >$(FILE_TITLE)$.html',
-                \ SingleCompile#GetDefaultOpenCommand() .
-                \ ' "$(FILE_TITLE)$.html"')
-    call SingleCompile#ChooseCompiler('markdown', 'pandoc')
+    " call SingleCompile#SetCompilerTemplate('markdown', 'pandoc',
+    "             \ 'Discount Markdown Processor for Pandoc', 'pandoc',
+    "             \ '-f markdown_github $(FILE_NAME)$ >$(FILE_TITLE)$.html',
+    "             \ SingleCompile#GetDefaultOpenCommand() .
+    "             \ ' "$(FILE_TITLE)$.html"')
+    " call SingleCompile#ChooseCompiler('markdown', 'pandoc')
 
     function! LebabFunc(transform)
         execute "!lebab --transform=" . a:transform . " % -o %"
