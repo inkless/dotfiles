@@ -75,7 +75,8 @@ let maplocalleader='\' " Change the maplocalleader
 set timeoutlen=500 " Time to wait for a command
 
 " Source the vimrc file after saving it
-autocmd BufWritePost $MYVIMRC source $MYVIMRC
+autocmd! BufWritePost $MYVIMRC source $MYVIMRC
+
 " Fast edit the .vimrc file using ,x
 nnoremap <Leader>x :tabedit $MYVIMRC<CR>
 nnoremap Q <Nop>
@@ -231,6 +232,8 @@ if count(g:ivim_bundle_groups, 'language') " Language Specificity
     Plug 'editorconfig/editorconfig-vim'
     Plug 'slashmili/alchemist.vim'
     Plug 'elixir-editors/vim-elixir'
+    Plug 'sukima/vim-ember-imports'
+    Plug 'AndrewRadev/ember_tools.vim'
 endif
 
 if filereadable(expand($HOME . '/.config/nvim/local.bundles.vim')) " Load local bundles
@@ -326,10 +329,14 @@ if count(g:ivim_bundle_groups, 'ui')
 endif
 
 " Only have cursorline in current window and in normal window
-autocmd WinLeave * set nocursorline
-autocmd WinEnter * set cursorline
-autocmd InsertEnter * set nocursorline
-autocmd InsertLeave * set cursorline
+augroup cursorline_group
+    autocmd!
+    autocmd WinLeave * set nocursorline
+    autocmd WinEnter * set cursorline
+    autocmd InsertEnter * set nocursorline
+    autocmd InsertLeave * set cursorline
+augroup END
+
 set wildmenu " Show list instead of just completing
 set wildmode=list:longest,full " Use powerful wildmenu
 set shortmess=at " Avoids hit enter
@@ -352,10 +359,13 @@ if g:ivim_show_number
     nnoremap <Leader>n :set relativenumber!<CR>
 
     " setglobal relativenumber
-    autocmd WinEnter,FocusGained * :setlocal relativenumber
-    autocmd WinLeave,FocusLost * :setlocal number
-    autocmd InsertEnter * :setlocal number
-    autocmd InsertLeave * :setlocal relativenumber
+    augroup relativenumber_group
+        autocmd!
+        autocmd WinEnter,FocusGained * :setlocal relativenumber
+        autocmd WinLeave,FocusLost * :setlocal number
+        autocmd InsertEnter * :setlocal number
+        autocmd InsertLeave * :setlocal relativenumber
+    augroup END
 
 endif
 
@@ -528,7 +538,9 @@ set nofoldenable
 "-------------------------------------------------
 
 " avoid ESC
-imap jj <Esc>
+" inoremap jj <Esc>
+" switching to jk
+inoremap jk <Esc>
 
 " Make j and k work the way you expect
 nnoremap j gj
@@ -714,6 +726,13 @@ if count(g:ivim_bundle_groups, 'enhance')
         execute ":'<,'>normal @".nr2char(getchar())
     endfunction
 
+    " Add " to selected or word
+    nnoremap <Leader>" viw<esc>a"<esc>bi"<esc>lel
+    vnoremap <Leader>" <esc>a"<esc>`<i"<esc>`>ll
+
+    " Add ' to selected or word
+    nnoremap <Leader>' viw<esc>a'<esc>bi'<esc>lel
+    vnoremap <Leader>' <esc>a'<esc>`<i'<esc>`>ll
 endif
 
 " setting for moving plugins
@@ -838,6 +857,8 @@ endif
 
 " Setting for compiling plugins
 if count(g:ivim_bundle_groups, 'compile')
+    " vim-jsx
+    let g:jsx_ext_required = 1
 
     " -> Ale
     let g:ale_sign_error = '✗'
@@ -861,11 +882,15 @@ if count(g:ivim_bundle_groups, 'compile')
 
     nnoremap <Leader>p :ALEFix<CR>
 
-    autocmd FileType javascript set formatprg=prettier\ --stdin
-    autocmd FileType json set formatprg=prettier\ --stdin\ --parser\ json
-    autocmd FileType typescript set formatprg=prettier\ --stdin\ --parser\ typescript
-    " prettier on save
-    " autocmd BufWritePre *.js :normal gggqG
+    augroup prettier_group
+        autocmd!
+        autocmd FileType javascript setlocal formatprg=prettier\ --stdin\ --parser\ babel
+        autocmd FileType json setlocal formatprg=prettier\ --stdin\ --parser\ json
+        autocmd FileType typescript setlocal formatprg=prettier\ --stdin\ --parser\ typescript
+        autocmd BufNewFile,BufRead *.es6 setlocal filetype=javascript
+        " prettier on save
+        " autocmd BufWritePre *.js :normal gggqG
+    augroup END
 
     " -> Singlecompile
     " Singlecompile is really slow, so comment it out for now
@@ -910,7 +935,6 @@ if count(g:ivim_bundle_groups, 'language')
 
     " -> javascript.vim
     let g:javascript_plugin_jsdoc = 1
-    autocmd BufNewFile,BufRead *.es6 set filetype=javascript
 
 endif
 
