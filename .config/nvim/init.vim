@@ -197,7 +197,6 @@ endif
 if count(g:ivim_bundle_groups, 'navigate') " Navigation
     Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' } " NERD tree
     Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': 'NERDTreeToggle' } " NERD tree git plugin
-    " Plug 'ctrlpvim/ctrlp.vim' " Ctrl P Search
     " Plug 'junegunn/fzf' " fzf
     Plug '/usr/local/opt/fzf' " fzf is installed through homebrew
     Plug 'junegunn/fzf.vim' " fzf
@@ -613,9 +612,6 @@ nnoremap \= gg=G
 command! DiffOrig vert new | set bt=nofile | r ++edit # | 0d_
             \ | diffthis | wincmd p | diffthis
 
-" buffer explorer
-" nnoremap <leader>b :ls<cr>:b<space>
-
 " new tab
 nnoremap <silent> tt :tabnew<cr>
 " nnoremap <leader>t :tabnew<cr>:Startify<cr>
@@ -816,10 +812,6 @@ if count(g:ivim_bundle_groups, 'navigate')
 
     set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
     set wildignore+=**/bower_components/**,**/node_modules/**,**/tags
-    " let g:ctrlp_custom_ignore = '\v[\/](node_modules|target|dist|tmp|bower_components|coverage)|(\.(swp|ico|git|svn))$'
-    " let g:ctrlp_match_window = 'results:25' " overcome limit imposed by max height
-    " let g:ctrlp_max_files = 0
-    " let g:ctrlp_max_depth = 40
 
     if executable('rg')
         " Use rg over grep
@@ -839,14 +831,6 @@ if count(g:ivim_bundle_groups, 'navigate')
         nnoremap <c-p> :Files<CR>
         " Recent files
         nnoremap <c-e> :History<CR> 
-
-        " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-        " let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
-
-        " ag is fast enough that CtrlP doesn't need to cache
-        " let g:ctrlp_use_caching = 0
-        " let g:ctrlp_working_path_mode = "ra"
-        " let g:ctrlp_working_path_mode = 0
     endif
 
 endif
@@ -964,7 +948,7 @@ if count(g:ivim_bundle_groups, 'compile')
     let g:ale_javascript_prettier_use_local_config = 1
 
     " Ale completion
-    function! AleCompletion()
+    function! EnableAleCompletion()
         " disable deoplete
         call deoplete#disable()
 
@@ -984,9 +968,9 @@ if count(g:ivim_bundle_groups, 'compile')
     if g:ivim_ale_completion_enabled
         let g:ale_completion_enabled=1
 
-        augroup ALECompletion
+        augroup ale_completion_group
             autocmd!
-            autocmd FileType javascript,typescript call AleCompletion()
+            autocmd FileType javascript,typescript call EnableAleCompletion()
             " sometimes *.d.ts will go to ~/Library/Caches/**/*.d.ts, which would be
             " super slow, disable it to save time
             autocmd BufNewFile,BufRead *.d.ts let b:ale_linters={'typescript': []}
