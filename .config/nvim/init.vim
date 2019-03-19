@@ -936,7 +936,8 @@ if count(g:ivim_bundle_groups, 'compile')
 
     let g:ale_linters = {
     \   'javascript': ['eslint'],
-    \   'typescript': ['tslint', 'tsserver']
+    \   'typescript': ['tslint', 'tsserver'],
+    \   'ruby': ['rubocop', 'solargraph']
     \}
 
     let g:ale_fixers = {}
@@ -944,6 +945,8 @@ if count(g:ivim_bundle_groups, 'compile')
     let g:ale_fixers['json'] = ['prettier']
     let g:ale_fixers['typescript'] = ['prettier', 'tslint']
     let g:ale_fixers['elixir'] = ['mix_format']
+    let g:ale_fixers['ruby'] = ['trim_whitespace', 'rubocop']
+
     let g:ale_javascript_prettier_options = '--single-quote --trailing-comma es5'
     let g:ale_javascript_prettier_use_local_config = 1
 
@@ -955,22 +958,23 @@ if count(g:ivim_bundle_groups, 'compile')
         set completeopt=menu,menuone,preview,noselect,noinsert
         let g:ale_sign_column_always = 1
         let g:ale_linters['javascript'] = ['eslint', 'tsserver']
-
-        nnoremap <silent> <c-]> :ALEGoToDefinition<CR>
-        nnoremap <silent> <c-w><c-]> :ALEGoToDefinitionVSplit<CR>
-        nnoremap <silent> K :ALEHover<CR>
-        nnoremap <silent> <F7> :ALEFindReferences<CR>
-        " only for typescript
-        nnoremap <Leader>ld :ALEDocumentation<CR>
-        nnoremap <Leader>ls :ALESymbolSearch<Space>
     endfunction
 
     if g:ivim_ale_completion_enabled
         let g:ale_completion_enabled=1
 
+        nnoremap <silent> <c-]> :ALEGoToDefinition<CR>
+        nnoremap <silent> <c-w><c-]> :ALEGoToDefinitionInVSplit<CR>
+        nnoremap <silent> K :ALEHover<CR>
+        nnoremap <silent> <F7> :ALEFindReferences<CR>
+        " only for typescript
+        nnoremap <Leader>ld :ALEDocumentation<CR>
+        nnoremap <Leader>ls :ALESymbolSearch<Space>
+
         augroup ale_completion_group
             autocmd!
             autocmd FileType javascript,typescript call EnableAleCompletion()
+            autocmd FileType ruby call EnableAleCompletion()
             " sometimes *.d.ts will go to ~/Library/Caches/**/*.d.ts, which would be
             " super slow, disable it to save time
             autocmd BufNewFile,BufRead *.d.ts let b:ale_linters={'typescript': []}
