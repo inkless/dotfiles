@@ -90,8 +90,6 @@ set hidden " Turn on hidden"
 set history=1000 " Increase the lines of history
 set modeline " Turn on modeline
 set encoding=utf-8 " Set utf-8 encoding
-" set completeopt+=longest " Optimize auto complete
-" set completeopt-=preview " Optimize auto complete
 
 set backup " Set backup
 set undofile " Set undo
@@ -204,8 +202,11 @@ if count(g:ivim_bundle_groups, 'navigate') " Navigation
 endif
 
 if count(g:ivim_bundle_groups, 'complete') " Completion
-    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
     Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' } " LanguageServer client for NeoVim.
+    Plug 'roxma/nvim-yarp'
+    Plug 'ncm2/ncm2'
+    Plug 'ncm2/ncm2-bufword'
+    Plug 'ncm2/ncm2-path'
 endif
 
 if count(g:ivim_bundle_groups, 'compile') " Compiling
@@ -837,9 +838,8 @@ endif
 
 " Setting for completion plugins
 if count(g:ivim_bundle_groups, 'complete')
-
-    " deoplete
-    let g:deoplete#enable_at_startup = 1
+    " enable ncm2 for all buffers
+    autocmd BufEnter * call ncm2#enable_for_buffer()
 
     " Affects the visual representation of what happens after you hit <C-x><C-o>
     " https://neovim.io/doc/user/insert.html#i_CTRL-X_CTRL-O
@@ -848,7 +848,7 @@ if count(g:ivim_bundle_groups, 'complete')
     " This will show the popup menu even if there's only one match (menuone),
     " prevent automatic selection (noselect) and prevent automatic text injection
     " into the current line (noinsert).
-    " set completeopt=noinsert,menuone,noselect
+    set completeopt=noinsert,menuone,noselect,longest,preview
 
     " suppress the annoying 'match x of y', 'The only match' and 'Pattern not
     " found' messages
@@ -905,14 +905,7 @@ if count(g:ivim_bundle_groups, 'complete')
     let g:snips_email=g:ivim_email
     let g:snips_github=g:ivim_github
 
-    " rust
-    " let g:deoplete#sources#rust#racer_binary=$HOME.'/.cargo/bin/racer'
-    " let g:deoplete#sources#rust#rust_source_path=$HOME.'/opensource/rust/src'
-    " let g:deoplete#sources#rust#show_duplicates=1
-    " let g:deoplete#sources#rust#disable_keymap=1
-    " let g:deoplete#sources#rust#documentation_max_height=20
-
-    " typescript
+    " nvim-typescript
     " K              :TSDoc
     " <leader>tdp    :TSDefPreview
     " <c-]>          :TSTypeDef
@@ -952,10 +945,8 @@ if count(g:ivim_bundle_groups, 'compile')
 
     " Ale completion
     function! EnableAleCompletion()
-        " disable deoplete
-        call deoplete#disable()
+        call ncm2#disable_for_buffer()
 
-        set completeopt=menu,menuone,preview,noselect,noinsert
         let g:ale_sign_column_always = 1
         let g:ale_linters['javascript'] = ['eslint', 'tsserver']
     endfunction
