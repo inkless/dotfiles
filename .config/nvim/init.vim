@@ -47,6 +47,7 @@ let g:ivim_show_number=1 " Enable showing number
 " ivim plugin setting
 let g:ivim_bundle_groups=['ui', 'enhance', 'move', 'navigate',
             \'complete', 'compile', 'git', 'language']
+let g:ivim_enable_lsp=1 " Enable Language Server
 
 " Customise ivim settings for personal usage
 if filereadable(expand($HOME . '/.config/nvim/local.ivim.vim'))
@@ -88,8 +89,8 @@ set hidden " Turn on hidden"
 set history=1000 " Increase the lines of history
 set modeline " Turn on modeline
 set encoding=utf-8 " Set utf-8 encoding
-set completeopt+=longest " Optimize auto complete
-set completeopt-=preview " Optimize auto complete
+" set completeopt+=longest " Optimize auto complete
+" set completeopt-=preview " Optimize auto complete
 
 set backup " Set backup
 set undofile " Set undo
@@ -182,6 +183,7 @@ if count(g:ivim_bundle_groups, 'enhance') " Vim enhancement
     Plug 'KabbAmine/vCoolor.vim' " Color Picker
     Plug 'godlygeek/tabular' " Vim script for text filtering and alignment
     Plug 'benmills/vimux' " Vim plugin to interact with tmux
+    Plug 'Shougo/echodoc.vim'
 endif
 
 if count(g:ivim_bundle_groups, 'move') " Moving
@@ -194,17 +196,16 @@ endif
 if count(g:ivim_bundle_groups, 'navigate') " Navigation
     Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' } " NERD tree
     Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': 'NERDTreeToggle' } " NERD tree git plugin
-    Plug 'ctrlpvim/ctrlp.vim' " Ctrl P Search
+    " Plug 'ctrlpvim/ctrlp.vim' " Ctrl P Search
+    " Plug 'junegunn/fzf' " fzf
+    Plug '/usr/local/opt/fzf' " fzf is installed through homebrew
+    Plug 'junegunn/fzf.vim' " fzf
     Plug 'mileszs/ack.vim' " ack
 endif
 
 if count(g:ivim_bundle_groups, 'complete') " Completion
     Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-    Plug 'carlitux/deoplete-ternjs'
-    Plug 'ternjs/tern_for_vim'
-    Plug 'mhartington/nvim-typescript', {'do': './install.sh'}
-    Plug 'zchee/deoplete-jedi'
-    Plug 'sebastianmarkow/deoplete-rust'
+    Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' } " LanguageServer client for NeoVim.
 endif
 
 if count(g:ivim_bundle_groups, 'compile') " Compiling
@@ -222,18 +223,47 @@ if count(g:ivim_bundle_groups, 'git') " Git
 endif
 
 if count(g:ivim_bundle_groups, 'language') " Language Specificity
-    Plug 'sheerun/vim-polyglot' " Language Support (includes javascript and all other types)
-    Plug 'davidhalter/jedi-vim', { 'for': 'python' } " Python jedi plugin
-    " Plug 'tpope/vim-rails' " Rails
+    " Plug 'sheerun/vim-polyglot' " Language Support (includes javascript and all other types)
+    Plug 'editorconfig/editorconfig-vim'
+    Plug 'dart-lang/dart-vim-plugin'
+    Plug 'vim-python/python-syntax'
+    Plug 'ekalinin/Dockerfile.vim'
+    Plug 'elixir-editors/vim-elixir'
+    Plug 'vim-erlang/vim-erlang-runtime'
+    Plug 'tpope/vim-git'
+    Plug 'fatih/vim-go'
+    Plug 'jparise/vim-graphql'
+    Plug 'pangloss/vim-javascript'
+    Plug 'elzr/vim-json'
+    Plug 'amadeus/vim-jsx'
+    Plug 'plasticboy/vim-markdown'
+    Plug 'chr4/nginx.vim'
+    Plug 'rgrinberg/vim-ocaml'
+    Plug 'StanAngeloff/php.vim'
+    Plug 'vim-python/python-syntax'
+    Plug 'reasonml-editor/vim-reason-plus'
+    Plug 'vim-ruby/vim-ruby'
+    Plug 'rust-lang/rust.vim'
+    Plug 'cakebaker/scss-syntax.vim'
+    Plug 'tomlion/vim-solidity'
+    Plug 'keith/tmux.vim'
+    Plug 'cespare/vim-toml'
+    Plug 'leafgarland/typescript-vim'
+    Plug 'amadeus/vim-xml'
+    Plug 'posva/vim-vue'
+    Plug 'stephpy/vim-yaml'
+    Plug 'joukevandermaas/vim-ember-hbs'
+
+    " Language specific enhancement/completion etc.
     Plug 'mattn/emmet-vim' " Emmet
     Plug 'heavenshell/vim-jsdoc' " JSDoc for vim
     Plug 'greyblake/vim-preview' " vim preview
-    Plug 'tpope/vim-bundler' " gem bundler
-    Plug 'editorconfig/editorconfig-vim'
     Plug 'slashmili/alchemist.vim'
-    Plug 'elixir-editors/vim-elixir'
     Plug 'sukima/vim-ember-imports'
     Plug 'AndrewRadev/ember_tools.vim'
+    " Plug 'davidhalter/jedi-vim', { 'for': 'python' } " Python jedi plugin
+    " Plug 'tpope/vim-rails' " Rails
+    " Plug 'tpope/vim-bundler' " gem bundler
 endif
 
 if filereadable(expand($HOME . '/.config/nvim/local.bundles.vim')) " Load local bundles
@@ -583,7 +613,7 @@ command! DiffOrig vert new | set bt=nofile | r ++edit # | 0d_
             \ | diffthis | wincmd p | diffthis
 
 " buffer explorer
-nnoremap <leader>b :ls<cr>:b<space>
+" nnoremap <leader>b :ls<cr>:b<space>
 
 " new tab
 nnoremap <silent> tt :tabnew<cr>
@@ -782,10 +812,10 @@ if count(g:ivim_bundle_groups, 'navigate')
 
     set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
     set wildignore+=**/bower_components/**,**/node_modules/**,**/tags
-    let g:ctrlp_custom_ignore = '\v[\/](node_modules|target|dist|tmp|bower_components|coverage)|(\.(swp|ico|git|svn))$'
-    let g:ctrlp_match_window = 'results:25' " overcome limit imposed by max height
-    let g:ctrlp_max_files = 0
-    let g:ctrlp_max_depth = 40
+    " let g:ctrlp_custom_ignore = '\v[\/](node_modules|target|dist|tmp|bower_components|coverage)|(\.(swp|ico|git|svn))$'
+    " let g:ctrlp_match_window = 'results:25' " overcome limit imposed by max height
+    " let g:ctrlp_max_files = 0
+    " let g:ctrlp_max_depth = 40
 
     if executable('rg')
         " Use rg over grep
@@ -796,16 +826,23 @@ if count(g:ivim_bundle_groups, 'navigate')
 
         cnoreabbrev Ack Ack!
         nnoremap <Leader>a :Ack!<Space>
+        nnoremap <Leader>rg :Rg<CR>
+        nnoremap <Leader>b :Buffers<CR>
 
-        nnoremap K :Ack! "\b<C-R><C-W>\b"<CR>
+        nnoremap S :Ack! -F "<C-R><C-W>"<CR>
+
+        " Search file Ctrl-P
+        nnoremap <c-p> :Files<CR>
+        " Recent files
+        nnoremap <c-e> :History<CR> 
 
         " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
-        let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
+        " let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
 
         " ag is fast enough that CtrlP doesn't need to cache
-        let g:ctrlp_use_caching = 0
+        " let g:ctrlp_use_caching = 0
         " let g:ctrlp_working_path_mode = "ra"
-        let g:ctrlp_working_path_mode = 0
+        " let g:ctrlp_working_path_mode = 0
     endif
 
 endif
@@ -813,25 +850,69 @@ endif
 " Setting for completion plugins
 if count(g:ivim_bundle_groups, 'complete')
 
+    " deoplete
     let g:deoplete#enable_at_startup = 1
 
-    let g:tern#command = ["tern"]
-    let g:tern#arguments = ["--no-port-file"]
+    " Affects the visual representation of what happens after you hit <C-x><C-o>
+    " https://neovim.io/doc/user/insert.html#i_CTRL-X_CTRL-O
+    " https://neovim.io/doc/user/options.html#'completeopt'
+    "
+    " This will show the popup menu even if there's only one match (menuone),
+    " prevent automatic selection (noselect) and prevent automatic text injection
+    " into the current line (noinsert).
+    " set completeopt=noinsert,menuone,noselect
 
-    inoremap <expr><tab> pumvisible() ? "\<C-N>" : "\<tab>"
-    inoremap <expr><S-Tab> pumvisible() ? "\<C-P>" : "\<S-Tab>"
-    inoremap <expr> <cr> pumvisible() ? "\<C-y>\<cr>" : "\<cr>"
+    " suppress the annoying 'match x of y', 'The only match' and 'Pattern not
+    " found' messages
+    set shortmess+=c
 
-    function! JumpDefinition()
-        if &filetype == "javascript"
-            execute 'TernDef'
-        elseif &filetype == "javascript.jsx"
-            execute 'TernDef'
-        elseif &filetype == "typescript"
-            execute 'TSDef'
-        endif
-    endfunction
-    nnoremap <leader>jd :call JumpDefinition()<CR>
+    " CTRL-C doesn't trigger the InsertLeave autocmd . map to <ESC> instead.
+    inoremap <c-c> <ESC>
+
+    " When the <Enter> key is pressed while the popup menu is visible, it only
+    " hides the menu. Use this mapping to close the menu and also start a new
+    " line.
+    inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
+
+    " Use <TAB> to select the popup menu:
+    inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+    inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+    if g:ivim_enable_lsp
+        function! SetLSPShortcuts()
+            nnoremap <silent> <c-]> :call LanguageClient#textDocument_definition()<CR>
+            nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
+            nnoremap <silent> <F5> :call LanguageClient_contextMenu()<CR>
+            nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
+            nnoremap <silent> <F7> :call LanguageClient#textDocument_references()<CR>
+            nnoremap <silent> <Leader>ls :call LanguageClient_textDocument_documentSymbol()<CR>
+            nnoremap <silent> <Leader>lf :call LanguageClient#textDocument_formatting()<CR>
+            nnoremap <silent> <Leader>lt :call LanguageClient#textDocument_typeDefinition()<CR>
+            nnoremap <silent> <Leader>la :call LanguageClient_workspace_applyEdit()<CR>
+            nnoremap <silent> <Leader>lc :call LanguageClient#textDocument_completion()<CR>
+        endfunction
+
+        let g:LanguageClient_serverCommands = {
+            \ 'rust': ['rustup', 'run', 'stable', 'rls'],
+            \ 'javascript': ['javascript-typescript-stdio'],
+            \ 'typescript': ['javascript-typescript-stdio'],
+            \ 'javascript.jsx': ['javascript-typescript-stdio'],
+            \ 'python': ['/usr/local/bin/pyls'],
+            \ }
+
+        set signcolumn=yes
+        " set cmdheight=2
+        " let g:echodoc#enable_at_startup = 1
+        " let g:echodoc#type = 'signature'
+
+        augroup LSP
+            autocmd!
+            autocmd FileType javascript,javascript.jsx call SetLSPShortcuts()
+            autocmd FileType typescript call SetLSPShortcuts()
+            autocmd FileType rust call SetLSPShortcuts()
+            autocmd FileType python call SetLSPShortcuts()
+        augroup END
+    endif
 
     " Setting info for snips
     let g:snips_author=g:ivim_user
@@ -839,8 +920,8 @@ if count(g:ivim_bundle_groups, 'complete')
     let g:snips_github=g:ivim_github
 
     " rust
-    let g:deoplete#sources#rust#racer_binary=$HOME.'/.cargo/bin/racer'
-    let g:deoplete#sources#rust#rust_source_path=$HOME.'/opensource/rust/src'
+    " let g:deoplete#sources#rust#racer_binary=$HOME.'/.cargo/bin/racer'
+    " let g:deoplete#sources#rust#rust_source_path=$HOME.'/opensource/rust/src'
     " let g:deoplete#sources#rust#show_duplicates=1
     " let g:deoplete#sources#rust#disable_keymap=1
     " let g:deoplete#sources#rust#documentation_max_height=20
@@ -850,9 +931,9 @@ if count(g:ivim_bundle_groups, 'complete')
     " <leader>tdp    :TSDefPreview
     " <c-]>          :TSTypeDef
     " <leader>jd     :TSDef
-    let g:nvim_typescript#default_mappings = 1
-    nnoremap <leader>ti :TSImport<CR>
-    nnoremap <leader>jds :TSDefPreview<CR>
+    " let g:nvim_typescript#default_mappings = 1
+    " nnoremap <leader>ti :TSImport<CR>
+    " nnoremap <leader>jds :TSDefPreview<CR>
 endif
 
 " Setting for compiling plugins
