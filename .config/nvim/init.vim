@@ -47,7 +47,8 @@ let g:ivim_show_number=1 " Enable showing number
 " ivim plugin setting
 let g:ivim_bundle_groups=['ui', 'enhance', 'move', 'navigate',
             \'complete', 'compile', 'git', 'language']
-let g:ivim_enable_lsp=1 " Enable Language Server
+let g:ivim_enable_lsp=0 " Enable Language Server
+let g:ivim_ale_completion_enabled=1 " Enable ALE LSP
 
 " Customise ivim settings for personal usage
 if filereadable(expand($HOME . '/.config/nvim/local.ivim.vim'))
@@ -763,6 +764,9 @@ if count(g:ivim_bundle_groups, 'enhance')
     " Add ' to selected or word
     nnoremap <Leader>' viw<esc>a'<esc>bi'<esc>lel
     vnoremap <Leader>' <esc>a'<esc>`<i'<esc>`>ll
+
+    let g:echodoc#enable_at_startup = 1
+    let g:echodoc#type = 'signature'
 endif
 
 " setting for moving plugins
@@ -894,16 +898,14 @@ if count(g:ivim_bundle_groups, 'complete')
 
         let g:LanguageClient_serverCommands = {
             \ 'rust': ['rustup', 'run', 'stable', 'rls'],
-            \ 'javascript': ['javascript-typescript-stdio'],
-            \ 'typescript': ['javascript-typescript-stdio'],
-            \ 'javascript.jsx': ['javascript-typescript-stdio'],
             \ 'python': ['/usr/local/bin/pyls'],
             \ }
 
+        " Disable javascript/typescript since it's really slow
+        " 'javascript': ['javascript-typescript-stdio'],
+        " 'typescript': ['javascript-typescript-stdio'],
+        " 'javascript.jsx': ['javascript-typescript-stdio'],
         set signcolumn=yes
-        " set cmdheight=2
-        " let g:echodoc#enable_at_startup = 1
-        " let g:echodoc#type = 'signature'
 
         augroup LSP
             autocmd!
@@ -960,6 +962,36 @@ if count(g:ivim_bundle_groups, 'compile')
     let g:ale_fixers['elixir'] = ['mix_format']
     let g:ale_javascript_prettier_options = '--single-quote --trailing-comma es5'
     let g:ale_javascript_prettier_use_local_config = 1
+
+    " Ale completion
+    function! AleCompletion()
+        " disable deoplete
+        call deoplete#disable()
+
+        set completeopt=menu,menuone,preview,noselect,noinsert
+        let g:ale_sign_column_always = 1
+        let g:ale_linters['javascript'] = ['eslint', 'tsserver']
+
+        nnoremap <silent> <c-]> :ALEGoToDefinition<CR>
+        nnoremap <silent> <c-w><c-]> :ALEGoToDefinitionVSplit<CR>
+        nnoremap <silent> K :ALEHover<CR>
+        nnoremap <silent> <F7> :ALEFindReferences<CR>
+        " only for typescript
+        nnoremap <Leader>ld :ALEDocumentation<CR>
+        nnoremap <Leader>ls :ALESymbolSearch<Space>
+    endfunction
+
+    if g:ivim_ale_completion_enabled
+        let g:ale_completion_enabled=1
+
+        augroup ALECompletion
+            autocmd!
+            autocmd FileType javascript,typescript call AleCompletion()
+            " sometimes *.d.ts will go to ~/Library/Caches/**/*.d.ts, which would be
+            " super slow, disable it to save time
+            autocmd BufNewFile,BufRead *.d.ts let b:ale_linters={'typescript': []}
+        augroup END
+    endif
 
     nnoremap <Leader>p :ALEFix<CR>
 
