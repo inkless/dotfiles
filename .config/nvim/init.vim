@@ -848,7 +848,7 @@ if count(g:ivim_bundle_groups, 'complete')
     " This will show the popup menu even if there's only one match (menuone),
     " prevent automatic selection (noselect) and prevent automatic text injection
     " into the current line (noinsert).
-    set completeopt=noinsert,menuone,noselect,longest,preview
+    set completeopt=noinsert,menuone,noselect
 
     " suppress the annoying 'match x of y', 'The only match' and 'Pattern not
     " found' messages
