@@ -47,8 +47,8 @@ let g:ivim_show_number=1 " Enable showing number
 " ivim plugin setting
 let g:ivim_bundle_groups=['ui', 'enhance', 'move', 'navigate',
             \'complete', 'compile', 'git', 'language']
-let g:ivim_enable_lsp=0 " Enable Language Server
-let g:ivim_ale_completion_enabled=1 " Enable ALE LSP
+let g:ivim_enable_lsp=1 " Enable Language Server
+let g:ivim_ale_completion_enabled=0 " Enable ALE LSP
 
 " Customise ivim settings for personal usage
 if filereadable(expand($HOME . '/.config/nvim/local.ivim.vim'))
@@ -203,10 +203,8 @@ endif
 
 if count(g:ivim_bundle_groups, 'complete') " Completion
     Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' } " LanguageServer client for NeoVim.
-    Plug 'roxma/nvim-yarp'
-    Plug 'ncm2/ncm2'
-    Plug 'ncm2/ncm2-bufword'
-    Plug 'ncm2/ncm2-path'
+    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+    Plug 'mhartington/nvim-typescript', {'do': './install.sh'}
 endif
 
 if count(g:ivim_bundle_groups, 'compile') " Compiling
@@ -831,15 +829,14 @@ if count(g:ivim_bundle_groups, 'navigate')
         " Search file Ctrl-P
         nnoremap <c-p> :Files<CR>
         " Recent files
-        nnoremap <c-e> :History<CR> 
+        nnoremap <c-e> :History<CR>
     endif
 
 endif
 
 " Setting for completion plugins
 if count(g:ivim_bundle_groups, 'complete')
-    " enable ncm2 for all buffers
-    autocmd! BufEnter * call ncm2#enable_for_buffer()
+    let g:deoplete#enable_at_startup = 1
 
     " Affects the visual representation of what happens after you hit <C-x><C-o>
     " https://neovim.io/doc/user/insert.html#i_CTRL-X_CTRL-O
@@ -848,7 +845,7 @@ if count(g:ivim_bundle_groups, 'complete')
     " This will show the popup menu even if there's only one match (menuone),
     " prevent automatic selection (noselect) and prevent automatic text injection
     " into the current line (noinsert).
-    set completeopt=noinsert,menuone,noselect
+    " set completeopt=noinsert,menuone,noselect
 
     " suppress the annoying 'match x of y', 'The only match' and 'Pattern not
     " found' messages
@@ -867,37 +864,27 @@ if count(g:ivim_bundle_groups, 'complete')
     inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
     if g:ivim_enable_lsp
-        function! SetLSPShortcuts()
-            nnoremap <silent> <c-]> :call LanguageClient#textDocument_definition()<CR>
-            nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
-            nnoremap <silent> <F5> :call LanguageClient_contextMenu()<CR>
-            nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
-            nnoremap <silent> <F7> :call LanguageClient#textDocument_references()<CR>
-            nnoremap <silent> <Leader>ls :call LanguageClient_textDocument_documentSymbol()<CR>
-            nnoremap <silent> <Leader>lf :call LanguageClient#textDocument_formatting()<CR>
-            nnoremap <silent> <Leader>lt :call LanguageClient#textDocument_typeDefinition()<CR>
-            nnoremap <silent> <Leader>la :call LanguageClient_workspace_applyEdit()<CR>
-            nnoremap <silent> <Leader>lc :call LanguageClient#textDocument_completion()<CR>
-        endfunction
+        nnoremap <silent> <c-]> :call LanguageClient#textDocument_definition()<CR>
+        nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
+        nnoremap <silent> <F5> :call LanguageClient_contextMenu()<CR>
+        nnoremap <silent> gR :call LanguageClient#textDocument_rename()<CR>
+        nnoremap <silent> <F7> :call LanguageClient#textDocument_references()<CR>
+        nnoremap <silent> gs :call LanguageClient_textDocument_documentSymbol()<CR>
+        nnoremap <silent> <F11> :call LanguageClient#textDocument_typeDefinition()<CR>
+        nnoremap <silent> <Leader>gf :call LanguageClient#textDocument_formatting()<CR>
+        nnoremap <silent> <Leader>ga :call LanguageClient_workspace_applyEdit()<CR>
+        nnoremap <silent> <Leader>gc :call LanguageClient#textDocument_completion()<CR>
 
         let g:LanguageClient_serverCommands = {
             \ 'rust': ['rustup', 'run', 'stable', 'rls'],
             \ 'python': ['/usr/local/bin/pyls'],
+            \ 'ruby': ['solargraph', 'stdio'],
             \ }
 
-        " Disable javascript/typescript since it's really slow
-        " 'javascript': ['javascript-typescript-stdio'],
-        " 'typescript': ['javascript-typescript-stdio'],
-        " 'javascript.jsx': ['javascript-typescript-stdio'],
+        " LanguageClient for javascript.... sucks..
+        " \ 'javascript': ['typescript-language-server', '--stdio'],
+        " \ 'typescript': ['typescript-language-server', '--stdio'],
         set signcolumn=yes
-
-        augroup LSP
-            autocmd!
-            autocmd FileType javascript,javascript.jsx call SetLSPShortcuts()
-            autocmd FileType typescript call SetLSPShortcuts()
-            autocmd FileType rust call SetLSPShortcuts()
-            autocmd FileType python call SetLSPShortcuts()
-        augroup END
     endif
 
     " Setting info for snips
@@ -906,13 +893,27 @@ if count(g:ivim_bundle_groups, 'complete')
     let g:snips_github=g:ivim_github
 
     " nvim-typescript
-    " K              :TSDoc
-    " <leader>tdp    :TSDefPreview
-    " <c-]>          :TSTypeDef
-    " <leader>jd     :TSDef
-    " let g:nvim_typescript#default_mappings = 1
-    " nnoremap <leader>ti :TSImport<CR>
-    " nnoremap <leader>jds :TSDefPreview<CR>
+    let g:nvim_typescript#javascript_support=1
+    let g:nvim_typescript#vue_support=1
+
+    function! SetupTypescriptMapping()
+      nnoremap <buffer> <silent> <c-]> :TSDef<CR>
+      nnoremap <buffer> <silent> <c-w><c-]> :TSDefPreview<CR>
+      nnoremap <buffer> <silent> K :TSDoc<CR>
+      nnoremap <buffer> <silent> <F11> :TSType<CR>
+      nnoremap <buffer> <silent> <F7> :TSRefs<CR>
+      nnoremap <buffer> <silent> gd :TSTypeDef<CR>
+      nnoremap <buffer> <silent> gR :TSRename<CR>
+      nnoremap <buffer> <silent> gi :TSImport<CR>
+      nnoremap <buffer> <silent> gs :TSGetDocSymbols<CR>
+      nnoremap <buffer> <silent> gw :TSGetWorkspaceSymbols<CR>
+      nnoremap <buffer> <Leader>gt :TSSearchFZF<Space>
+    endfunction
+
+    augroup nvim_typescript
+      autocmd!
+      autocmd BufEnter,Filetype javascript,javascript.jsx,typescript,typescript.tsx call SetupTypescriptMapping()
+    augroup END
 endif
 
 " Setting for compiling plugins
@@ -929,8 +930,8 @@ if count(g:ivim_bundle_groups, 'compile')
 
     let g:ale_linters = {
     \   'javascript': ['eslint'],
-    \   'typescript': ['tslint', 'tsserver'],
-    \   'ruby': ['rubocop', 'solargraph']
+    \   'typescript': ['tslint'],
+    \   'ruby': ['rubocop']
     \}
 
     let g:ale_fixers = {}
@@ -945,10 +946,10 @@ if count(g:ivim_bundle_groups, 'compile')
 
     " Ale completion
     function! EnableAleCompletion()
-        call ncm2#disable_for_buffer()
-
         let g:ale_sign_column_always = 1
         let g:ale_linters['javascript'] = ['eslint', 'tsserver']
+        let g:ale_linters['typescript'] = ['tslint', 'tsserver']
+        let g:ale_linters['ruby'] = ['rubocop', 'solargraph']
     endfunction
 
     if g:ivim_ale_completion_enabled
