@@ -846,6 +846,8 @@ if count(g:ivim_bundle_groups, 'complete')
     " prevent automatic selection (noselect) and prevent automatic text injection
     " into the current line (noinsert).
     " set completeopt=noinsert,menuone,noselect
+    set completeopt+=longest
+    set completeopt-=preview
 
     " suppress the annoying 'match x of y', 'The only match' and 'Pattern not
     " found' messages
