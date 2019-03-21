@@ -127,7 +127,7 @@ set noerrorbells
 set novisualbell
 set t_vb=
 if has('autocmd')
-  autocmd GUIEnter * set visualbell t_vb=
+  autocmd! GUIEnter * set visualbell t_vb=
 endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -146,7 +146,7 @@ set viewoptions-=options " in case of mapping change
 
 if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
     silent !curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-    autocmd VimEnter * PlugInstall | source $MYVIMRC
+    autocmd! VimEnter * PlugInstall | source $MYVIMRC
 endif
 
 call plug#begin('~/.local/share/nvim/plugged')
@@ -839,7 +839,7 @@ endif
 " Setting for completion plugins
 if count(g:ivim_bundle_groups, 'complete')
     " enable ncm2 for all buffers
-    autocmd BufEnter * call ncm2#enable_for_buffer()
+    autocmd! BufEnter * call ncm2#enable_for_buffer()
 
     " Affects the visual representation of what happens after you hit <C-x><C-o>
     " https://neovim.io/doc/user/insert.html#i_CTRL-X_CTRL-O
@@ -964,8 +964,8 @@ if count(g:ivim_bundle_groups, 'compile')
 
         augroup ale_completion_group
             autocmd!
-            autocmd FileType javascript,typescript call EnableAleCompletion()
-            autocmd FileType ruby call EnableAleCompletion()
+            autocmd BufEnter *.js,*.jsx,*.ts,*.tsx call EnableAleCompletion()
+            autocmd BufEnter *.rb call EnableAleCompletion()
             " sometimes *.d.ts will go to ~/Library/Caches/**/*.d.ts, which would be
             " super slow, disable it to save time
             autocmd BufNewFile,BufRead *.d.ts let b:ale_linters={'typescript': []}
