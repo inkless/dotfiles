@@ -884,6 +884,7 @@ if count(g:ivim_bundle_groups, 'complete')
 
         let g:LanguageClient_serverCommands = {
             \ 'rust': ['rustup', 'run', 'stable', 'rls'],
+            \ 'python': ['pyls'],
             \ 'ruby': ['solargraph', 'stdio'],
             \ }
 
@@ -891,6 +892,8 @@ if count(g:ivim_bundle_groups, 'complete')
         " \ 'javascript': ['typescript-language-server', '--stdio'],
         " \ 'typescript': ['typescript-language-server', '--stdio'],
         set signcolumn=yes
+
+        let g:LanguageClient_settingsPath = '~/.config/nvim/settings.json'
     endif
 
     " Setting info for snips
