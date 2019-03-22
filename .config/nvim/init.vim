@@ -66,7 +66,6 @@ if has('macunix')
     set termguicolors
 endif
 
-let $NVIM_TUI_ENABLE_CURSOR_SHAPE=0
 set guicursor=
 
 set nocompatible " Get out of vi compatible mode
@@ -582,12 +581,6 @@ nnoremap k gk
 vnoremap j gj
 vnoremap k gk
 
-" Navigation between windows
-nnoremap <C-J> <C-W>j
-nnoremap <C-K> <C-W>k
-nnoremap <C-H> <C-W>h
-nnoremap <C-L> <C-W>l
-
 " Same when jumping around
 nnoremap g; g;zz
 nnoremap g, g,zz
@@ -604,7 +597,7 @@ xnoremap & :&&<CR>
 nnoremap J mzJ`z
 
 " Select entire buffer
-nnoremap vaa ggvGg_
+nnoremap vaa ggVG
 
 " Strip all trailing whitespace in the current file
 nnoremap <Leader>q :%s/\s\+$//<CR>:let @/=''<CR>
@@ -677,8 +670,11 @@ if count(g:ivim_bundle_groups, 'ui')
     let g:startify_session_persistence    = 1
 
     " -> Goyo & Limelight
-    autocmd! User GoyoEnter Limelight
-    autocmd! User GoyoLeave Limelight!
+    augroup goyo
+        autocmd!
+        autocmd User GoyoEnter Limelight
+        autocmd User GoyoLeave Limelight!
+    augroup END
 
 endif
 
@@ -872,6 +868,7 @@ if count(g:ivim_bundle_groups, 'complete')
 
     if g:ivim_enable_lsp
         nnoremap <silent> <c-]> :call LanguageClient#textDocument_definition()<CR>
+        nnoremap <silent> <c-w><c-]> :call LanguageClient#textDocument_definition({'gotoCmd': 'split'})<CR>
         nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
         nnoremap <silent> <F5> :call LanguageClient_contextMenu()<CR>
         nnoremap <silent> gR :call LanguageClient#textDocument_rename()<CR>
