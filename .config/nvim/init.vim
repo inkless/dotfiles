@@ -922,7 +922,7 @@ if count(g:ivim_bundle_groups, 'complete')
       autocmd BufEnter,Filetype javascript,typescript call SetupTypescriptMapping()
     augroup END
 
-    let g:UltiSnipsExpandTrigger="<c-j>"
+    let g:UltiSnipsExpandTrigger="<c-k>"
 endif
 
 " Setting for compiling plugins
