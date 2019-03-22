@@ -233,8 +233,9 @@ if count(g:ivim_bundle_groups, 'language') " Language Specificity
     Plug 'fatih/vim-go'
     Plug 'jparise/vim-graphql'
     Plug 'pangloss/vim-javascript'
+    Plug 'leafgarland/typescript-vim'
+    Plug 'maxmellon/vim-jsx-pretty'
     Plug 'elzr/vim-json'
-    Plug 'amadeus/vim-jsx'
     Plug 'plasticboy/vim-markdown'
     Plug 'chr4/nginx.vim'
     Plug 'rgrinberg/vim-ocaml'
@@ -247,7 +248,6 @@ if count(g:ivim_bundle_groups, 'language') " Language Specificity
     Plug 'tomlion/vim-solidity'
     Plug 'keith/tmux.vim'
     Plug 'cespare/vim-toml'
-    Plug 'leafgarland/typescript-vim'
     Plug 'amadeus/vim-xml'
     Plug 'posva/vim-vue'
     Plug 'stephpy/vim-yaml'
@@ -914,15 +914,12 @@ if count(g:ivim_bundle_groups, 'complete')
 
     augroup nvim_typescript
       autocmd!
-      autocmd BufEnter,Filetype javascript,javascript.jsx,typescript,typescript.tsx call SetupTypescriptMapping()
+      autocmd BufEnter,Filetype javascript,typescript call SetupTypescriptMapping()
     augroup END
 endif
 
 " Setting for compiling plugins
 if count(g:ivim_bundle_groups, 'compile')
-    " vim-jsx
-    let g:jsx_ext_required = 1
-
     " -> Ale
     let g:ale_sign_error = '✗'
     let g:ale_sign_warning = '∆'
@@ -1017,6 +1014,8 @@ endif
 
 " Setting for language specificity
 if count(g:ivim_bundle_groups, 'language')
+    " vim jsx colorful
+    let g:vim_jsx_pretty_colorful_config = 1
 
     " -> Emmet
     let g:user_emmet_leader_key='<C-E>'
