@@ -884,7 +884,6 @@ if count(g:ivim_bundle_groups, 'complete')
 
         let g:LanguageClient_serverCommands = {
             \ 'rust': ['rustup', 'run', 'stable', 'rls'],
-            \ 'python': ['/usr/local/bin/pyls'],
             \ 'ruby': ['solargraph', 'stdio'],
             \ }
 
@@ -923,6 +922,8 @@ if count(g:ivim_bundle_groups, 'complete')
     augroup END
 
     let g:UltiSnipsExpandTrigger="<c-k>"
+    let g:UltiSnipsJumpForwardTrigger="<Tab>"
+    let g:UltiSnipsJumpBackwardTrigger="<S-Tab>"
 endif
 
 " Setting for compiling plugins
