@@ -205,6 +205,11 @@ if count(g:ivim_bundle_groups, 'complete') " Completion
     Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' } " LanguageServer client for NeoVim.
     Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
     Plug 'mhartington/nvim-typescript', {'do': './install.sh'}
+    " Track the engine.
+    Plug 'SirVer/ultisnips'
+    " Snippets are separated from the engine. Add this if you want them:
+    Plug 'honza/vim-snippets'
+
 endif
 
 if count(g:ivim_bundle_groups, 'compile') " Compiling
@@ -233,7 +238,7 @@ if count(g:ivim_bundle_groups, 'language') " Language Specificity
     Plug 'fatih/vim-go'
     Plug 'jparise/vim-graphql'
     Plug 'pangloss/vim-javascript'
-    Plug 'leafgarland/typescript-vim'
+    Plug 'HerringtonDarkholme/yats.vim'
     Plug 'maxmellon/vim-jsx-pretty'
     Plug 'elzr/vim-json'
     Plug 'plasticboy/vim-markdown'
@@ -916,6 +921,8 @@ if count(g:ivim_bundle_groups, 'complete')
       autocmd!
       autocmd BufEnter,Filetype javascript,typescript call SetupTypescriptMapping()
     augroup END
+
+    let g:UltiSnipsExpandTrigger="<c-j>"
 endif
 
 " Setting for compiling plugins
@@ -1018,8 +1025,8 @@ if count(g:ivim_bundle_groups, 'language')
     let g:vim_jsx_pretty_colorful_config = 1
 
     " -> Emmet
-    let g:user_emmet_leader_key='<C-E>'
-    let g:user_emmet_settings={'indentation':'    '}
+    let g:user_emmet_leader_key='<c-y>'
+    let g:user_emmet_settings={'indentation':'  '}
     let g:use_emmet_complete_tag=1
 
     " -> jsdoc.vim
