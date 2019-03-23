@@ -755,14 +755,23 @@ if count(g:ivim_bundle_groups, 'enhance')
 
     " Add " to selected or word
     nnoremap <Leader>" viw<esc>a"<esc>bi"<esc>lel
-    vnoremap <Leader>" <esc>a"<esc>`<i"<esc>`>ll
+    vnoremap " <esc>a"<esc>`<i"<esc>`>ll
 
     " Add ' to selected or word
     nnoremap <Leader>' viw<esc>a'<esc>bi'<esc>lel
-    vnoremap <Leader>' <esc>a'<esc>`<i'<esc>`>ll
+    vnoremap ' <esc>a'<esc>`<i'<esc>`>ll
 
     let g:echodoc#enable_at_startup = 1
     let g:echodoc#type = 'signature'
+
+    " Quickfix Mappings
+    nnoremap <Leader>c :copen<CR>
+    augroup quickfix_mapping
+        autocmd!
+        autocmd FileType qf nnoremap <buffer> q :cclose<CR>
+        autocmd FileType qf nnoremap <buffer> o :execute "cc " . line(".")<CR>
+        autocmd FileType qf nnoremap <buffer> <CR> :execute "cc " . line(".")<CR>
+    augroup END
 endif
 
 " setting for moving plugins
