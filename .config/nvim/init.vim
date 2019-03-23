@@ -734,7 +734,7 @@ if count(g:ivim_bundle_groups, 'enhance')
     endif
 
     let g:golden_ratio_autocommand = 0
-    nnoremap <silent> <Leader>g :GoldenRatioToggle<CR>
+    nnoremap <silent> <Leader>gr :GoldenRatioToggle<CR>
 
     nnoremap <silent> <Leader>0 :exe "resize " . (winheight(0) * 3/2)<CR>
     nnoremap <silent> <Leader>9 :exe "resize " . (winheight(0) * 2/3)<CR>
@@ -922,7 +922,7 @@ if count(g:ivim_bundle_groups, 'complete')
       nnoremap <buffer> <silent> gi :TSImport<CR>
       nnoremap <buffer> <silent> gs :TSGetDocSymbols<CR>
       nnoremap <buffer> <silent> gw :TSGetWorkspaceSymbols<CR>
-      nnoremap <buffer> <Leader>gt :TSSearchFZF<Space>
+      nnoremap <buffer> <Leader>gp :TSSearchFZF<Space>
     endfunction
 
     augroup nvim_typescript
