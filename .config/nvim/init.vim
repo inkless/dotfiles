@@ -883,7 +883,7 @@ if count(g:ivim_bundle_groups, 'complete')
         nnoremap <silent> gR :call LanguageClient#textDocument_rename()<CR>
         nnoremap <silent> <F7> :call LanguageClient#textDocument_references()<CR>
         nnoremap <silent> gs :call LanguageClient_textDocument_documentSymbol()<CR>
-        nnoremap <silent> <F11> :call LanguageClient#textDocument_typeDefinition()<CR>
+        nnoremap <silent> <F12> :call LanguageClient#textDocument_typeDefinition()<CR>
         nnoremap <silent> <Leader>gf :call LanguageClient#textDocument_formatting()<CR>
         nnoremap <silent> <Leader>ga :call LanguageClient_workspace_applyEdit()<CR>
         nnoremap <silent> <Leader>gc :call LanguageClient#textDocument_completion()<CR>
@@ -915,7 +915,7 @@ if count(g:ivim_bundle_groups, 'complete')
       nnoremap <buffer> <silent> <c-]> :TSDef<CR>
       nnoremap <buffer> <silent> <c-w><c-]> :TSDefPreview<CR>
       nnoremap <buffer> <silent> K :TSDoc<CR>
-      nnoremap <buffer> <silent> <F11> :TSType<CR>
+      nnoremap <buffer> <silent> <F12> :TSType<CR>
       nnoremap <buffer> <silent> <F7> :TSRefs<CR>
       nnoremap <buffer> <silent> gd :TSTypeDef<CR>
       nnoremap <buffer> <silent> gR :TSRename<CR>
