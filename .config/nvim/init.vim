@@ -958,7 +958,7 @@ if count(g:ivim_bundle_groups, 'complete')
 
     augroup nvim_typescript
       autocmd!
-      autocmd BufEnter,Filetype javascript,typescript call SetupTypescriptMapping()
+      autocmd BufEnter,Filetype javascript,typescript,typescript.tsx call SetupTypescriptMapping()
     augroup END
 
     let g:UltiSnipsExpandTrigger="<c-k>"
