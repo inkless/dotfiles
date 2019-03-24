@@ -30,7 +30,7 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 "------------------------------------------------
-" => ivim Setting
+" => ivim Setting {{{
 "------------------------------------------------
 
 " ivim user setting
@@ -41,7 +41,7 @@ let g:ivim_github='https://github.com/inkless' " User github
 " ivim color settings (OceanNext, PaperColor, hybrid, gruvbox or tender)
 let g:ivim_default_scheme='gruvbox'
 " ivim ui setting
-let g:ivim_fancy_font=1 " Enable using fancy font
+let g:ivim_fancy_font=1 " Enable using fancy font{{{}}}
 let g:ivim_show_number=1 " Enable showing number
 " let g:ivim_autocomplete='YCM'
 " ivim plugin setting
@@ -56,9 +56,10 @@ if filereadable(expand($HOME . '/.config/nvim/local.ivim.vim'))
 endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" }}}
 
 "------------------------------------------------
-" => General
+" => General {{{
 "------------------------------------------------
 
 " nvim
@@ -76,7 +77,10 @@ let maplocalleader='\' " Change the maplocalleader
 set timeoutlen=500 " Time to wait for a command
 
 " Source the vimrc file after saving it
-autocmd! BufWritePost $MYVIMRC source $MYVIMRC
+augroup vim_source
+    autocmd!
+    autocmd BufWritePost $MYVIMRC source $MYVIMRC
+augroup END
 
 " Fast edit the .vimrc file using ,x
 nnoremap <Leader>x :tabedit $MYVIMRC<CR>
@@ -130,17 +134,19 @@ if has('autocmd')
 endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" }}}
 
 "-------------------------------------------------
-" => Platform Specific Setting
+" => Platform Specific Setting {{{
 "-------------------------------------------------
 set viewoptions+=slash,unix " Better Unix/Windows compatibility
 set viewoptions-=options " in case of mapping change
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" }}}
 
 "--------------------------------------------------
-" => Vim-Plug
+" => Vim-Plug {{{
 "--------------------------------------------------
 
 if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
@@ -150,6 +156,7 @@ endif
 
 call plug#begin('~/.local/share/nvim/plugged')
 
+" UI Setting {{{
 if count(g:ivim_bundle_groups, 'ui') " UI setting
     " Plug 'w0ng/vim-hybrid' " Colorscheme hybrid
     Plug 'morhetz/gruvbox' " Colorscheme gruvbox
@@ -162,7 +169,9 @@ if count(g:ivim_bundle_groups, 'ui') " UI setting
     Plug 'junegunn/goyo.vim', { 'for': 'markdown' } " Distraction-free
     Plug 'junegunn/limelight.vim', { 'for': 'markdown' } " Hyperfocus-writing
 endif
+" }}}
 
+" Vim enhance {{{
 if count(g:ivim_bundle_groups, 'enhance') " Vim enhancement
     Plug 'Raimondi/delimitMate' " Closing of quotes
     Plug 'tomtom/tcomment_vim' " Commenter
@@ -183,14 +192,18 @@ if count(g:ivim_bundle_groups, 'enhance') " Vim enhancement
     Plug 'benmills/vimux' " Vim plugin to interact with tmux
     Plug 'Shougo/echodoc.vim'
 endif
+" }}}
 
+" Moving {{{
 if count(g:ivim_bundle_groups, 'move') " Moving
     Plug 'tpope/vim-unimpaired' " Pairs of mappings
     Plug 'Lokaltog/vim-easymotion' " Easy motion
     Plug 'unblevable/quick-scope' " Quick scope
     Plug 'christoomey/vim-tmux-navigator' " Tmux navigation
 endif
+" }}}
 
+" Navigation {{{
 if count(g:ivim_bundle_groups, 'navigate') " Navigation
     Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' } " NERD tree
     Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': 'NERDTreeToggle' } " NERD tree git plugin
@@ -199,7 +212,9 @@ if count(g:ivim_bundle_groups, 'navigate') " Navigation
     Plug 'junegunn/fzf.vim' " fzf
     Plug 'mileszs/ack.vim' " ack
 endif
+" }}}
 
+" Completion {{{
 if count(g:ivim_bundle_groups, 'complete') " Completion
     Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' } " LanguageServer client for NeoVim.
     Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -208,14 +223,17 @@ if count(g:ivim_bundle_groups, 'complete') " Completion
     Plug 'SirVer/ultisnips'
     " Snippets are separated from the engine. Add this if you want them:
     Plug 'honza/vim-snippets'
-
 endif
+" }}}
 
+" Compiling/Linting {{{
 if count(g:ivim_bundle_groups, 'compile') " Compiling
     Plug 'w0rp/ale' " Async syntax checking
     " Plug 'xuhdev/SingleCompile' " Single compile
 endif
+" }}}
 
+" Git {{{
 if count(g:ivim_bundle_groups, 'git') " Git
     Plug 'tpope/vim-fugitive' " Git wrapper
     Plug 'tpope/vim-rhubarb' " Github extension for vim fugitive
@@ -224,7 +242,9 @@ if count(g:ivim_bundle_groups, 'git') " Git
         Plug 'airblade/vim-gitgutter' " Git diff sign
     endif
 endif
+" }}}
 
+" Language {{{
 if count(g:ivim_bundle_groups, 'language') " Language Specificity
     " Plug 'sheerun/vim-polyglot' " Language Support (includes javascript and all other types)
     Plug 'editorconfig/editorconfig-vim'
@@ -268,6 +288,7 @@ if count(g:ivim_bundle_groups, 'language') " Language Specificity
     " Plug 'tpope/vim-rails' " Rails
     " Plug 'tpope/vim-bundler' " gem bundler
 endif
+" }}}
 
 if filereadable(expand($HOME . '/.config/nvim/local.bundles.vim')) " Load local bundles
     source $HOME/.config/nvim/local.bundles.vim
@@ -276,9 +297,10 @@ endif
 call plug#end()
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" }}}
 
 "-------------------------------------------------
-" => User Interface
+" => User Interface {{{
 "-------------------------------------------------
 
 " Set title
@@ -421,9 +443,10 @@ endif
 set mouse=a
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" }}}
 
 "-------------------------------------------------
-" => Colors and Fonts
+" => Colors and Fonts {{{
 "-------------------------------------------------
 
 syntax on " Enable syntax
@@ -456,9 +479,10 @@ if has('gui_running')
 endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" }}}
 
 "-------------------------------------------------
-" => Indent Related
+" => Indent Related {{{
 "-------------------------------------------------
 
 set autoindent " Preserve current indent on new lines
@@ -513,9 +537,10 @@ vnoremap # :<C-U>call <SID>VSetSearch()<CR>??<CR>
 nnoremap <Leader><Space> :set hlsearch!<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" }}}
 
 "-------------------------------------------------
-" => Fold Related
+" => Fold Related {{{
 "-------------------------------------------------
 
 " Note: zi Invert 'foldenable'.
@@ -565,9 +590,10 @@ set foldmethod=syntax
 set nofoldenable
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" }}}
 
 "-------------------------------------------------
-" => Key Mapping
+" => Key Mapping {{{
 "-------------------------------------------------
 
 " avoid ESC
@@ -633,12 +659,13 @@ map <Leader>vi :VimuxInspectRunner<CR>
 map <Leader>vz :VimuxZoomRunner<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" }}}
 
 "--------------------------------------------------
-" => Plugin Setting
+" => Plugin Setting {{{
 "--------------------------------------------------
 
-" Setting for UI plugins
+" Setting for UI plugins {{{
 if count(g:ivim_bundle_groups, 'ui')
 
     " -> Startify
@@ -677,8 +704,9 @@ if count(g:ivim_bundle_groups, 'ui')
     augroup END
 
 endif
+" }}}
 
-" Setting for enhancement plugins
+" Setting for enhancement plugins {{{
 if count(g:ivim_bundle_groups, 'enhance')
 
     " -> delimitMate
@@ -773,8 +801,9 @@ if count(g:ivim_bundle_groups, 'enhance')
         autocmd FileType qf nnoremap <buffer> <CR> :execute "cc " . line(".")<CR>
     augroup END
 endif
+" }}}
 
-" setting for moving plugins
+" setting for moving plugins {{{
 if count(g:ivim_bundle_groups, 'move')
 
     let g:EasyMotion_do_mapping = 0 " Disable default mappings
@@ -798,8 +827,9 @@ if count(g:ivim_bundle_groups, 'move')
     " map  <Leader>w <Plug>(easymotion-bd-w)
     nmap <Leader>w <Plug>(easymotion-overwin-w)
 endif
+" }}}
 
-" Setting for navigation plugins
+" Setting for navigation plugins {{{
 if count(g:ivim_bundle_groups, 'navigate')
 
     " -> NERD Tree
@@ -843,8 +873,9 @@ if count(g:ivim_bundle_groups, 'navigate')
     endif
 
 endif
+" }}}
 
-" Setting for completion plugins
+" Setting for completion plugins {{{
 if count(g:ivim_bundle_groups, 'complete')
     let g:deoplete#enable_at_startup = 1
 
@@ -934,8 +965,9 @@ if count(g:ivim_bundle_groups, 'complete')
     let g:UltiSnipsJumpForwardTrigger="<Tab>"
     let g:UltiSnipsJumpBackwardTrigger="<S-Tab>"
 endif
+" }}}
 
-" Setting for compiling plugins
+" Setting for compiling plugins {{{
 if count(g:ivim_bundle_groups, 'compile')
     " -> Ale
     let g:ale_sign_error = '✗'
@@ -1023,13 +1055,15 @@ if count(g:ivim_bundle_groups, 'compile')
     command! LebabUnsafe :!lebab --transform='let,class,commonjs,template,default-param,destruct-param,includes' % -o %
 
 endif
+" }}}
 
-" Setting for git plugins
+" Setting for git plugins {{{
 if count(g:ivim_bundle_groups, 'git')
     set updatetime=1000
 endif
+" }}}
 
-" Setting for language specificity
+" Setting for language specificity {{{
 if count(g:ivim_bundle_groups, 'language')
     " vim jsx colorful
     let g:vim_jsx_pretty_colorful_config = 1
@@ -1048,9 +1082,13 @@ if count(g:ivim_bundle_groups, 'language')
     let g:javascript_plugin_jsdoc = 1
 
 endif
+" }}}
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" }}}
 
 "--------------------------------------------------
-" => Project Setting
+" => Project Setting {{{
 "--------------------------------------------------
 
 " User nerd tree
@@ -1062,9 +1100,10 @@ set rtp+=~/.local/share/nvim/plugged/vim-project/
 " config of project files should go to local.vim
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" }}}
 
 "--------------------------------------------------
-" => Local Setting
+" => Local Setting {{{
 "--------------------------------------------------
 
 " Use local vimrc if available
@@ -1073,5 +1112,6 @@ if filereadable(expand($HOME . '/.config/nvim/local.vim'))
 endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" }}}
 
-" vim: set sw=4 sts=4 et fdm=marker:
+" vim: set sw=4 sts=4 et fdm=marker fen:
