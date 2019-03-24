@@ -258,7 +258,7 @@ if count(g:ivim_bundle_groups, 'language') " Language Specificity
     Plug 'jparise/vim-graphql'
     Plug 'pangloss/vim-javascript'
     Plug 'HerringtonDarkholme/yats.vim'
-    Plug 'maxmellon/vim-jsx-pretty'
+    Plug 'mxw/vim-jsx'
     Plug 'elzr/vim-json'
     Plug 'plasticboy/vim-markdown'
     Plug 'chr4/nginx.vim'
@@ -958,7 +958,7 @@ if count(g:ivim_bundle_groups, 'complete')
 
     augroup nvim_typescript
       autocmd!
-      autocmd BufEnter,Filetype javascript,typescript,typescript.tsx call SetupTypescriptMapping()
+      autocmd BufEnter,Filetype javascript,javascript.jsx,typescript,typescript.tsx call SetupTypescriptMapping()
     augroup END
 
     let g:UltiSnipsExpandTrigger="<c-k>"
