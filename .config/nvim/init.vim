@@ -43,6 +43,7 @@ let g:ivim_default_scheme='gruvbox'
 " ivim ui setting
 let g:ivim_fancy_font=1 " Enable using fancy font{{{}}}
 let g:ivim_show_number=1 " Enable showing number
+let g:ivim_use_relative_number=0 " Use relative number
 " let g:ivim_autocomplete='YCM'
 " ivim plugin setting
 let g:ivim_bundle_groups=['ui', 'enhance', 'move', 'navigate',
@@ -413,15 +414,16 @@ if g:ivim_show_number
     " Toggle relativenumber
     nnoremap <Leader>n :set relativenumber!<CR>
 
-    " setglobal relativenumber
-    augroup relativenumber_group
+    if g:ivim_use_relative_number
+      " setglobal relativenumber
+      augroup relativenumber_group
         autocmd!
         autocmd WinEnter,FocusGained * :setlocal relativenumber
         autocmd WinLeave,FocusLost * :setlocal number
         autocmd InsertEnter * :setlocal number
         autocmd InsertLeave * :setlocal relativenumber
-    augroup END
-
+      augroup END
+    endif
 endif
 
 set formatoptions+=rnlmM " Optimize format options
@@ -781,13 +783,14 @@ if count(g:ivim_bundle_groups, 'enhance')
         execute ":'<,'>normal @".nr2char(getchar())
     endfunction
 
-    " Add " to selected or word
+    " Add "/' to selected or word
     nnoremap <Leader>" viw<esc>a"<esc>bi"<esc>lel
-    vnoremap " <esc>a"<esc>`<i"<esc>`>ll
+    nnoremap <Leader>' viw<esc>a'<esc>bi'<esc>lel
 
     " Add ' to selected or word
-    nnoremap <Leader>' viw<esc>a'<esc>bi'<esc>lel
-    vnoremap ' <esc>a'<esc>`<i'<esc>`>ll
+    for [left_c, right_c] in items({ '''': '''', '"': '"', '(': ')', '{': '}', '[': ']' })
+        execute 'vnoremap ' . left_c . ' <esc>a' . right_c . '<esc>`<i' . left_c . '<esc>`>ll'
+    endfor
 
     let g:echodoc#enable_at_startup = 1
     let g:echodoc#type = 'signature'
