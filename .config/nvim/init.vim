@@ -209,7 +209,8 @@ if count(g:ivim_bundle_groups, 'navigate') " Navigation
     Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' } " NERD tree
     Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': 'NERDTreeToggle' } " NERD tree git plugin
     " Plug 'junegunn/fzf' " fzf
-    Plug '/usr/local/opt/fzf' " fzf is installed through homebrew
+    " Plug '/usr/local/opt/fzf' " fzf is installed through homebrew
+    Plug '~/.fzf' " in linux I have to put fzf here, so I need a soft link in mac
     Plug 'junegunn/fzf.vim' " fzf
     Plug 'mileszs/ack.vim' " ack
 endif
