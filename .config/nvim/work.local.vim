@@ -1,21 +1,9 @@
 " ali-client
 call project#rc("~/ali")
 Project     'client'
-Callback    'client'                            , ['AddAliClientPath', 'DisableLanguageClient']
+Callback    'client'                            , ['AddAliClientPath']
 function! AddAliClientPath(tile) abort
   setlocal path+=~/ali/client
-endfunction
-
-function! DisableLanguageClient(none) abort
-  let g:ale_completion_enabled=0
-  let g:ale_linters['javascript'] = ['eslint']
-
-  " It's not easy to stop nvim-javascript
-  " I have to stop it after BufWinEnter
-  augroup ali_client
-    autocmd!
-    autocmd BufWinEnter *.js TSStop
-  augroup END
 endfunction
 
 " local project

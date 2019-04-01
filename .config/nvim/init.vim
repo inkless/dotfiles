@@ -218,12 +218,8 @@ endif
 
 " Completion {{{
 if count(g:ivim_bundle_groups, 'complete') " Completion
-    Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' } " LanguageServer client for NeoVim.
-    Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-    Plug 'mhartington/nvim-typescript', {'do': './install.sh'}
-    " Track the engine.
-    Plug 'SirVer/ultisnips'
-    " Snippets are separated from the engine. Add this if you want them:
+    Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
+    Plug 'neoclide/jsonc.vim'
     Plug 'honza/vim-snippets'
 endif
 " }}}
@@ -383,6 +379,9 @@ if count(g:ivim_bundle_groups, 'ui')
         let g:airline_left_sep=''
         let g:airline_right_sep=''
     endif
+
+    let g:airline_section_error = '%{airline#util#wrap(airline#extensions#coc#get_error(),0)}'
+    let g:airline_section_warning = '%{airline#util#wrap(airline#extensions#coc#get_warning(),0)}'
 endif
 
 " Only have cursorline in current window and in normal window
@@ -797,7 +796,7 @@ if count(g:ivim_bundle_groups, 'enhance')
     let g:echodoc#type = 'signature'
 
     " Quickfix Mappings
-    nnoremap <Leader>c :copen<CR>
+    " nnoremap <Leader>c :copen<CR>
     augroup quickfix_mapping
         autocmd!
         autocmd FileType qf nnoremap <buffer> q :cclose<CR>
@@ -881,12 +880,6 @@ endif
 
 " Setting for completion plugins {{{
 if count(g:ivim_bundle_groups, 'complete')
-    let g:deoplete#enable_at_startup = 1
-
-    " Affects the visual representation of what happens after you hit <C-x><C-o>
-    " https://neovim.io/doc/user/insert.html#i_CTRL-X_CTRL-O
-    " https://neovim.io/doc/user/options.html#'completeopt'
-    "
     " This will show the popup menu even if there's only one match (menuone),
     " prevent automatic selection (noselect) and prevent automatic text injection
     " into the current line (noinsert).
@@ -894,80 +887,108 @@ if count(g:ivim_bundle_groups, 'complete')
     set completeopt+=longest
     set completeopt-=preview
 
+    " Smaller updatetime for CursorHold & CursorHoldI
+    set updatetime=300
+
     " suppress the annoying 'match x of y', 'The only match' and 'Pattern not
     " found' messages
     set shortmess+=c
 
     " CTRL-C doesn't trigger the InsertLeave autocmd . map to <ESC> instead.
-    inoremap <c-c> <ESC>
-
-    " When the <Enter> key is pressed while the popup menu is visible, it only
-    " hides the menu. Use this mapping to close the menu and also start a new
-    " line.
-    inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
+    inoremap <C-c> <ESC>
 
     " Use <TAB> to select the popup menu:
-    inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-    inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+    inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+    inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+    function! s:check_back_space() abort
+        let col = col('.') - 1
+        return !col || getline('.')[col - 1]  =~# '\s'
+    endfunction
+
+    " Use <cr> for confirm completion, `<C-g>u` means break undo chain at current position.
+    " Coc only does snippet and additional edit on confirm.
+    inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
     if g:ivim_enable_lsp
-        nnoremap <silent> <c-]> :call LanguageClient#textDocument_definition()<CR>
-        nnoremap <silent> <c-w><c-]> :call LanguageClient#textDocument_definition({'gotoCmd': 'split'})<CR>
-        nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
-        nnoremap <silent> <F5> :call LanguageClient_contextMenu()<CR>
-        nnoremap <silent> gR :call LanguageClient#textDocument_rename()<CR>
-        nnoremap <silent> <F7> :call LanguageClient#textDocument_references()<CR>
-        nnoremap <silent> gs :call LanguageClient_textDocument_documentSymbol()<CR>
-        nnoremap <silent> <F12> :call LanguageClient#textDocument_typeDefinition()<CR>
-        nnoremap <silent> <Leader>gf :call LanguageClient#textDocument_formatting()<CR>
-        nnoremap <silent> <Leader>ga :call LanguageClient_workspace_applyEdit()<CR>
-        nnoremap <silent> <Leader>gc :call LanguageClient#textDocument_completion()<CR>
 
-        let g:LanguageClient_serverCommands = {
-            \ 'rust': ['rustup', 'run', 'stable', 'rls'],
-            \ 'python': ['pyls'],
-            \ 'ruby': ['solargraph', 'stdio'],
-            \ }
+        " To be able to actually use coc, we need to install following extensions
+        " :CocInstall coc-tsserver
+        " :CocInstall coc-snippets
+        " :CocInstall coc-solargraph
+        " :CocInstall coc-rls
+        " :CocInstall coc-python
+        " :CocInstall coc-json
+        " :CocInstall coc-html
+        " :CocInstall coc-css
 
-        " LanguageClient for javascript.... sucks..
-        " \ 'javascript': ['typescript-language-server', '--stdio'],
-        " \ 'typescript': ['typescript-language-server', '--stdio'],
+        " Use `[c` and `]c` for navigate diagnostics
+        nmap <silent> [c <Plug>(coc-diagnostic-prev)
+        nmap <silent> ]c <Plug>(coc-diagnostic-next)
+
+        nmap <silent> <c-]> <Plug>(coc-definition)
+        nmap <silent> gy <Plug>(coc-type-definition)
+        " nmap <silent> gi <Plug>(coc-implementation)
+        nmap <silent> K :call <SID>show_documentation()<CR>
+        nmap <silent> <F7> <Plug>(coc-references)
+        nmap <silent> gR <Plug>(coc-rename)
+        nmap <silent> <Leader>gf <Plug>(coc-format-selected)
+        vmap <silent> <Leader>gf <Plug>(coc-format-selected)
+
+        " Using CocList
+        nnoremap <silent> <Leader>c :<C-u>CocList<cr>
+        nnoremap <silent> <Leader>cc :<C-u>CocList commands<cr>
+        " Show all diagnostics
+        nnoremap <silent> ga  :<C-u>CocList diagnostics<CR>
+        " Find symbol of current document
+        nnoremap <silent> go  :<C-u>CocList outline<cr>
+        " Search workspace symbols
+        nnoremap <silent> gS  :<C-u>CocList -I symbols<cr>
+        " Do default action for next item.
+        nnoremap <silent> gj  :<C-u>CocNext<CR>
+        " Do default action for previous item.
+        nnoremap <silent> gk  :<C-u>CocPrev<CR>
+        " Resume latest coc list
+        nnoremap <silent> gp  :<C-u>CocListResume<CR>
+
+        " Highlight symbol under cursor on CursorHold
+        autocmd CursorHold * silent call CocActionAsync('highlight')
+
+        function! s:show_documentation()
+          if &filetype == 'vim'
+            execute 'h '.expand('<cword>')
+          else
+            call CocAction('doHover')
+          endif
+        endfunction
+
+        " Use <c-space> for trigger completion.
+        inoremap <silent><expr> <c-space> coc#refresh()
+
         set signcolumn=yes
 
-        let g:LanguageClient_settingsPath = '~/.config/nvim/settings.json'
+        " Better display for messages
+        " set cmdheight=2
+
+        augroup coc_group
+          autocmd!
+          " Setup formatexpr specified filetype(s).
+          autocmd FileType typescript,json,javascript,javascript.jsx setl formatexpr=CocAction('formatSelected')
+          " Update signature help on jump placeholder
+          autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+        augroup end
+
+        let g:coc_snippet_next = '<TAB>'
+        let g:coc_snippet_prev = '<S-TAB>'
     endif
 
     " Setting info for snips
     let g:snips_author=g:ivim_user
     let g:snips_email=g:ivim_email
     let g:snips_github=g:ivim_github
-
-    " nvim-typescript
-    let g:nvim_typescript#javascript_support=1
-    let g:nvim_typescript#vue_support=1
-
-    function! SetupTypescriptMapping()
-      nnoremap <buffer> <silent> <c-]> :TSDef<CR>
-      nnoremap <buffer> <silent> <c-w><c-]> :TSDefPreview<CR>
-      nnoremap <buffer> <silent> K :TSDoc<CR>
-      nnoremap <buffer> <silent> <F12> :TSType<CR>
-      nnoremap <buffer> <silent> <F7> :TSRefs<CR>
-      nnoremap <buffer> <silent> gd :TSTypeDef<CR>
-      nnoremap <buffer> <silent> gR :TSRename<CR>
-      nnoremap <buffer> <silent> gi :TSImport<CR>
-      nnoremap <buffer> <silent> gs :TSGetDocSymbols<CR>
-      nnoremap <buffer> <silent> gw :TSGetWorkspaceSymbols<CR>
-      nnoremap <buffer> <Leader>gp :TSSearchFZF<Space>
-    endfunction
-
-    augroup nvim_typescript
-      autocmd!
-      autocmd BufEnter,Filetype javascript,javascript.jsx,typescript,typescript.tsx call SetupTypescriptMapping()
-    augroup END
-
-    let g:UltiSnipsExpandTrigger="<c-k>"
-    let g:UltiSnipsJumpForwardTrigger="<Tab>"
-    let g:UltiSnipsJumpBackwardTrigger="<S-Tab>"
 endif
 " }}}
 

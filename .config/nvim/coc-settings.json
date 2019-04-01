@@ -1,0 +1,13 @@
+{
+  "javascript.suggestionActions.enabled": false,
+  "python.jediEnabled": false,
+  "suggest.echodocSupport": true,
+  "list.normalMappings": {
+    "t": "action:tabe",
+    "v": "action:vsplit",
+    "s": "action:split",
+    "q": "do:exit"
+  },
+  // when snippet activated and pumvisible, prefer complete completion.
+  "suggest.preferCompleteThanJumpPlaceholder": true
+}
