@@ -8,6 +8,14 @@
     "s": "action:split",
     "q": "do:exit"
   },
+
+  // Turn on Log
+  // :CocCommand workspace.showOutput
+  // :CocCommand tsserver.openTsServerLog
+
+  /* "tsserver.trace.server": "verbose", */
+  /* "tsserver.log": "verbose", */
+
   // when snippet activated and pumvisible, prefer complete completion.
   "suggest.preferCompleteThanJumpPlaceholder": true
 }

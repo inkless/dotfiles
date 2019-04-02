@@ -899,9 +899,9 @@ if count(g:ivim_bundle_groups, 'complete')
 
     " Use <TAB> to select the popup menu:
     inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
+                \ pumvisible() ? "\<C-n>" :
+                \ <SID>check_back_space() ? "\<TAB>" :
+                \ coc#refresh()
     inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
     function! s:check_back_space() abort
@@ -958,11 +958,11 @@ if count(g:ivim_bundle_groups, 'complete')
         autocmd CursorHold * silent call CocActionAsync('highlight')
 
         function! s:show_documentation()
-          if &filetype == 'vim'
-            execute 'h '.expand('<cword>')
-          else
-            call CocAction('doHover')
-          endif
+            if &filetype == 'vim'
+                execute 'h '.expand('<cword>')
+            else
+                call CocAction('doHover')
+            endif
         endfunction
 
         " Use <c-space> for trigger completion.
@@ -974,11 +974,12 @@ if count(g:ivim_bundle_groups, 'complete')
         " set cmdheight=2
 
         augroup coc_group
-          autocmd!
-          " Setup formatexpr specified filetype(s).
-          autocmd FileType typescript,json,javascript,javascript.jsx setl formatexpr=CocAction('formatSelected')
-          " Update signature help on jump placeholder
-          autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+            autocmd!
+            " Setup formatexpr specified filetype(s).
+            autocmd FileType typescript,json,javascript,javascript.jsx setl formatexpr=CocAction('formatSelected')
+            autocmd BufNewFile,BufRead coc-settings.json,tsconfig.json setlocal filetype=jsonc
+            " Update signature help on jump placeholder
+            autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
         augroup end
 
         let g:coc_snippet_next = '<TAB>'
