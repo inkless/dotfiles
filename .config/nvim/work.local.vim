@@ -1,9 +1,18 @@
 " ali-client
 call project#rc("~/ali")
 Project     'client'
-Callback    'client'                            , ['AddAliClientPath']
+Callback    'client'                            , ['AddAliClientPath', 'NoBackUp']
 function! AddAliClientPath(tile) abort
   setlocal path+=~/ali/client
+endfunction
+
+" griffin
+call project#rc("~/griffin")
+Project     'griffin-client'
+Callback    'griffin-client'                    , ['NoBackUp']
+function! NoBackUp(tile) abort
+  setlocal nobackup
+  setlocal nowritebackup
 endfunction
 
 " local project
