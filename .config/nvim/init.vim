@@ -930,6 +930,7 @@ if count(g:ivim_bundle_groups, 'complete')
         nmap <silent> ]c <Plug>(coc-diagnostic-next)
 
         nmap <silent> <c-]> <Plug>(coc-definition)
+        nmap <silent> <c-w><c-]> :call CocAction('jumpDefinition', 'tab drop')<CR>
         nmap <silent> gy <Plug>(coc-type-definition)
         " nmap <silent> gi <Plug>(coc-implementation)
         nmap <silent> K :call <SID>show_documentation()<CR>
