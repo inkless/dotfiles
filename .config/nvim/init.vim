@@ -935,6 +935,7 @@ if count(g:ivim_bundle_groups, 'complete')
         " nmap <silent> gi <Plug>(coc-implementation)
         nmap <silent> K :call <SID>show_documentation()<CR>
         nmap <silent> <F7> <Plug>(coc-references)
+        nmap <silent> gr <Plug>(coc-references)
         nmap <silent> gR <Plug>(coc-rename)
         nmap <silent> <Leader>gf <Plug>(coc-format-selected)
         vmap <silent> <Leader>gf <Plug>(coc-format-selected)
