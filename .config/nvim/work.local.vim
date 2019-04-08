@@ -1,3 +1,8 @@
+function! NoBackUp(tile) abort
+  setlocal nobackup
+  setlocal nowritebackup
+endfunction
+
 " ali-client
 call project#rc("~/ali")
 Project     'client'
@@ -10,10 +15,11 @@ endfunction
 call project#rc("~/griffin")
 Project     'griffin-client'
 Callback    'griffin-client'                    , ['NoBackUp']
-function! NoBackUp(tile) abort
-  setlocal nobackup
-  setlocal nowritebackup
-endfunction
+
+" keevo
+call project#rc("~/keevo")
+Project     'desktop-app'
+Callback    'desktop-app'                       , ['NoBackUp']
 
 " local project
 call project#rc("~/playground")
