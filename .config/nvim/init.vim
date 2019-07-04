@@ -218,7 +218,7 @@ endif
 
 " Completion {{{
 if count(g:ivim_bundle_groups, 'complete') " Completion
-    Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
+    Plug 'neoclide/coc.nvim', {'branch': 'release'}
     Plug 'neoclide/jsonc.vim'
     Plug 'honza/vim-snippets'
 endif
@@ -381,9 +381,6 @@ if count(g:ivim_bundle_groups, 'ui')
         let g:airline_left_sep=''
         let g:airline_right_sep=''
     endif
-
-    let g:airline_section_error = '%{airline#util#wrap(airline#extensions#coc#get_error(),0)}'
-    let g:airline_section_warning = '%{airline#util#wrap(airline#extensions#coc#get_warning(),0)}'
 endif
 
 " Only have cursorline in current window and in normal window

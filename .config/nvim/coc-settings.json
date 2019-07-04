@@ -17,8 +17,8 @@
   // "tsserver.log": "verbose",
   // "tsserver.debugPort": 5859,
 
-  "solargraph.trace.server": "verbose",
-  "solargraph.logLevel": "debug",
+  // "solargraph.trace.server": "verbose",
+  // "solargraph.logLevel": "debug",
 
   // when snippet activated and pumvisible, prefer complete completion.
   "suggest.preferCompleteThanJumpPlaceholder": true
