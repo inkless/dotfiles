@@ -282,7 +282,7 @@ if count(g:ivim_bundle_groups, 'language') " Language Specificity
     Plug 'heavenshell/vim-jsdoc' " JSDoc for vim
     Plug 'greyblake/vim-preview' " vim preview
     Plug 'slashmili/alchemist.vim'
-    Plug 'sukima/vim-ember-imports'
+    " Plug 'sukima/vim-ember-imports'
     " Plug 'AndrewRadev/ember_tools.vim'
     " Plug 'davidhalter/jedi-vim', { 'for': 'python' } " Python jedi plugin
     " Plug 'tpope/vim-rails' " Rails
