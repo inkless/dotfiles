@@ -103,19 +103,19 @@ nvm() {
   nvm "$@"
 }
 
-node() {
-  unset -f node
-  export NVM_DIR=~/.nvm
-  [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
-  node "$@"
-}
-
-npm() {
-  unset -f npm
-  export NVM_DIR=~/.nvm
-  [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
-  npm "$@"
-}
+# node() {
+#   unset -f node
+#   export NVM_DIR=~/.nvm
+#   [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+#   node "$@"
+# }
+#
+# npm() {
+#   unset -f npm
+#   export NVM_DIR=~/.nvm
+#   [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+#   npm "$@"
+# }
 
 # rust
 source $HOME/.cargo/env
@@ -123,6 +123,7 @@ source $HOME/.cargo/env
 # fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export FZF_DEFAULT_COMMAND='rg --files --hidden --smartcase --glob "!.git/*"'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
 # rvm
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*

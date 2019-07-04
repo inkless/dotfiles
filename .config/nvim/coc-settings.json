@@ -13,11 +13,12 @@
   // :CocCommand workspace.showOutput
   // :CocCommand tsserver.openTsServerLog
 
-  /* "tsserver.trace.server": "verbose", */
-  /* "tsserver.log": "verbose", */
-  /* "tsserver.debugPort": 5859, */
+  // "tsserver.trace.server": "verbose",
+  // "tsserver.log": "verbose",
+  // "tsserver.debugPort": 5859,
 
-  /* "solargraph.trace.server": "verbose" */
+  "solargraph.trace.server": "verbose",
+  "solargraph.logLevel": "debug",
 
   // when snippet activated and pumvisible, prefer complete completion.
   "suggest.preferCompleteThanJumpPlaceholder": true

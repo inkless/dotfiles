@@ -31,6 +31,8 @@ call project#rc("~/projects")
 Project     'broccoli-asset-rewrite'
 Project     'froala_editor_sources_2.4.2'
 Project     'ember.js'
+Project     'cloudkitchen-app'
+Callback    'cloudkitchen-app'                      , ['NoBackUp']
 
 Project     '~/scripts'                         , 'scripts'
 Project     '~/dotfiles'                        , 'dotfiles'

@@ -273,7 +273,9 @@ if count(g:ivim_bundle_groups, 'language') " Language Specificity
     Plug 'amadeus/vim-xml'
     Plug 'posva/vim-vue'
     Plug 'stephpy/vim-yaml'
+    Plug 'pedrohdz/vim-yaml-folds'
     Plug 'joukevandermaas/vim-ember-hbs'
+    Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
 
     " Language specific enhancement/completion etc.
     Plug 'mattn/emmet-vim' " Emmet
@@ -281,7 +283,7 @@ if count(g:ivim_bundle_groups, 'language') " Language Specificity
     Plug 'greyblake/vim-preview' " vim preview
     Plug 'slashmili/alchemist.vim'
     Plug 'sukima/vim-ember-imports'
-    Plug 'AndrewRadev/ember_tools.vim'
+    " Plug 'AndrewRadev/ember_tools.vim'
     " Plug 'davidhalter/jedi-vim', { 'for': 'python' } " Python jedi plugin
     " Plug 'tpope/vim-rails' " Rails
     " Plug 'tpope/vim-bundler' " gem bundler
@@ -934,9 +936,9 @@ if count(g:ivim_bundle_groups, 'complete')
         " :CocInstall coc-html
         " :CocInstall coc-css
 
-        " Use `[c` and `]c` for navigate diagnostics
-        nmap <silent> [c <Plug>(coc-diagnostic-prev)
-        nmap <silent> ]c <Plug>(coc-diagnostic-next)
+        " Use `[d` and `]d` for navigate diagnostics
+        nmap <silent> [d <Plug>(coc-diagnostic-prev)
+        nmap <silent> ]d <Plug>(coc-diagnostic-next)
 
         nmap <silent> <c-]> <Plug>(coc-definition)
         nmap <silent> <c-w><c-]> :call CocAction('jumpDefinition', 'tab drop')<CR>
@@ -1020,6 +1022,7 @@ if count(g:ivim_bundle_groups, 'compile')
     \}
 
     let g:ale_fixers = {}
+    let g:ale_fixers['html'] = ['prettier']
     let g:ale_fixers['javascript'] = ['prettier', 'eslint']
     let g:ale_fixers['json'] = ['prettier']
     let g:ale_fixers['typescript'] = ['prettier', 'tslint']
