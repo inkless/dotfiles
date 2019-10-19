@@ -53,8 +53,8 @@ ZSH_THEME="kolo"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-# plugins=(zsh-autosuggestions git heroku)
-plugins=(git heroku)
+plugins=(zsh-autosuggestions git heroku tmuxinator)
+# plugins=(git heroku)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -71,12 +71,7 @@ fi
 export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
-export EDITOR='vim'
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
+# export EDITOR='vim'
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -93,40 +88,30 @@ export EDITOR='vim'
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-# NVM
-# export NVM_DIR="$HOME/.nvm"
-# [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" # This loads nvm
-nvm() {
-  unset -f nvm
-  export NVM_DIR=~/.nvm
-  [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
-  nvm "$@"
-}
-
-# node() {
-#   unset -f node
-#   export NVM_DIR=~/.nvm
-#   [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
-#   node "$@"
-# }
-#
-# npm() {
-#   unset -f npm
-#   export NVM_DIR=~/.nvm
-#   [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
-#   npm "$@"
-# }
+# pyenv
+eval "$(pyenv init -)"
 
 # rust
-source $HOME/.cargo/env
+# source $HOME/.cargo/env
 
 # fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-export FZF_DEFAULT_COMMAND='rg --files --hidden --smartcase --glob "!.git/*"'
+export FZF_DEFAULT_COMMAND='rg --files --hidden --smart-case --glob "!.git/*"'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-
-# rvm
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
 
 # .local
 export PATH=$HOME/.local/bin:$PATH
+export PATH="/usr/local/sbin:$PATH"
+
+### affirm specific ###
+export LIBRARY_PATH=$LIBRARY_PATH:/usr/local/opt/openssl/lib/
+export PATH=/usr/local/opt/gnu-getopt/bin:$PATH
+export PATH=$HOME/.phabricator/arcanist/bin:$PATH
+
+# e.g. activate_venv monolith
+activate_venv() {
+  source $HOME/workspace/all-the-things/deployable/$1/src/.venv/bin/activate
+}
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"

@@ -209,8 +209,11 @@ if count(g:ivim_bundle_groups, 'navigate') " Navigation
     Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' } " NERD tree
     Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': 'NERDTreeToggle' } " NERD tree git plugin
     " Plug 'junegunn/fzf' " fzf
-    " Plug '/usr/local/opt/fzf' " fzf is installed through homebrew
-    Plug '~/.fzf' " in linux I have to put fzf here, so I need a soft link in mac
+    if has('macunix')
+      Plug '/usr/local/opt/fzf' " fzf is installed through homebrew
+    else
+      Plug '~/.fzf' " in linux I have to put fzf here, so I need a soft link in mac
+    endif
     Plug 'junegunn/fzf.vim' " fzf
     Plug 'mileszs/ack.vim' " ack
 endif
@@ -1012,10 +1015,12 @@ if count(g:ivim_bundle_groups, 'compile')
     let g:ale_echo_msg_warning_str = 'W'
     let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 
+    " disable python linting, it's done in coc-python
     let g:ale_linters = {
     \   'javascript': ['eslint'],
     \   'typescript': ['tslint'],
-    \   'ruby': ['rubocop']
+    \   'ruby': ['rubocop'],
+    \   'python': ['flake8', 'pylint']
     \}
 
     let g:ale_fixers = {}

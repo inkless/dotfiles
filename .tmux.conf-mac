@@ -41,12 +41,13 @@ set -sg escape-time 0
 
 # large history
 set-option -g history-limit 10000
-set-option -g default-command "reattach-to-user-namespace -l zsh"
+# set-option -g default-command "reattach-to-user-namespace -l zsh"
 
 # colors
 # setw -g mode-bg black
 set-option -g default-terminal "screen-256color" #"xterm-256color" # "screen-256color"
 set-option -g pane-active-border-style fg=green
+set-option -sa terminal-overrides ',XXX:RGB'
 
 # utf8 support
 # set-window-option -g utf8 on
@@ -77,7 +78,7 @@ set -g terminal-overrides 'xterm*:smcup@:rmcup@'
 ############################################################################
 
 run-shell "powerline-daemon -q"
-source "/usr/local/lib/python3.7/site-packages/powerline/bindings/tmux/powerline.conf"
+source "$HOME/.pyenv/versions/3.7.3/lib/python3.7/site-packages/powerline/bindings/tmux/powerline.conf"
 # set-option -g status on
 # set-option -g status-interval 2
 # set-option -g status-utf8 on
