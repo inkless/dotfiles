@@ -1,7 +1,7 @@
 # /Users/inkless/.config/tmuxinator/keevo.yml
 
 name: keevo
-root: ~/keevo/desktop-app
+root: ~/workspace/keevo/desktop-app
 
 # Optional tmux socket
 # socket_name: foo

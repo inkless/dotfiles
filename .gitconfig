@@ -10,7 +10,8 @@
   br = "!f() { git checkout $(git for-each-ref --sort='-authordate:iso8601' --format=' %(authordate:relative)%09%(refname:short)' refs/heads | pick | cut -f2); }; f"
 [user]
   name = Guangda Zhang
-  email = zhangxiaoyu9350@gmail.com
+  email = guangda.zhang@affirm.com
+  signingkey = BB896BE71F3BEEB3
 [color]
   ui = true
 [filter "media"]

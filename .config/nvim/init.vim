@@ -259,7 +259,7 @@ if count(g:ivim_bundle_groups, 'language') " Language Specificity
     Plug 'jparise/vim-graphql'
     Plug 'pangloss/vim-javascript'
     Plug 'HerringtonDarkholme/yats.vim'
-    Plug 'mxw/vim-jsx'
+    Plug 'maxmellon/vim-jsx-pretty'
     Plug 'elzr/vim-json'
     Plug 'plasticboy/vim-markdown'
     Plug 'chr4/nginx.vim'
