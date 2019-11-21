@@ -247,44 +247,16 @@ endif
 
 " Language {{{
 if count(g:ivim_bundle_groups, 'language') " Language Specificity
-    " Plug 'sheerun/vim-polyglot' " Language Support (includes javascript and all other types)
     Plug 'editorconfig/editorconfig-vim'
-    Plug 'dart-lang/dart-vim-plugin'
-    Plug 'vim-python/python-syntax'
-    Plug 'ekalinin/Dockerfile.vim'
-    Plug 'elixir-editors/vim-elixir'
-    Plug 'vim-erlang/vim-erlang-runtime'
-    Plug 'tpope/vim-git'
-    Plug 'fatih/vim-go'
-    Plug 'jparise/vim-graphql'
-    Plug 'pangloss/vim-javascript'
-    Plug 'HerringtonDarkholme/yats.vim'
-    Plug 'maxmellon/vim-jsx-pretty'
-    Plug 'elzr/vim-json'
-    Plug 'plasticboy/vim-markdown'
-    Plug 'chr4/nginx.vim'
-    Plug 'rgrinberg/vim-ocaml'
-    Plug 'StanAngeloff/php.vim'
-    Plug 'vim-python/python-syntax'
-    Plug 'reasonml-editor/vim-reason-plus'
-    Plug 'vim-ruby/vim-ruby'
-    Plug 'rust-lang/rust.vim'
-    Plug 'cakebaker/scss-syntax.vim'
-    Plug 'tomlion/vim-solidity'
-    Plug 'keith/tmux.vim'
-    Plug 'cespare/vim-toml'
-    Plug 'amadeus/vim-xml'
-    Plug 'posva/vim-vue'
-    Plug 'stephpy/vim-yaml'
-    Plug 'pedrohdz/vim-yaml-folds'
-    Plug 'joukevandermaas/vim-ember-hbs'
-    Plug 'styled-components/vim-styled-components', { 'branch': 'main' }
+    Plug 'sheerun/vim-polyglot' " Language Support (includes javascript and all other types)
 
     " Language specific enhancement/completion etc.
+    Plug 'pedrohdz/vim-yaml-folds'
     Plug 'mattn/emmet-vim' " Emmet
     Plug 'heavenshell/vim-jsdoc' " JSDoc for vim
     Plug 'greyblake/vim-preview' " vim preview
     Plug 'slashmili/alchemist.vim'
+    Plug 'tmhedberg/SimpylFold' " python folding
     " Plug 'sukima/vim-ember-imports'
     " Plug 'AndrewRadev/ember_tools.vim'
     " Plug 'davidhalter/jedi-vim', { 'for': 'python' } " Python jedi plugin
@@ -671,6 +643,16 @@ inoremap <A-k> <Esc>:m .-2<CR>==gi
 vnoremap <A-j> :m '>+1<CR>gv=gv
 vnoremap <A-k> :m '<-2<CR>gv=gv
 
+" Add "/' to selected or word
+nnoremap <Leader>" viw<esc>a"<esc>bi"<esc>lel
+nnoremap <Leader>' viw<esc>a'<esc>bi'<esc>lel
+
+" Add ' to selected or word
+" for [left_c, right_c] in items({ '''': '''', '"': '"', '(': ')', '{': '}', '[': ']' })
+for [left_c, right_c] in items({ '(': ')', '{': '}', '[': ']' })
+    execute 'vnoremap ' . left_c . ' <esc>a' . right_c . '<esc>`<i' . left_c . '<esc>`>ll'
+endfor
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " }}}
 
@@ -793,15 +775,6 @@ if count(g:ivim_bundle_groups, 'enhance')
         echo "@".getcmdline()
         execute ":'<,'>normal @".nr2char(getchar())
     endfunction
-
-    " Add "/' to selected or word
-    nnoremap <Leader>" viw<esc>a"<esc>bi"<esc>lel
-    nnoremap <Leader>' viw<esc>a'<esc>bi'<esc>lel
-
-    " Add ' to selected or word
-    for [left_c, right_c] in items({ '''': '''', '"': '"', '(': ')', '{': '}', '[': ']' })
-        execute 'vnoremap ' . left_c . ' <esc>a' . right_c . '<esc>`<i' . left_c . '<esc>`>ll'
-    endfor
 
     let g:echodoc#enable_at_startup = 1
     let g:echodoc#type = 'signature'
@@ -1018,21 +991,27 @@ if count(g:ivim_bundle_groups, 'compile')
     " disable python linting, it's done in coc-python
     let g:ale_linters = {
     \   'javascript': ['eslint'],
+    \   'javascriptreact': ['eslint'],
     \   'typescript': ['tslint'],
     \   'ruby': ['rubocop'],
-    \   'python': ['flake8', 'pylint']
+    \   'python': ['flake8']
     \}
 
     let g:ale_fixers = {}
     let g:ale_fixers['html'] = ['prettier']
     let g:ale_fixers['javascript'] = ['prettier', 'eslint']
+    let g:ale_fixers['javascriptreact'] = ['prettier', 'eslint']
     let g:ale_fixers['json'] = ['prettier']
     let g:ale_fixers['typescript'] = ['prettier', 'tslint']
     let g:ale_fixers['elixir'] = ['mix_format']
     let g:ale_fixers['ruby'] = ['trim_whitespace', 'rubocop']
+    let g:ale_fixers['python'] = ['yapf']
 
     let g:ale_javascript_prettier_options = '--single-quote --trailing-comma es5'
     let g:ale_javascript_prettier_use_local_config = 1
+
+    nnoremap <silent> [a :ALEPrevious<CR>
+    nnoremap <silent> ]a :ALENext<CR>
 
     " Ale completion
     function! EnableAleCompletion()
@@ -1122,6 +1101,10 @@ if count(g:ivim_bundle_groups, 'language')
 
     " -> javascript.vim
     let g:javascript_plugin_jsdoc = 1
+
+    " -> SimplyFold
+    let g:SimpylFold_docstring_preview = 1
+
 
 endif
 " }}}

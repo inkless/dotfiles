@@ -108,10 +108,5 @@ export LIBRARY_PATH=$LIBRARY_PATH:/usr/local/opt/openssl/lib/
 export PATH=/usr/local/opt/gnu-getopt/bin:$PATH
 export PATH=$HOME/.phabricator/arcanist/bin:$PATH
 
-# e.g. activate_venv monolith
-activate_venv() {
-  source $HOME/workspace/all-the-things/deployable/$1/src/.venv/bin/activate
-}
-
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
