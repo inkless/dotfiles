@@ -991,7 +991,6 @@ if count(g:ivim_bundle_groups, 'compile')
     " disable python linting, it's done in coc-python
     let g:ale_linters = {
     \   'javascript': ['eslint'],
-    \   'javascriptreact': ['eslint'],
     \   'typescript': ['tslint'],
     \   'ruby': ['rubocop'],
     \   'python': ['flake8']
@@ -1000,7 +999,6 @@ if count(g:ivim_bundle_groups, 'compile')
     let g:ale_fixers = {}
     let g:ale_fixers['html'] = ['prettier']
     let g:ale_fixers['javascript'] = ['prettier', 'eslint']
-    let g:ale_fixers['javascriptreact'] = ['prettier', 'eslint']
     let g:ale_fixers['json'] = ['prettier']
     let g:ale_fixers['typescript'] = ['prettier', 'tslint']
     let g:ale_fixers['elixir'] = ['mix_format']
@@ -1050,6 +1048,7 @@ if count(g:ivim_bundle_groups, 'compile')
         autocmd FileType json setlocal formatprg=prettier\ --stdin\ --parser\ json
         autocmd FileType typescript setlocal formatprg=prettier\ --stdin\ --parser\ typescript
         autocmd BufNewFile,BufRead *.es6 setlocal filetype=javascript
+        autocmd BufNewFile,BufRead *.jsx setlocal filetype=javascript.jsx
         " prettier on save
         " autocmd BufWritePre *.js :normal gggqG
     augroup END
