@@ -167,8 +167,6 @@ if count(g:ivim_bundle_groups, 'ui') " UI setting
     Plug 'vim-airline/vim-airline' | Plug 'vim-airline/vim-airline-themes' " Status line
     Plug 'ryanoasis/vim-devicons' " Devicons
     Plug 'mhinz/vim-startify' " Start page
-    Plug 'junegunn/goyo.vim', { 'for': 'markdown' } " Distraction-free
-    Plug 'junegunn/limelight.vim', { 'for': 'markdown' } " Hyperfocus-writing
 endif
 " }}}
 
@@ -231,6 +229,8 @@ endif
 if count(g:ivim_bundle_groups, 'compile') " Compiling
     Plug 'w0rp/ale' " Async syntax checking
     " Plug 'xuhdev/SingleCompile' " Single compile
+    Plug 'JamshedVesuna/vim-markdown-preview' " markdown preview
+    Plug 'janko/vim-test' " run test
 endif
 " }}}
 
@@ -691,13 +691,6 @@ if count(g:ivim_bundle_groups, 'ui')
     let g:startify_session_autoload       = 1
     let g:startify_session_persistence    = 1
 
-    " -> Goyo & Limelight
-    augroup goyo
-        autocmd!
-        autocmd User GoyoEnter Limelight
-        autocmd User GoyoLeave Limelight!
-    augroup END
-
 endif
 " }}}
 
@@ -991,7 +984,7 @@ if count(g:ivim_bundle_groups, 'compile')
     " disable python linting, it's done in coc-python
     let g:ale_linters = {
     \   'javascript': ['eslint'],
-    \   'typescript': ['tslint'],
+    \   'typescript': ['eslint'],
     \   'ruby': ['rubocop'],
     \   'python': ['flake8']
     \}
@@ -1000,12 +993,11 @@ if count(g:ivim_bundle_groups, 'compile')
     let g:ale_fixers['html'] = ['prettier']
     let g:ale_fixers['javascript'] = ['prettier', 'eslint']
     let g:ale_fixers['json'] = ['prettier']
-    let g:ale_fixers['typescript'] = ['prettier', 'tslint']
+    let g:ale_fixers['typescript'] = ['prettier', 'eslint']
     let g:ale_fixers['elixir'] = ['mix_format']
     let g:ale_fixers['ruby'] = ['trim_whitespace', 'rubocop']
-    let g:ale_fixers['python'] = ['yapf']
+    let g:ale_fixers['python'] = ['black', 'autopep8']
 
-    let g:ale_javascript_prettier_options = '--single-quote --trailing-comma es5'
     let g:ale_javascript_prettier_use_local_config = 1
 
     nnoremap <silent> [a :ALEPrevious<CR>
@@ -1044,27 +1036,15 @@ if count(g:ivim_bundle_groups, 'compile')
 
     augroup prettier_group
         autocmd!
-        autocmd FileType javascript setlocal formatprg=prettier\ --stdin\ --parser\ babel
-        autocmd FileType json setlocal formatprg=prettier\ --stdin\ --parser\ json
-        autocmd FileType typescript setlocal formatprg=prettier\ --stdin\ --parser\ typescript
         autocmd BufNewFile,BufRead *.es6 setlocal filetype=javascript
-        autocmd BufNewFile,BufRead *.jsx setlocal filetype=javascript.jsx
+        autocmd BufNewFile,BufRead *.jsx setlocal filetype=javascript.jsx " \| setlocal formatprg=prettier\ --stdin\ --parser\ babel
+        autocmd BufNewFile,BufRead *.tsx setlocal filetype=typescript.jsx " \| setlocal formatprg=prettier\ --stdin\ --parser\ typescript
+        " autocmd FileType javascript setlocal formatprg=prettier\ --stdin\ --parser\ babel
+        " autocmd FileType json setlocal formatprg=prettier\ --stdin\ --parser\ json
+        " autocmd FileType typescript setlocal formatprg=prettier\ --stdin\ --parser\ typescript
         " prettier on save
         " autocmd BufWritePre *.js :normal gggqG
     augroup END
-
-    " -> Singlecompile
-    " Singlecompile is really slow, so comment it out for now
-    " nnoremap <Leader>r :SingleCompileRun<CR>
-    " nnoremap <Leader>B :SingleCompile<CR>
-    " let g:SingleCompile_showquickfixiferror=1
-
-    " call SingleCompile#SetCompilerTemplate('markdown', 'pandoc',
-    "             \ 'Discount Markdown Processor for Pandoc', 'pandoc',
-    "             \ '-f markdown_github $(FILE_NAME)$ >$(FILE_TITLE)$.html',
-    "             \ SingleCompile#GetDefaultOpenCommand() .
-    "             \ ' "$(FILE_TITLE)$.html"')
-    " call SingleCompile#ChooseCompiler('markdown', 'pandoc')
 
     function! LebabFunc(transform)
         execute "!lebab --transform=" . a:transform . " % -o %"
@@ -1074,6 +1054,43 @@ if count(g:ivim_bundle_groups, 'compile')
     command! Lebab :!lebab --transform='arrow,for-of,for-each,arg-rest,arg-spread,obj-method,obj-shorthand,no-strict,exponent,multi-var' % -o %
     command! LebabUnsafe :!lebab --transform='let,class,commonjs,template,default-param,destruct-param,includes' % -o %
 
+
+    " markdown preview
+    let vim_markdown_preview_hotkey='<C-m>'
+    let vim_markdown_preview_github=1
+    if has('macunix')
+        let vim_markdown_preview_browser='Google Chrome'
+    endif
+
+    " vim-test
+    " make test commands execute using dispatch.vim
+    let test#strategy = "vimux"
+    function! DebugNearestFunc()
+      let g:test#javascript#jest#executable = 'node --inspect-brk node_modules/.bin/jest'
+      TestNearest
+      unlet g:test#javascript#jest#executable
+    endfunction
+    command! DebugNearest :call DebugNearestFunc()
+
+    function! DebugFileFunc()
+      let g:test#javascript#jest#executable = 'node --inspect-brk node_modules/.bin/jest'
+      TestFile
+      unlet g:test#javascript#jest#executable
+    endfunction
+    command! DebugFile :call DebugFileFunc()
+
+    function! DebugFileWatchFunc()
+      let g:test#javascript#jest#executable = 'node --inspect-brk node_modules/.bin/jest --runInBand --no-cache --watch'
+      TestFile
+      unlet g:test#javascript#jest#executable
+    endfunction
+    command! DebugFileWatch :call DebugFileWatchFunc()
+
+    nnoremap <silent> t<C-n> :TestNearest<CR>
+    nnoremap <silent> t<C-f> :TestFile<CR>
+    nnoremap <silent> t<C-s> :TestSuite<CR>
+    nnoremap <silent> t<C-l> :TestLast<CR>
+    nnoremap <silent> t<C-d> :DebugFileWatch<CR>
 endif
 " }}}
 

@@ -53,7 +53,7 @@ ZSH_THEME="kolo"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(zsh-autosuggestions git heroku tmuxinator)
+plugins=(zsh-autosuggestions git heroku tmuxinator keevo)
 # plugins=(git heroku)
 
 source $ZSH/oh-my-zsh.sh
@@ -103,10 +103,10 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export PATH=$HOME/.local/bin:$PATH
 export PATH="/usr/local/sbin:$PATH"
 
-### affirm specific ###
-export LIBRARY_PATH=$LIBRARY_PATH:/usr/local/opt/openssl/lib/
-export PATH=/usr/local/opt/gnu-getopt/bin:$PATH
-export PATH=$HOME/.phabricator/arcanist/bin:$PATH
-
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
+
+# aliases
+if [ -f ~/.dev.rc ]; then
+    . ~/.dev.rc
+fi

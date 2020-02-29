@@ -47,7 +47,7 @@ set-option -g history-limit 10000
 # setw -g mode-bg black
 set-option -g default-terminal "screen-256color" #"xterm-256color" # "screen-256color"
 set-option -g pane-active-border-style fg=green
-set-option -sa terminal-overrides ',XXX:RGB'
+set-option -sa terminal-overrides ',xterm-256color:RGB'
 
 # utf8 support
 # set-window-option -g utf8 on

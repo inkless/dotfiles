@@ -3,61 +3,59 @@ function! NoBackUp(tile) abort
   setlocal nowritebackup
 endfunction
 
-" ali-client
-call project#rc("~/ali")
-Project     'client'
-Callback    'client'                            , ['AddAliClientPath', 'NoBackUp']
-function! AddAliClientPath(tile) abort
-  setlocal path+=~/ali/client
+function! SetPythonRunner(tile) abort
+  let g:test#python#runner = "nose"
+  let g:test#python#nose#executable = 'nosetests -s'
 endfunction
 
-" griffin
-call project#rc("~/griffin")
-Project     'griffin-client'
-Callback    'griffin-client'                    , ['NoBackUp']
+function! SetTslint(tile) abort
+  let g:ale_linters['typescript'] = ['tslint']
+  let g:ale_fixers['typescript'] = ['prettier', 'tslint']
+endfunction
+
+" ali-client
+call project#rc("~/workspace")
+Project     'all-the-things'
+Callback    'all-the-things'                    , ['SetPythonRunner']
+Project     'salt'
+
+call project#rc("~/workspace/web-ux")
+Project     'axp'
+" Callback    'axp'                               , ['NoBackUp']
+Project     'pricing'
+" Callback    'pricing'                           , ['NoBackUp']
 
 " keevo
-call project#rc("~/keevo")
+call project#rc("~/workspace/keevo")
 Project     'desktop-app'
-Callback    'desktop-app'                       , ['NoBackUp']
+Callback    'desktop-app'                       , ['NoBackUp', 'SetTslint']
 
-" local project
-call project#rc("~/playground")
-Project     'npm_test'
-Project     'ember-app'
+Project     'keevo-cli'
+Callback    'keevo-cli'                         , ['NoBackUp']
 
-" Some github projects
-call project#rc("~/projects")
-Project     'broccoli-asset-rewrite'
-Project     'froala_editor_sources_2.4.2'
-Project     'ember.js'
-Project     'cloudkitchen-app'
-Callback    'cloudkitchen-app'                      , ['NoBackUp']
+Project     'u2f-host-node'
+Callback    'u2f-host-node'                     , ['NoBackUp']
 
-Project     '~/scripts'                         , 'scripts'
+" others
+call project#rc("~/workspace")
+Project     'react-starter-kit'
+Callback    'react-starter-kit'                 , ['NoBackUp']
+
 Project     '~/dotfiles'                        , 'dotfiles'
-Project     '~/ivim'                            , 'ivim'
-
-Project     '~/dev-getting-started'             , 'dev-getting-started'
-Project     '~/clientbox'                       , 'clientbox'
 
 " we are not using vim-project's welcome page
 " so we have to define in Startify again
 let g:startify_bookmarks=[
-\'~/ali',
-\'~/ali/client',
-\'~/clientbox',
-\'~/dev-getting-started',
+\'~/workspace/all-the-things',
+\'~/workspace/web-ux/axp',
+\'~/workspace/keevo/desktop-app',
+\'~/workspace/keevo/keevo-cli',
+\'~/workspace/keevo/u2f-host-node',
+\'~/workspace/react-starter-kit',
 \'~/dotfiles',
-\'~/scripts',
-\'~/playground/ember-app',
-\'~/playground/npm_test',
-\'~/projects/ember.js',
-\'~/projects/froala_editor_sources_2.4.2',
-\'~/projects/broccoli-asset-rewrite',
 \]
 
-augroup ali_abbrev
-  autocmd!
-  autocmd FileType gitcommit inoreabbrev <buffer> jira: https://prosperworks.atlassian.net/browse/ALI-
-augroup END
+" augroup ali_abbrev
+"   autocmd!
+"   autocmd FileType gitcommit inoreabbrev <buffer> jira: https://prosperworks.atlassian.net/browse/ALI-
+" augroup END

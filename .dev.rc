@@ -1,0 +1,107 @@
+### affirm specific ###
+export LIBRARY_PATH=$LIBRARY_PATH:/usr/local/opt/openssl/lib/
+export PATH=/usr/local/opt/gnu-getopt/bin:$PATH
+export PATH=$HOME/.phabricator/arcanist/bin:$PATH
+export PATH=$HOME/bin:$PATH
+
+export ATT_ROOT="$HOME/workspace/all-the-things"
+
+# node version manager
+export PATH="/usr/local/opt/node@12/bin:$PATH"
+eval "$(nodenv init -)"
+
+
+# e.g.
+# activate_venv meta
+# activate_venv data-platform
+activate_venv() {
+  local target=$1
+  local venv='.venv3'
+  if [ "$target" = 'monolith' ]; then
+    venv='.venv'
+  fi
+
+  # shellcheck source=workspace/all-the-things/deployable/monolith/src/.venv/bin/activate
+  source "$HOME/workspace/all-the-things/deployable/$target/src/$venv/bin/activate"
+}
+
+affirm_mypy() {
+  local folder=$1
+  local version=$2
+
+  if [ -z "$version" ]; then
+    version=3.7
+  fi
+  cd "$HOME/workspace/all-the-things" || exit
+  echo -e "./build-tools/buildkite/bin/python/mypy.sh $version $folder"
+  ./build-tools/buildkite/bin/python/mypy.sh "$version" "$folder"
+}
+
+function affirm_aws_dev() {
+    export AWS_PROFILE=affirm-dev
+    aws sts get-caller-identity &> /dev/null
+    if [[ $? -ne 0 ]]; then
+        affirm.onelogin --aws-account dev
+    fi
+}
+
+function affirm_aws_stage() {
+    export AWS_PROFILE=affirm-stage
+    aws sts get-caller-identity &> /dev/null
+    if [[ $? -ne 0 ]]; then
+        affirm.onelogin --aws-account stage
+    fi
+}
+
+function affirm_aws_prod() {
+  export AWS_PROFILE=affirm-prod
+  aws sts get-caller-identity &> /dev/null
+  if [[ $? -ne 0 ]]; then
+      affirm.onelogin --aws-account prod
+  fi
+}
+
+function copy_my_axp_metrics_to_odin() {
+   affirm_aws_dev
+   if [ $# -eq 0 ]; then
+      echo "Please provide ODIN's Identifier - att-ixxx.odin.aff"
+   else
+      aws s3 cp . s3://affirm-odin/$1/axp/v1/metrics --recursive
+   fi
+}
+
+
+function copy_prod_axp_metrics_to_odin() {
+   affirm_aws_dev
+   affirm_aws_prod
+   if [ $# -eq 0 ]; then
+      echo "Please provide ODIN's Identifier - att-ixxx.odin.aff"
+   else
+      affirm_aws_prod
+      aws s3 cp s3://affirm-prod-redshift/axp/v1/metrics/history/recent ./.tmp_tempest --recursive
+      affirm_aws_dev
+      aws s3 cp ./.tmp_tempest s3://affirm-odin/$1/axp/v1/metrics --recursive
+      rm -rf ./.tmp_tempest
+   fi
+}
+
+function aws_s3_copy_odin() {
+  local odin=$1
+  local exp_uuid=$2
+  local from=fixtures/.tmp/recent/metrics_data.json
+  local to="s3://affirm-odin/$odin/axp/v1/metrics/$exp_uuid/metrics_data.json"
+
+  aws s3 cp $from $to
+}
+
+# FE
+function febuild() {
+  local params="--target=att-i-some.odin.aff,some.affirm-odin.com --hash= ".$@
+  echo "node bin.js build $params"
+  node bin.js build $params
+}
+
+# flutter
+alias nexus5x='$HOME/Library/Android/sdk/tools/emulator @Nexus_5X_API_27'
+
+# vim: ft=sh
