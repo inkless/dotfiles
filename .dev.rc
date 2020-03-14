@@ -38,11 +38,17 @@ affirm_mypy() {
 }
 
 function affirm_aws_dev() {
-    export AWS_PROFILE=affirm-dev
-    aws sts get-caller-identity &> /dev/null
-    if [[ $? -ne 0 ]]; then
-        affirm.onelogin --aws-account dev
-    fi
+  grep -q affirm-dev $HOME/.aws/credentials
+  if [[ $? -eq 1 ]]; then
+      affirm.onelogin --aws-account dev
+      export AWS_PROFILE=affirm-dev
+  else
+      export AWS_PROFILE=affirm-dev
+      aws sts get-caller-identity &> /dev/null
+      if [[ $? -ne 0 ]]; then
+          affirm.onelogin --aws-account dev
+      fi
+  fi
 }
 
 function affirm_aws_stage() {
@@ -54,10 +60,16 @@ function affirm_aws_stage() {
 }
 
 function affirm_aws_prod() {
-  export AWS_PROFILE=affirm-prod
-  aws sts get-caller-identity &> /dev/null
-  if [[ $? -ne 0 ]]; then
+  grep -q affirm-prod $HOME/.aws/credentials
+  if [[ $? -eq 1 ]]; then
       affirm.onelogin --aws-account prod
+      export AWS_PROFILE=affirm-prod
+  else
+      export AWS_PROFILE=affirm-prod
+      aws sts get-caller-identity &> /dev/null
+      if [[ $? -ne 0 ]]; then
+          affirm.onelogin --aws-account prod
+      fi
   fi
 }
 
@@ -88,9 +100,10 @@ function copy_prod_axp_metrics_to_odin() {
 function aws_s3_copy_odin() {
   local odin=$1
   local exp_uuid=$2
-  local from=fixtures/.tmp/recent/metrics_data.json
+  local from=${3:-"fixtures/.tmp/recent/metrics_data.json"}
   local to="s3://affirm-odin/$odin/axp/v1/metrics/$exp_uuid/metrics_data.json"
 
+  echo "aws s3 cp $from $to"
   aws s3 cp $from $to
 }
 
