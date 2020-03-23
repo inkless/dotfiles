@@ -984,7 +984,9 @@ if count(g:ivim_bundle_groups, 'compile')
     " disable python linting, it's done in coc-python
     let g:ale_linters = {
     \   'javascript': ['eslint'],
+    \   'javascriptreact': ['eslint'],
     \   'typescript': ['eslint'],
+    \   'typescriptreact': ['eslint'],
     \   'ruby': ['rubocop'],
     \   'python': ['flake8']
     \}
@@ -992,8 +994,10 @@ if count(g:ivim_bundle_groups, 'compile')
     let g:ale_fixers = {}
     let g:ale_fixers['html'] = ['prettier']
     let g:ale_fixers['javascript'] = ['prettier', 'eslint']
+    let g:ale_fixers['javascriptreact'] = ['prettier', 'eslint']
     let g:ale_fixers['json'] = ['prettier']
     let g:ale_fixers['typescript'] = ['prettier', 'eslint']
+    let g:ale_fixers['typescriptreact'] = ['prettier', 'eslint']
     let g:ale_fixers['elixir'] = ['mix_format']
     let g:ale_fixers['ruby'] = ['trim_whitespace', 'rubocop']
     let g:ale_fixers['python'] = ['black', 'autopep8']
@@ -1037,8 +1041,8 @@ if count(g:ivim_bundle_groups, 'compile')
     augroup prettier_group
         autocmd!
         autocmd BufNewFile,BufRead *.es6 setlocal filetype=javascript
-        autocmd BufNewFile,BufRead *.jsx setlocal filetype=javascript.jsx " \| setlocal formatprg=prettier\ --stdin\ --parser\ babel
-        autocmd BufNewFile,BufRead *.tsx setlocal filetype=typescript.jsx " \| setlocal formatprg=prettier\ --stdin\ --parser\ typescript
+        " autocmd BufNewFile,BufRead *.jsx setlocal filetype=javascript.jsx " \| setlocal formatprg=prettier\ --stdin\ --parser\ babel
+        " autocmd BufNewFile,BufRead *.tsx setlocal filetype=typescript.jsx " \| setlocal formatprg=prettier\ --stdin\ --parser\ typescript
         " autocmd FileType javascript setlocal formatprg=prettier\ --stdin\ --parser\ babel
         " autocmd FileType json setlocal formatprg=prettier\ --stdin\ --parser\ json
         " autocmd FileType typescript setlocal formatprg=prettier\ --stdin\ --parser\ typescript
