@@ -28,7 +28,7 @@ Project     'pricing'
 " keevo
 call project#rc("~/workspace/keevo")
 Project     'desktop-app'
-Callback    'desktop-app'                       , ['NoBackUp', 'SetTslint']
+Callback    'desktop-app'                       , ['NoBackUp']
 
 Project     'keevo-cli'
 Callback    'keevo-cli'                         , ['NoBackUp']
