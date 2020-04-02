@@ -995,11 +995,11 @@ if count(g:ivim_bundle_groups, 'compile')
 
     let g:ale_fixers = {}
     let g:ale_fixers['html'] = ['prettier']
-    let g:ale_fixers['javascript'] = ['prettier', 'eslint']
-    let g:ale_fixers['javascriptreact'] = ['prettier', 'eslint']
+    let g:ale_fixers['javascript'] = ['eslint']
+    let g:ale_fixers['javascriptreact'] = ['eslint']
     let g:ale_fixers['json'] = ['prettier']
-    let g:ale_fixers['typescript'] = ['prettier', 'eslint']
-    let g:ale_fixers['typescriptreact'] = ['prettier', 'eslint']
+    let g:ale_fixers['typescript'] = ['eslint']
+    let g:ale_fixers['typescriptreact'] = ['eslint']
     let g:ale_fixers['elixir'] = ['mix_format']
     let g:ale_fixers['ruby'] = ['trim_whitespace', 'rubocop']
     let g:ale_fixers['python'] = ['black', 'autopep8']
@@ -1013,7 +1013,7 @@ if count(g:ivim_bundle_groups, 'compile')
     function! EnableAleCompletion()
         let g:ale_sign_column_always = 1
         let g:ale_linters['javascript'] = ['eslint', 'tsserver']
-        let g:ale_linters['typescript'] = ['tslint', 'tsserver']
+        let g:ale_linters['typescript'] = ['eslint', 'tsserver']
         let g:ale_linters['ruby'] = ['rubocop', 'solargraph']
     endfunction
 
