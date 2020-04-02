@@ -920,6 +920,8 @@ if count(g:ivim_bundle_groups, 'complete')
         " Using CocList
         nnoremap <silent> <Leader>c :<C-u>CocList<cr>
         nnoremap <silent> <Leader>cc :<C-u>CocList commands<cr>
+        nnoremap <silent> <Leader>ca <Plug>(coc-codeaction)
+
         " Show all diagnostics
         nnoremap <silent> ga  :<C-u>CocList diagnostics<CR>
         " Find symbol of current document
@@ -1090,11 +1092,19 @@ if count(g:ivim_bundle_groups, 'compile')
     endfunction
     command! DebugFileWatch :call DebugFileWatchFunc()
 
+    function! TestFileWatchFunc()
+      let g:test#javascript#jest#executable = 'node node_modules/.bin/jest --watch'
+      TestFile
+      unlet g:test#javascript#jest#executable
+    endfunction
+    command! TestFileWatch :call TestFileWatchFunc()
+
     nnoremap <silent> t<C-n> :TestNearest<CR>
     nnoremap <silent> t<C-f> :TestFile<CR>
     nnoremap <silent> t<C-s> :TestSuite<CR>
     nnoremap <silent> t<C-l> :TestLast<CR>
     nnoremap <silent> t<C-d> :DebugFileWatch<CR>
+    nnoremap <silent> t<C-w> :TestFileWatch<CR>
 endif
 " }}}
 
