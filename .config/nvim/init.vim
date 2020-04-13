@@ -653,6 +653,8 @@ for [left_c, right_c] in items({ '(': ')', '{': '}', '[': ']' })
     execute 'vnoremap ' . left_c . ' <esc>a' . right_c . '<esc>`<i' . left_c . '<esc>`>ll'
 endfor
 
+nnoremap  <Leader>e :e!<CR>
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " }}}
 
@@ -1093,7 +1095,7 @@ if count(g:ivim_bundle_groups, 'compile')
     command! DebugFileWatch :call DebugFileWatchFunc()
 
     function! TestFileWatchFunc()
-      let g:test#javascript#jest#executable = 'node node_modules/.bin/jest --watch'
+      let g:test#javascript#jest#executable = 'node node_modules/.bin/jest --runInBand --watch'
       TestFile
       unlet g:test#javascript#jest#executable
     endfunction

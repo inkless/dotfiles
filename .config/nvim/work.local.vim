@@ -1,3 +1,5 @@
+let g:ale_linters['markdown'] = ['markdownlint']
+
 function! NoBackUp(tile) abort
   setlocal nobackup
   setlocal nowritebackup
