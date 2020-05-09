@@ -45,7 +45,7 @@ echo "install homebrew..."
 echo "install homebrew packages..."
 brew install ncdu htop tree
 brew install nodenv pyenv
-brew install fzf tmux neovim diff-so-fancy
+brew install fzf tmux neovim diff-so-fancy tmuxinator
 
 echo "install node@12, path is already updated in .zshrc"
 brew install node@12
