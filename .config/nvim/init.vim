@@ -979,6 +979,7 @@ endif
 " Setting for compiling plugins {{{
 if count(g:ivim_bundle_groups, 'compile')
     " -> Ale
+    let g:ale_fix_on_save = 1
     let g:ale_sign_error = '✗'
     let g:ale_sign_warning = '∆'
     let g:ale_echo_msg_error_str = 'E'
@@ -992,7 +993,7 @@ if count(g:ivim_bundle_groups, 'compile')
     \   'typescript': ['eslint'],
     \   'typescriptreact': ['eslint'],
     \   'ruby': ['rubocop'],
-    \   'python': ['flake8']
+    \   'python': ['flake8', 'mypy']
     \}
 
     let g:ale_fixers = {}
