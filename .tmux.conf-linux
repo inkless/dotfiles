@@ -18,6 +18,7 @@ bind-key -T copy-mode-vi v send-keys -X begin-selection
 bind-key -T copy-mode-vi V send-keys -X rectangle-toggle
 bind-key -T copy-mode-vi y send-keys -X copy-selection
 bind-key -T copy-mode-vi y send-keys -X copy-pipe-and-cancel "xclip -i -selection clipboard"
+bind-key -T copy-mode-vi MouseDragEnd1Pane send-keys -X copy-pipe-and-cancel "xclip -selection clipboard -i"
 
 # Copy to mac in vim
 # :w !reattach-to-user-namespace pbcopy
@@ -38,6 +39,7 @@ bind-key -T copy-mode-vi y send-keys -X copy-pipe-and-cancel "xclip -i -selectio
 # Global options
 ############################################################################
 set -sg escape-time 0
+set -g set-clipboard on
 
 # large history
 set-option -g history-limit 10000
@@ -46,7 +48,7 @@ set-option -g history-limit 10000
 # colors
 # setw -g mode-bg black
 set-option -g default-terminal "screen-256color" #"xterm-256color" # "screen-256color"
-set-option -g pane-active-border-fg green
+# set-option -g pane-active-border-fg green
 
 # utf8 support
 # set-window-option -g utf8 on
@@ -226,9 +228,7 @@ bind-key -n C-h if-shell "$is_vim" "send-keys C-h"  "select-pane -L"
 bind-key -n C-j if-shell "$is_vim" "send-keys C-j"  "select-pane -D"
 bind-key -n C-k if-shell "$is_vim" "send-keys C-k"  "select-pane -U"
 bind-key -n C-l if-shell "$is_vim" "send-keys C-l"  "select-pane -R"
-bind-key -n C-\ if-shell "$is_vim" "send-keys C-\\" "select-pane -l"
 bind-key -T copy-mode-vi C-h select-pane -L
 bind-key -T copy-mode-vi C-j select-pane -D
 bind-key -T copy-mode-vi C-k select-pane -U
 bind-key -T copy-mode-vi C-l select-pane -R
-bind-key -T copy-mode-vi C-\ select-pane -l

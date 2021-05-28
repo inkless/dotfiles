@@ -22,6 +22,7 @@
   // "solargraph.logLevel": "debug",
   "python.linting.mypyEnabled": true,
   "python.linting.mypyPath": "~/.pyenv/shims/mypy",
+  "snippets.ultisnips.enable": false,
 
   // when snippet activated and pumvisible, prefer complete completion.
   "suggest.preferCompleteThanJumpPlaceholder": true
