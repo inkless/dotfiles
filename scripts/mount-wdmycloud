@@ -1,0 +1,8 @@
+#!/bin/bash
+
+share=$1
+if [ -z "$share" ]; then
+  echo "\$share is not specified"
+  exit 1
+fi
+sudo mount -t cifs -o uid=inkless,gid=inkless,credentials=/home/inkless/.smbcredentials //wdmycloud.local/$share /mnt/wdmycloud/$share

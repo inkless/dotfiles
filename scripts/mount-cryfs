@@ -1,0 +1,8 @@
+#!/bin/bash
+if ! mountpoint -q -- "/mnt/wdmycloud/inkless"; then
+  echo "Mounting wdmycloud inkless"
+  $HOME/bin/mount-wdmycloud inkless
+fi
+
+cd $HOME
+cryfs /mnt/wdmycloud/inkless/encrypted encrypted
