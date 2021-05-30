@@ -5,4 +5,13 @@ if [ -z "$share" ]; then
   echo "\$share is not specified"
   exit 1
 fi
-sudo mount -t cifs -o uid=inkless,gid=inkless,credentials=/home/inkless/.smbcredentials //wdmycloud.local/$share /mnt/wdmycloud/$share
+
+if mountpoint -q -- "/mnt/wdmycloud/$share"
+then
+  echo "wdmycloud/$share is already mounted"
+  exit 0
+fi
+
+sudo mount -t cifs -o \
+  uid=inkless,gid=inkless,credentials=/home/inkless/.smbcredentials \
+  //wdmycloud.local/$share /mnt/wdmycloud/$share
