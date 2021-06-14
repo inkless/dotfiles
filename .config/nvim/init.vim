@@ -230,7 +230,7 @@ if count(g:ivim_bundle_groups, 'compile') " Compiling
     Plug 'w0rp/ale' " Async syntax checking
     " Plug 'xuhdev/SingleCompile' " Single compile
     Plug 'JamshedVesuna/vim-markdown-preview' " markdown preview
-    Plug 'janko/vim-test' " run test
+    Plug 'inkless/vim-test' " run test
 endif
 " }}}
 
