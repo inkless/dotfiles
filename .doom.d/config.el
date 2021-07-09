@@ -177,6 +177,13 @@
               js2-mode-hook
               python-mode-hook) +format-with-lsp nil)
 
+;; use eslint_d instead of eslint: https://www.npmjs.com/package/eslint_d
+(setq flycheck-javascript-eslint-executable "eslint_d")
+
+(add-hook! '(typescript-mode-hook
+             typescript-tsx-mode-hook
+             js2-mode-hook) #'eslintd-fix-mode)
+
 (setq mac-right-option-modifier 'meta
       ns-right-option-modifier  'meta)
 

@@ -16,3 +16,6 @@ alias more='LESSOPEN= LESS= \less'
 alias google-chrome='/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome'
 
 alias shome='ssh inkless@`curl -u inkless:homeip@123 https://www.zhangguangda.com/home_ip/thinkpad-p50` -p 58422'
+
+alias emc="emacsclient -nc"
+alias em="emacsclient -n"

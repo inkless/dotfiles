@@ -52,3 +52,4 @@
 (package! org-bullets)
 (package! pocket-reader)
 (package! mac-pseudo-daemon)
+(package! eslintd-fix)
