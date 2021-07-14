@@ -53,3 +53,4 @@
 (package! pocket-reader)
 (package! mac-pseudo-daemon)
 (package! eslintd-fix)
+(package! jest :recipe (:host github :repo "inkless/emacs-jest"))
