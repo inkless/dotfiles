@@ -1,0 +1,130 @@
+# mbsyncrc based on
+# http://www.ict4g.net/adolfo/notes/2014/12/27/EmacsIMAP.html
+# ACCOUNT INFORMATION
+IMAPAccount guangda.me
+# Address to connect to
+Host mail.privateemail.com
+Port 993
+User g@guangda.me
+PassCmd "gpg2 -q --for-your-eyes-only --no-tty -d ~/.mbsyncpass/guangda-me.gpg"
+AuthMechs LOGIN
+SSLType IMAPS
+SSLVersions TLSv1.2
+
+# THEN WE SPECIFY THE LOCAL AND REMOTE STORAGE
+# - THE REMOTE STORAGE IS WHERE WE GET THE MAIL FROM (E.G., THE
+#   SPECIFICATION OF AN IMAP ACCOUNT)
+# - THE LOCAL STORAGE IS WHERE WE STORE THE EMAIL ON OUR COMPUTER
+
+# REMOTE STORAGE (USE THE IMAP ACCOUNT SPECIFIED ABOVE)
+IMAPStore guangda-me-remote
+Account guangda.me
+
+# LOCAL STORAGE (CREATE DIRECTORIES with mkdir -p ~/.mail/guangda.me)
+MaildirStore guangda-me-local
+Path ~/.mail/guangda.me/
+Inbox ~/.mail/guangda.me/INBOX
+# REQUIRED ONLY IF YOU WANT TO DOWNLOAD ALL SUBFOLDERS; SYNCING SLOWS DOWN
+SubFolders Verbatim
+
+# CONNECTIONS SPECIFY LINKS BETWEEN REMOTE AND LOCAL FOLDERS
+#
+# CONNECTIONS ARE SPECIFIED USING PATTERNS, WHICH MATCH REMOTE MAIl
+# FOLDERS. SOME COMMONLY USED PATTERS INCLUDE:
+#
+# 1 "*" TO MATCH EVERYTHING
+# 2 "!DIR" TO EXCLUDE "DIR"
+# 3 "DIR" TO MATCH DIR
+
+Channel guangda.me
+Far :guangda-me-remote:
+Near :guangda-me-local:
+Patterns *
+Create Both
+Expunge Both
+SyncState *
+
+# ================================================================================
+
+
+# ACCOUNT INFORMATION
+IMAPAccount zhangxiaoyu9350-gmail
+# Address to connect to
+Host imap.gmail.com
+User zhangxiaoyu9350@gmail.com
+PassCmd "gpg2 -q --for-your-eyes-only --no-tty -d ~/.mbsyncpass/zhangxiaoyu9350-gmail.gpg"
+AuthMechs LOGIN
+SSLType IMAPS
+SSLVersions TLSv1.2
+
+# THEN WE SPECIFY THE LOCAL AND REMOTE STORAGE
+# - THE REMOTE STORAGE IS WHERE WE GET THE MAIL FROM (E.G., THE
+#   SPECIFICATION OF AN IMAP ACCOUNT)
+# - THE LOCAL STORAGE IS WHERE WE STORE THE EMAIL ON OUR COMPUTER
+
+# REMOTE STORAGE (USE THE IMAP ACCOUNT SPECIFIED ABOVE)
+IMAPStore zhangxiaoyu9350-gmail-remote
+Account zhangxiaoyu9350-gmail
+
+# LOCAL STORAGE (CREATE DIRECTORIES with mkdir -p ~/.mail/zhangxiaoyu9350-gmail)
+MaildirStore zhangxiaoyu9350-gmail-local
+Path ~/.mail/zhangxiaoyu9350-gmail/
+Inbox ~/.mail/zhangxiaoyu9350-gmail/INBOX
+
+# CONNECTIONS SPECIFY LINKS BETWEEN REMOTE AND LOCAL FOLDERS
+#
+# CONNECTIONS ARE SPECIFIED USING PATTERNS, WHICH MATCH REMOTE MAIl
+# FOLDERS. SOME COMMONLY USED PATTERS INCLUDE:
+#
+# 1 "*" TO MATCH EVERYTHING
+# 2 "!DIR" TO EXCLUDE "DIR"
+# 3 "DIR" TO MATCH DIR
+
+Channel zhangxiaoyu9350-gmail-inbox
+Far :zhangxiaoyu9350-gmail-remote:
+Near :zhangxiaoyu9350-gmail-local:
+Patterns "INBOX"
+Create Both
+Expunge Both
+SyncState *
+
+Channel zhangxiaoyu9350-gmail-trash
+Far :zhangxiaoyu9350-gmail-remote:"[Gmail]/Trash"
+Near :zhangxiaoyu9350-gmail-local:"[zhangxiaoyu9350].Trash"
+Create Both
+Expunge Both
+SyncState *
+
+Channel zhangxiaoyu9350-gmail-sent
+Far :zhangxiaoyu9350-gmail-remote:"[Gmail]/Sent Mail"
+Near :zhangxiaoyu9350-gmail-local:"[zhangxiaoyu9350].Sent Mail"
+Create Both
+Expunge Both
+SyncState *
+
+Channel zhangxiaoyu9350-gmail-all
+Far :zhangxiaoyu9350-gmail-remote:"[Gmail]/All Mail"
+Near :zhangxiaoyu9350-gmail-local:"[zhangxiaoyu9350].All Mail"
+Create Both
+Expunge Both
+SyncState *
+
+# Channel zhangxiaoyu9350-gmail-starred
+# Far :zhangxiaoyu9350-gmail-remote:"[Gmail]/Starred"
+# Near :zhangxiaoyu9350-gmail-local:"[zhangxiaoyu9350].Starred"
+# Create Both
+# Expunge Both
+# SyncState *
+
+# GROUPS PUT TOGETHER CHANNELS, SO THAT WE CAN INVOKE
+# MBSYNC ON A GROUP TO SYNC ALL CHANNELS
+#
+# FOR INSTANCE: "mbsync gmail" GETS MAIL FROM
+# "gmail-inbox", "gmail-sent", and "gmail-trash"
+#
+Group zhangxiaoyu9350-gmail
+Channel zhangxiaoyu9350-gmail-inbox
+Channel zhangxiaoyu9350-gmail-sent
+Channel zhangxiaoyu9350-gmail-trash
+Channel zhangxiaoyu9350-gmail-all
+# Channel zhangxiaoyu9350-gmail-starred

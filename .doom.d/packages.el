@@ -54,3 +54,4 @@
 (package! mac-pseudo-daemon)
 (package! eslintd-fix)
 (package! jest :recipe (:host github :repo "inkless/emacs-jest"))
+(package! org-kanban)
