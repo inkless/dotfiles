@@ -287,6 +287,7 @@ Guangda Zhang
 
 (after! mu4e
   (setq mu4e-update-interval 180
+        mu4e-attachment-dir "~/Downloads"
         mu4e-bookmarks gz/mu4e-bookmarks)
   ;; Seems mbsync cannot sync tags properly
   ;; (add-to-list 'mu4e-marks '(tag
