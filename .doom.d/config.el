@@ -103,6 +103,9 @@
   (define-key global-map            (kbd "C-c a") 'org-agenda)
   (define-key global-map            (kbd "C-c c") 'org-capture))
 
+(after! deft
+  (setq deft-directory org-directory))
+
 ;; org roam
 ;; (use-package! org-roam
 ;;   :init
