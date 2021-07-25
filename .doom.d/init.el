@@ -15,7 +15,7 @@
 ;;      directory (for easy access to its source code).
 
 (doom! :input
-       ;;chinese
+       (:if IS-LINUX chinese)  ; ubuntu does not support chinese
        ;;japanese
        ;;layout            ; auie,ctsrnm is the superior home row
 
