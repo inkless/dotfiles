@@ -148,7 +148,7 @@
        ;;nix               ; I hereby declare "nix geht mehr!"
        ;;ocaml             ; an objective camel
        (org +present
-            +roam
+            +roam2
             +dragndrop
             +hugo)               ; organize your plain life in plain text
        ;;php               ; perl's insecure younger brother
