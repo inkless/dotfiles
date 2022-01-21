@@ -850,7 +850,7 @@ if count(g:ivim_bundle_groups, 'navigate')
         nnoremap <Leader>/ :Ack!<Space>
         nnoremap <Leader>rg :Rg<CR>
         nnoremap <Leader>b :Buffers<CR>
-        nnoremap <Leader>` :buffer<Space>previous<CR>
+        nnoremap <Leader>` <C-^>
 
         nnoremap S :Ack! -F "<C-R><C-W>"<CR>
 
