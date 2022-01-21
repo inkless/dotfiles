@@ -73,7 +73,7 @@ set guicursor=
 set nocompatible " Get out of vi compatible mode
 
 filetype plugin indent on " Enable filetype
-let mapleader=',' " Change the mapleader
+let mapleader=' ' " Change the mapleader
 let maplocalleader='\' " Change the maplocalleader
 set timeoutlen=500 " Time to wait for a command
 
@@ -510,7 +510,7 @@ vnoremap * :<C-U>call <SID>VSetSearch()<CR>//<CR>
 vnoremap # :<C-U>call <SID>VSetSearch()<CR>??<CR>
 
 " Use ,Space to toggle the highlight search
-nnoremap <Leader><Space> :set hlsearch!<CR>
+nnoremap <Leader>hl :set hlsearch!<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " }}}
@@ -524,8 +524,8 @@ set foldlevelstart=0 " Start with all folds closed
 set foldcolumn=1 " Set fold column
 
 " Space to toggle and create folds.
-nnoremap <silent> <Space> @=(foldlevel('.') ? 'za' : '\<Space>')<CR>
-vnoremap <Space> zf
+nnoremap <silent> <Tab> @=(foldlevel('.') ? 'za' : '\<Tab>')<CR>
+vnoremap <Tab> zf
 
 function! MyFoldText()
   let line = getline(v:foldstart)
@@ -817,6 +817,10 @@ if count(g:ivim_bundle_groups, 'navigate')
     " -> NERD Tree
     nnoremap <Leader>d :NERDTreeToggle<CR>
     nnoremap <Leader>f :NERDTreeFind<CR>
+    " emacs binding
+    nnoremap <Leader>op :NERDTreeToggle<CR>
+    nnoremap <Leader>oP :NERDTreeFind<CR>
+
     let NERDTreeChDirMode=2
     let NERDTreeShowBookmarks=1
     let NERDTreeShowHidden=1
@@ -843,13 +847,16 @@ if count(g:ivim_bundle_groups, 'navigate')
 
         cnoreabbrev Ack Ack!
         nnoremap <Leader>a :Ack!<Space>
+        nnoremap <Leader>/ :Ack!<Space>
         nnoremap <Leader>rg :Rg<CR>
         nnoremap <Leader>b :Buffers<CR>
+        nnoremap <Leader>` :buffer<Space>previous<CR>
 
         nnoremap S :Ack! -F "<C-R><C-W>"<CR>
 
         " Search file Ctrl-P
         nnoremap <c-p> :Files<CR>
+        nnoremap <Leader><Space> :Files<CR>
         " Recent files
         nnoremap <c-e> :History<CR>
     endif
