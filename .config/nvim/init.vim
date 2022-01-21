@@ -428,7 +428,7 @@ set mouse=a
 syntax on " Enable syntax
 set synmaxcol=300
 set lazyredraw
-set background=dark " Set background
+set background=light " Set background
 set t_Co=256 " Use 256 colors
 
 " Load a colorscheme
@@ -909,12 +909,13 @@ if count(g:ivim_bundle_groups, 'complete')
         nmap <silent> ]d <Plug>(coc-diagnostic-next)
 
         nmap <silent> <c-]> <Plug>(coc-definition)
+        nmap <silent> gd <Plug>(coc-definition)
         nmap <silent> <c-w><c-]> :call CocAction('jumpDefinition', 'tab drop')<CR>
         nmap <silent> gy <Plug>(coc-type-definition)
         " nmap <silent> gi <Plug>(coc-implementation)
         nmap <silent> K :call <SID>show_documentation()<CR>
         nmap <silent> <F7> <Plug>(coc-references)
-        nmap <silent> gr <Plug>(coc-references)
+        nmap <silent> gD <Plug>(coc-references)
         nmap <silent> gR <Plug>(coc-rename)
         nmap <silent> <Leader>gf <Plug>(coc-format-selected)
         vmap <silent> <Leader>gf <Plug>(coc-format-selected)

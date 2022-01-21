@@ -86,13 +86,13 @@
                                                  (org-agenda-start-day "-1d")
                                                  (org-deadline-warning-days 7)))
                                         (todo "NEXT"
-                                              ((org-agenda-prefix-format "  %i %-12:c [%e] ")
+                                              ((org-agenda-prefix-format "  %i %-12:c ")
                                                (org-agenda-sorting-strategy '(priority-down))
                                                (org-agenda-overriding-header "\nReady to pick up\n")))
                                         (todo "INPROG"
                                               (
                                                ;; (org-agenda-skip-function '(org-agenda-skip-entry-if 'deadline))
-                                               (org-agenda-prefix-format "  %i %-12:c [%e] ")
+                                               (org-agenda-prefix-format "  %i %-12:c ")
                                                (org-agenda-sorting-strategy '(priority-down))
                                                (org-agenda-overriding-header "\nIn progress\n")))
                                         (tags-todo "inbox"
@@ -168,7 +168,7 @@
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
 (setq display-line-numbers-type t)
 
-(add-to-list 'initial-frame-alist '(fullscreen . maximized))
+;; (add-to-list 'initial-frame-alist '(fullscreen . maximized))
 
 (setq projectile-project-search-path '("~/workspace/" "~/workspace/keevo/" "~/workspace/web-ux/"))
 
@@ -201,6 +201,11 @@
 (add-hook! '(typescript-mode-hook
              typescript-tsx-mode-hook
              js2-mode-hook) #'eslintd-fix-mode)
+
+
+(set-company-backend! 'js-mode
+  '(company-shell :with company-yasnippet))
+
 
 (setq mac-right-option-modifier 'meta
       ns-right-option-modifier  'meta)

@@ -1,0 +1,50 @@
+{
+  "groups": {
+    "active_window_status": {
+      "fg": "gruvbox:neutral_orange",
+      "bg": "gruvbox:light0_soft",
+      "attrs": []
+    },
+    "window_status": {
+      "fg": "gruvbox:dark3",
+      "bg": "gruvbox:light0_soft",
+      "attrs": []
+    },
+    "activity_status": {
+      "fg": "gruvbox:neutral_orange",
+      "bg": "gruvbox:light0_soft",
+      "attrs": []
+    },
+    "bell_status": { "fg": "red", "bg": "gruvbox:light0_soft", "attrs": [] },
+    "window": {
+      "fg": "gruvbox:gray_244",
+      "bg": "gruvbox:light0_soft",
+      "attrs": []
+    },
+    "window:divider": {
+      "fg": "gruvbox:gray_244",
+      "bg": "gruvbox:light0_soft",
+      "attrs": []
+    },
+    "window:current": {
+      "fg": "gruvbox:light0_hard",
+      "bg": "gruvbox:neutral_orange",
+      "attrs": []
+    },
+    "window_name": {
+      "fg": "gruvbox:light0_hard",
+      "bg": "gruvbox:neutral_orange",
+      "attrs": ["bold"]
+    },
+    "session": {
+      "fg": "gruvbox:light0_hard",
+      "bg": "gruvbox:neutral_orange",
+      "attrs": ["bold"]
+    },
+    "session:prefix": {
+      "fg": "gruvbox:light0_hard",
+      "bg": "gruvbox:neutral_orange",
+      "attrs": ["bold"]
+    }
+  }
+}
