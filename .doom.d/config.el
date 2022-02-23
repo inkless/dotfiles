@@ -250,120 +250,120 @@ window configuration."
 (setq ispell-dictionary "en")
 
 ;; org-msg
-(use-package! org-msg
-  :hook (mu4e-compose-pre . org-msg-mode)
-  :config
-  (setq org-msg-options "html-postamble:nil H:5 num:nil ^:{} toc:nil author:nil email:nil \\n:t"
-        ;; org-msg-startup "hidestars indent inlineimages"
-        ;; org-msg-greeting-fmt "\nHi *%s*,\n\n"
-        org-msg-greeting-name-limit 3
-        org-msg-default-alternatives '((new           . (text html))
-                                       (reply-to-html . (text html))
-                                       (reply-to-text . (text)))
-        org-msg-convert-citation t
-        org-msg-signature "
+;; (use-package! org-msg
+;;   :hook (mu4e-compose-pre . org-msg-mode)
+;;   :config
+;;   (setq org-msg-options "html-postamble:nil H:5 num:nil ^:{} toc:nil author:nil email:nil \\n:t"
+;;         ;; org-msg-startup "hidestars indent inlineimages"
+;;         ;; org-msg-greeting-fmt "\nHi *%s*,\n\n"
+;;         org-msg-greeting-name-limit 3
+;;         org-msg-default-alternatives '((new           . (text html))
+;;                                        (reply-to-html . (text html))
+;;                                        (reply-to-text . (text)))
+;;         org-msg-convert-citation t
+;;         org-msg-signature "
 
-#+begin_signature
-Best,
-Guangda Zhang
+;; #+begin_signature
+;; Best,
+;; Guangda Zhang
 
-/Sent from emacs mu4e/
-#+end_signature")
-  )
+;; /Sent from emacs mu4e/
+;; #+end_signature")
+;;   )
 
-(defun my-org-msg-composition-parameters (orig-fun &rest args)
-  "Tweak my greeting message and my signature when replying as
-   plain/text only."
-  (let ((res (apply orig-fun args)))
-    (when (equal (cadr args) '(text))
-      (setf (alist-get 'greeting-fmt res) "\n")
-      (setf (alist-get 'signature res)
-            (replace-regexp-in-string "\\([\*/]\\|\nBest,\n\n\\)" ""
-                                      org-msg-signature)))
-    res))
-(advice-add 'org-msg-composition-parameters
-            :around #'my-org-msg-composition-parameters)
+;; (defun my-org-msg-composition-parameters (orig-fun &rest args)
+;;   "Tweak my greeting message and my signature when replying as
+;;    plain/text only."
+;;   (let ((res (apply orig-fun args)))
+;;     (when (equal (cadr args) '(text))
+;;       (setf (alist-get 'greeting-fmt res) "\n")
+;;       (setf (alist-get 'signature res)
+;;             (replace-regexp-in-string "\\([\*/]\\|\nBest,\n\n\\)" ""
+;;                                       org-msg-signature)))
+;;     res))
+;; (advice-add 'org-msg-composition-parameters
+;;             :around #'my-org-msg-composition-parameters)
 
 ;; mu4e
-(setq gz/mu4e-bookmarks '((:name "Unified inbox in last week" :query "maildir:/INBOX/ AND date:7d..now" :key ?i)
-                          (:name "Unread messages" :query "flag:unread AND NOT flag:trashed" :key ?u)
-                          (:name "Today's messages" :query "date:today..now" :key ?t)
-                          (:name "Last 7 days" :query "date:7d..now" :hide-unread t :key ?w)
-                          (:name "Flagged messages" :query "flag:flagged" :key ?f)
-                          (:name "Messages with images" :query "mime:image/*" :key ?p)))
-(setq gz/mu4e-gmail-bookmarks (copy-sequence gz/mu4e-bookmarks))
-;; (add-to-list 'gz/mu4e-gmail-bookmarks '(:name "Label: Recruiter" :query "\\Recruiter" :key ?r) t)
-;; (add-to-list 'gz/mu4e-gmail-bookmarks '(:name "Label: Investment" :query "\\Investment" :key ?v) t)
-;; (add-to-list 'gz/mu4e-gmail-bookmarks '(:name "Label: Kids" :query "\\Kids" :key ?k) t)
+;; (setq gz/mu4e-bookmarks '((:name "Unified inbox in last week" :query "maildir:/INBOX/ AND date:7d..now" :key ?i)
+;;                           (:name "Unread messages" :query "flag:unread AND NOT flag:trashed" :key ?u)
+;;                           (:name "Today's messages" :query "date:today..now" :key ?t)
+;;                           (:name "Last 7 days" :query "date:7d..now" :hide-unread t :key ?w)
+;;                           (:name "Flagged messages" :query "flag:flagged" :key ?f)
+;;                           (:name "Messages with images" :query "mime:image/*" :key ?p)))
+;; (setq gz/mu4e-gmail-bookmarks (copy-sequence gz/mu4e-bookmarks))
+;; ;; (add-to-list 'gz/mu4e-gmail-bookmarks '(:name "Label: Recruiter" :query "\\Recruiter" :key ?r) t)
+;; ;; (add-to-list 'gz/mu4e-gmail-bookmarks '(:name "Label: Investment" :query "\\Investment" :key ?v) t)
+;; ;; (add-to-list 'gz/mu4e-gmail-bookmarks '(:name "Label: Kids" :query "\\Kids" :key ?k) t)
 
-(after! mu4e
-  (setq mu4e-update-interval 180
-        mu4e-attachment-dir "~/Downloads"
-        mu4e-bookmarks gz/mu4e-bookmarks)
-  ;; Seems mbsync cannot sync tags properly
-  ;; (add-to-list 'mu4e-marks '(tag
-  ;;                            :char       "t"
-  ;;                            :prompt     "gtag"
-  ;;                            :ask-target (lambda () (read-string "What tag do you want to add?"))
-  ;;                            :action      (lambda (docid msg target)
-  ;;                                           (mu4e-action-retag-message msg (concat "+" target)))))
-  ;; (mu4e~headers-defun-mark-for tag)
-  ;; (evil-define-key 'normal mu4e-headers-mode-map (kbd "t") 'mu4e-headers-mark-for-tag)
-  )
+;; (after! mu4e
+;;   (setq mu4e-update-interval 180
+;;         mu4e-attachment-dir "~/Downloads"
+;;         mu4e-bookmarks gz/mu4e-bookmarks)
+;;   ;; Seems mbsync cannot sync tags properly
+;;   ;; (add-to-list 'mu4e-marks '(tag
+;;   ;;                            :char       "t"
+;;   ;;                            :prompt     "gtag"
+;;   ;;                            :ask-target (lambda () (read-string "What tag do you want to add?"))
+;;   ;;                            :action      (lambda (docid msg target)
+;;   ;;                                           (mu4e-action-retag-message msg (concat "+" target)))))
+;;   ;; (mu4e~headers-defun-mark-for tag)
+;;   ;; (evil-define-key 'normal mu4e-headers-mode-map (kbd "t") 'mu4e-headers-mark-for-tag)
+;;   )
 
-(set-email-account! "zhangxiaoyu9350-gmail"
-                    `((user-mail-address      . "zhangxiaoyu9350@gmail.com")
-                      (mu4e-sent-folder       . "/zhangxiaoyu9350-gmail/[zhangxiaoyu9350].Sent Mail")
-                      (mu4e-drafts-folder     . "/zhangxiaoyu9350-gmail/[zhangxiaoyu9350].drafts")
-                      (mu4e-trash-folder      . "/zhangxiaoyu9350-gmail/[zhangxiaoyu9350].Trash")
-                      (mu4e-refile-folder     . "/zhangxiaoyu9350-gmail/[zhangxiaoyu9350].All Mail")
-                      ;; (mu4e-get-mail-command  . "mbsync zhangxiaoyu9350-gmail")
-                      (mu4e-sent-messages-behavior . delete)
-                      ;; (mu4e-compose-signature . (concat "Guangda Zhang\n" "Composed from emacs mu4e\n"))
-                      (message-send-mail-function . smtpmail-send-it)
-                      (smtpmail-queue-dir     . "~/.mail/zhangxiaoyu9350-gmail/queue/cur")
-                      (smtpmail-stream-type   . starttls)
-                      (smtpmail-smtp-user     . "zhangxiaoyu9350")
-                      (smtpmail-starttls-credentials . (("smtp.gmail.com" 587 nil nil)))
-                      (smtpmail-auth-credentials . (expand-file-name "~/.authinfo.gpg"))
-                      (smtpmail-default-smtp-server . "smtp.gmail.com")
-                      (smtpmail-smtp-server   . "smtp.gmail.com")
-                      (smtpmail-smtp-service  . 587)
-                      (smtpmail-debug-info    . t)
-                      (mu4e-bookmarks         . ,gz/mu4e-gmail-bookmarks)
-                      (mu4e-maildir-shortcuts . ( ("/zhangxiaoyu9350-gmail/INBOX"                       . ?i)
-                                                  ("/zhangxiaoyu9350-gmail/[zhangxiaoyu9350].Sent Mail" . ?s)
-                                                  ("/zhangxiaoyu9350-gmail/[zhangxiaoyu9350].Trash"     . ?t)
-                                                  ("/zhangxiaoyu9350-gmail/[zhangxiaoyu9350].All Mail"  . ?a)
-                                                  ;; ("/zhangxiaoyu9350-gmail/[zhangxiaoyu9350].Starred"   . ?r)
-                                                  ("/zhangxiaoyu9350-gmail/[zhangxiaoyu9350].drafts"    . ?d)
-                                                  ))))
+;; (set-email-account! "zhangxiaoyu9350-gmail"
+;;                     `((user-mail-address      . "zhangxiaoyu9350@gmail.com")
+;;                       (mu4e-sent-folder       . "/zhangxiaoyu9350-gmail/[zhangxiaoyu9350].Sent Mail")
+;;                       (mu4e-drafts-folder     . "/zhangxiaoyu9350-gmail/[zhangxiaoyu9350].drafts")
+;;                       (mu4e-trash-folder      . "/zhangxiaoyu9350-gmail/[zhangxiaoyu9350].Trash")
+;;                       (mu4e-refile-folder     . "/zhangxiaoyu9350-gmail/[zhangxiaoyu9350].All Mail")
+;;                       ;; (mu4e-get-mail-command  . "mbsync zhangxiaoyu9350-gmail")
+;;                       (mu4e-sent-messages-behavior . delete)
+;;                       ;; (mu4e-compose-signature . (concat "Guangda Zhang\n" "Composed from emacs mu4e\n"))
+;;                       (message-send-mail-function . smtpmail-send-it)
+;;                       (smtpmail-queue-dir     . "~/.mail/zhangxiaoyu9350-gmail/queue/cur")
+;;                       (smtpmail-stream-type   . starttls)
+;;                       (smtpmail-smtp-user     . "zhangxiaoyu9350")
+;;                       (smtpmail-starttls-credentials . (("smtp.gmail.com" 587 nil nil)))
+;;                       (smtpmail-auth-credentials . (expand-file-name "~/.authinfo.gpg"))
+;;                       (smtpmail-default-smtp-server . "smtp.gmail.com")
+;;                       (smtpmail-smtp-server   . "smtp.gmail.com")
+;;                       (smtpmail-smtp-service  . 587)
+;;                       (smtpmail-debug-info    . t)
+;;                       (mu4e-bookmarks         . ,gz/mu4e-gmail-bookmarks)
+;;                       (mu4e-maildir-shortcuts . ( ("/zhangxiaoyu9350-gmail/INBOX"                       . ?i)
+;;                                                   ("/zhangxiaoyu9350-gmail/[zhangxiaoyu9350].Sent Mail" . ?s)
+;;                                                   ("/zhangxiaoyu9350-gmail/[zhangxiaoyu9350].Trash"     . ?t)
+;;                                                   ("/zhangxiaoyu9350-gmail/[zhangxiaoyu9350].All Mail"  . ?a)
+;;                                                   ;; ("/zhangxiaoyu9350-gmail/[zhangxiaoyu9350].Starred"   . ?r)
+;;                                                   ("/zhangxiaoyu9350-gmail/[zhangxiaoyu9350].drafts"    . ?d)
+;;                                                   ))))
 
-(set-email-account! "guangda.me"
-                    `((user-mail-address      . "g@guangda.me")
-                      (mu4e-sent-folder       . "/guangda.me/Sent")
-                      (mu4e-drafts-folder     . "/guangda.me/Drafts")
-                      (mu4e-trash-folder      . "/guangda.me/Trash")
-                      (mu4e-refile-folder     . "/guangda.me/Archive")
-                      ;; (mu4e-get-mail-command  . "mbsync guangda.me")
-                      (mu4e-sent-messages-behavior . sent)
-                      ;; (mu4e-compose-signature . (concat "Guangda Zhang\n" "Composed from emacs mu4e\n"))
-                      (message-send-mail-function . smtpmail-send-it)
-                      (smtpmail-queue-dir     . "~/.mail/guangda.me/queue/cur")
-                      (smtpmail-stream-type   . ssl)
-                      (smtpmail-smtp-user     . "g@guangda.me")
-                      (smtpmail-auth-credentials . (expand-file-name "~/.authinfo.gpg"))
-                      (smtpmail-default-smtp-server . "mail.privateemail.com")
-                      (smtpmail-smtp-server   . "mail.privateemail.com")
-                      (smtpmail-smtp-service  . 465)
-                      (smtpmail-debug-info    . t)
-                      (mu4e-bookmarks         . ,gz/mu4e-bookmarks)
-                      (mu4e-maildir-shortcuts . ( ("/guangda.me/INBOX"   . ?i)
-                                                  ("/guangda.me/Sent"    . ?s)
-                                                  ("/guangda.me/Trash"   . ?t)
-                                                  ("/guangda.me/Archive" . ?a)
-                                                  ("/guangda.me/Drafts"  . ?d)
-                                                  ("/guangda.me/Spam"    . ?p)
-                                                  ))
-                      )
-                    t)
+;; (set-email-account! "guangda.me"
+;;                     `((user-mail-address      . "g@guangda.me")
+;;                       (mu4e-sent-folder       . "/guangda.me/Sent")
+;;                       (mu4e-drafts-folder     . "/guangda.me/Drafts")
+;;                       (mu4e-trash-folder      . "/guangda.me/Trash")
+;;                       (mu4e-refile-folder     . "/guangda.me/Archive")
+;;                       ;; (mu4e-get-mail-command  . "mbsync guangda.me")
+;;                       (mu4e-sent-messages-behavior . sent)
+;;                       ;; (mu4e-compose-signature . (concat "Guangda Zhang\n" "Composed from emacs mu4e\n"))
+;;                       (message-send-mail-function . smtpmail-send-it)
+;;                       (smtpmail-queue-dir     . "~/.mail/guangda.me/queue/cur")
+;;                       (smtpmail-stream-type   . ssl)
+;;                       (smtpmail-smtp-user     . "g@guangda.me")
+;;                       (smtpmail-auth-credentials . (expand-file-name "~/.authinfo.gpg"))
+;;                       (smtpmail-default-smtp-server . "mail.privateemail.com")
+;;                       (smtpmail-smtp-server   . "mail.privateemail.com")
+;;                       (smtpmail-smtp-service  . 465)
+;;                       (smtpmail-debug-info    . t)
+;;                       (mu4e-bookmarks         . ,gz/mu4e-bookmarks)
+;;                       (mu4e-maildir-shortcuts . ( ("/guangda.me/INBOX"   . ?i)
+;;                                                   ("/guangda.me/Sent"    . ?s)
+;;                                                   ("/guangda.me/Trash"   . ?t)
+;;                                                   ("/guangda.me/Archive" . ?a)
+;;                                                   ("/guangda.me/Drafts"  . ?d)
+;;                                                   ("/guangda.me/Spam"    . ?p)
+;;                                                   ))
+;;                       )
+;;                     t)

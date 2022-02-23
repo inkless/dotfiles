@@ -174,7 +174,7 @@
        ;;zig               ; C, but simpler
 
        :email
-       mu4e
+       ;;mu4e
        ;;notmuch
        ;;(wanderlust +gmail)
 

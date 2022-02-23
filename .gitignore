@@ -2,3 +2,4 @@
 .config/nvim/local.bundles.vim
 .config/nvim/local.ivim.vim
 .config/nvim/.netrwhist
+.DS_Store
