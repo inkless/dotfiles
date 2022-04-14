@@ -1,0 +1,139 @@
+;; -*- mode: emacs-lisp; eval: (progn (pp-buffer) (indent-buffer)) -*-
+((def-persp "agenda"
+   ((def-buffer "affirm.org" "/Users/guangdazhang/Dropbox/org/affirm.org" org-mode))
+   (def-wconf
+     (((min-height . 4)
+       (min-width . 10)
+       (min-height-ignore . 3)
+       (min-width-ignore . 5)
+       (min-height-safe . 1)
+       (min-width-safe . 2)
+       (min-pixel-height . 64)
+       (min-pixel-width . 70)
+       (min-pixel-height-ignore . 48)
+       (min-pixel-width-ignore . 35)
+       (min-pixel-height-safe . 16)
+       (min-pixel-width-safe . 14))
+      leaf
+      (pixel-width . 3840)
+      (pixel-height . 1531)
+      (total-width . 548)
+      (total-height . 96)
+      (normal-height . 1.0)
+      (normal-width . 1.0)
+      (parameters
+       (better-jumper-struct . #s(better-jumper-jump-list-struct
+                                  (0 1 .
+                                     [("/Users/guangdazhang/Dropbox/org-roam/20220121092219-affirm_international.org" 128 "8bjrkp")
+                                      nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil])
+                                  -1)))
+      (buffer "affirm.org"
+              (selected . t)
+              (hscroll . 0)
+              (fringes 8 8 nil nil)
+              (margins nil)
+              (scroll-bars nil 0 t nil 0 t nil)
+              (vscroll . 0)
+              (dedicated)
+              (point . 1576)
+              (start . 1))
+      (prev-buffers
+       ("*doom*" 1 1637)
+       ("affirm.org" 1 164)
+       ("*Deft*" 1 554)
+       ("*scratch*" 1 1))))
+   (def-params
+     ((last-project-root . "/Users/guangdazhang/Dropbox/org/")))
+   nil nil nil)
+ (def-persp "notes"
+   ((def-buffer "notes.org" "/Users/guangdazhang/Dropbox/org/notes.org" org-mode))
+   (def-wconf
+     (((min-height . 4)
+       (min-width . 10)
+       (min-height-ignore . 3)
+       (min-width-ignore . 5)
+       (min-height-safe . 1)
+       (min-width-safe . 2)
+       (min-pixel-height . 64)
+       (min-pixel-width . 70)
+       (min-pixel-height-ignore . 48)
+       (min-pixel-width-ignore . 35)
+       (min-pixel-height-safe . 16)
+       (min-pixel-width-safe . 14))
+      leaf
+      (pixel-width . 3840)
+      (pixel-height . 1531)
+      (total-width . 548)
+      (total-height . 96)
+      (normal-height . 1.0)
+      (normal-width . 1.0)
+      (parameters
+       (better-jumper-struct . #s(better-jumper-jump-list-struct
+                                  (0 0 .
+                                     [nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil])
+                                  -1)))
+      (buffer "notes.org"
+              (selected . t)
+              (hscroll . 0)
+              (fringes 8 8 nil nil)
+              (margins nil)
+              (scroll-bars nil 0 t nil 0 t nil)
+              (vscroll . 0)
+              (dedicated)
+              (point . 1383)
+              (start . 1))
+      (prev-buffers
+       ("*doom*" 1 1637)
+       ("notes.org" 1 17)
+       ("*Deft*" 1 13)
+       ("affirm.org" 1 164)
+       ("*scratch*" 1 1))))
+   (def-params
+     ((last-project-root . "/Users/guangdazhang/Dropbox/org/")))
+   nil nil nil)
+ (def-persp "org-roam"
+   ((def-buffer "20220121091955-affirm.org" "/Users/guangdazhang/Dropbox/org-roam/20220121091955-affirm.org" org-mode))
+   (def-wconf
+     (((min-height . 4)
+       (min-width . 10)
+       (min-height-ignore . 3)
+       (min-width-ignore . 5)
+       (min-height-safe . 1)
+       (min-width-safe . 2)
+       (min-pixel-height . 64)
+       (min-pixel-width . 70)
+       (min-pixel-height-ignore . 48)
+       (min-pixel-width-ignore . 35)
+       (min-pixel-height-safe . 16)
+       (min-pixel-width-safe . 14))
+      leaf
+      (pixel-width . 3840)
+      (pixel-height . 1531)
+      (total-width . 548)
+      (total-height . 96)
+      (normal-height . 1.0)
+      (normal-width . 1.0)
+      (parameters
+       (better-jumper-struct . #s(better-jumper-jump-list-struct
+                                  (0 0 .
+                                     [nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil])
+                                  -1)))
+      (buffer "20220121091955-affirm.org"
+              (selected . t)
+              (hscroll . 0)
+              (fringes 8 8 nil nil)
+              (margins nil)
+              (scroll-bars nil 0 t nil 0 t nil)
+              (vscroll . 0)
+              (dedicated)
+              (point . 3487)
+              (start . 1))
+      (prev-buffers
+       ("*doom*" 1 1629)
+       ("notes.org" 1 17)
+       ("*Deft*" 1 13)
+       ("affirm.org" 1 164)
+       ("*scratch*" 1 1))))
+   (def-params
+     ((last-project-root . "/Users/guangdazhang/Dropbox/org-roam/")))
+   nil nil nil))
