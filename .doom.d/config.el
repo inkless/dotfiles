@@ -22,15 +22,25 @@
 ;; (setq doom-font (font-spec :family "monospace" :size 12 :weight 'semi-light)
 ;;       doom-variable-pitch-font (font-spec :family "sans" :size 13))
 (if IS-LINUX
-  (dolist (charset '(kana han symbol cjk-misc bopomofo))
-    (set-fontset-font (frame-parameter nil 'font)
-                      ;; 支持中文字体
-                      charset (font-spec :family "Noto Sans CJK SC"))))
+    (dolist (charset '(kana han symbol cjk-misc bopomofo))
+      (set-fontset-font (frame-parameter nil 'font)
+                        ;; 支持中文字体
+                        charset (font-spec :family "Noto Sans CJK SC"))))
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-opera-light)
+
+;; Set light and dark theme choices here!
+(defconst doom-light-theme 'doom-opera-light)
+(defconst doom-dark-theme 'doom-one)
+
+(if IS-MAC
+    (setq doom-theme
+          (if (equal (plist-get (mac-application-state) :appearance) "NSAppearanceNameAqua")
+              doom-light-theme
+            doom-dark-theme))
+  (setq doom-theme doom-light-theme))
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
