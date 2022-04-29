@@ -110,6 +110,9 @@ export PATH="$PATH:$HOME/.rvm/bin"
 export PATH="/usr/local/opt/node@12/bin:$PATH"
 eval "$(nodenv init -)"
 
+# zsh_functions
+[ -f ~/.zsh_functions.zsh ] && source ~/.zsh_functions.zsh
+
 # aliases
 if [ -f ~/.dev.rc ]; then
     . ~/.dev.rc

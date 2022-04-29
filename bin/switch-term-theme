@@ -63,5 +63,6 @@ EOF
     tmux detach
   fi
 else
+  source "$HOME/.zsh_functions.zsh"
   it2prof "$iterm_profile"
 fi
