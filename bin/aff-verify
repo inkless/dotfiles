@@ -1,0 +1,45 @@
+#!/bin/bash
+
+tag=$1
+
+if [ -z "$tag" ]; then
+  echo 'No tag specified'
+  exit 1
+fi
+
+if [[ $tag == "-h" ]] || [[ $tag == "--help" ]]; then
+  cat << EOF
+Usage: aff-verify your-tag-name
+EOF
+  exit 0
+fi
+
+# check att root
+echo "Check if running under all-the-things folder..."
+if grep 'https://readme.affirm-dev.com/py/all-the-things/latest/' README.md > /dev/null 2>&1; then
+    echo "Under all-the-things, continue..."
+else
+    echo "Please cd all-the-things and then run this command..."
+    exit 1
+fi
+
+link="https://github.com/Affirm/all-the-things/compare/$tag^...$tag"
+echo "Opening $link"
+open "$link"
+
+while true; do
+  read -r -p "Looking good? [y/n] " yn
+  case $yn in
+    [Yy]* ) echo "Start to fetch and create a new tag..."; break;;
+    [Nn]* ) exit;;
+    * ) echo "Please answer yes or no.";;
+  esac
+done
+
+set -e
+
+# fetch and create new tag
+git fetch --tags --force
+git checkout tags/"$tag"
+git tag -s "$tag.approved" -m "Approved"
+git push origin "$tag.approved"

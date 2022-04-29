@@ -1,0 +1,23 @@
+#!/bin/bash
+
+spec=$1
+test_hash=$2
+config=${3:-"local.chrome.conf.js"}
+domain=${4:-"sandbox.affirm-stage.com"}
+
+if [[ $spec == "-h" ]] || [[ $spec == "--help" ]]; then
+  cat << EOF
+Usage: aff-e2e specs/path/to/some.spec.js 3d9985b2a7fe7e01824b6ad20cd25e17894c81f7 [config] [domain]
+Options:
+  config: local.chrome.conf.js, local.chrome-headless.conf.js. [default local.chrome.conf.js]
+  domain: domain to run against [default sandbox.affirm-stage.com]
+EOF
+  exit 0
+fi
+
+set -x
+make wdio \
+  DOMAIN="$domain" \
+  CONFIG="$config" \
+  TEST_HASH="$test_hash" \
+  SPEC="$spec"

@@ -1,0 +1,67 @@
+#!/usr/bin/env bash
+
+mode=$1
+
+if [ -z "$mode" ]; then
+  cat << EOF
+Usage: swithch-term-theme [mode]
+Options:
+  mode: light | dark
+EOF
+  exit 1
+fi
+
+if [[ $mode = "light" ]]; then
+  branch=master
+  iterm_profile=LightMode
+elif [[ $mode = "dark" ]]; then
+  branch="dark-mode"
+  iterm_profile=Default
+else
+  echo "Invalid mode"
+  exit 1
+fi
+
+
+cd "$HOME/dotfiles" || exit
+git checkout "$branch"
+
+if [ -n "$TMUX" ]; then
+  printf "Sourcing tmux.conf...\n"
+  tmux source-file "$HOME/.tmux.conf"
+  cat << EOF
+Sourcing tmux.conf done.
+
+Now you need to switch iterm profile manually or do following command outside of tmux
+==========================
+$ it2prof "$iterm_profile"
+==========================
+
+Copying above command toclipboard... Done.
+
+You may need to \`set background=light/dark\` in vim if needed.
+
+EOF
+  echo "it2prof \"$iterm_profile\" && tmux a" | pbcopy
+
+  read -r -p "Do you wish to detach tmux now? [Y/n] " input
+
+  case $input in
+    [yY][eE][sS]|[yY])
+      echo "detaching now..."
+      detach_now=true
+      ;;
+    [nN][oO]|[nN])
+      echo "You can always do ctrl-b d to detach tmux."
+      ;;
+    *)
+      echo "Invalid input..."
+      ;;
+  esac
+
+  if [[ $detach_now = "true" ]]; then
+    tmux detach
+  fi
+else
+  it2prof "$iterm_profile"
+fi

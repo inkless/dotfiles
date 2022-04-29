@@ -1,0 +1,22 @@
+#!/bin/bash
+
+spec=$1
+config=${2:-"local.chrome.conf.js"}
+country=${3:-US}
+
+if [[ $spec == "-h" ]] || [[ $spec == "--help" ]]; then
+  cat << EOF
+Usage: aff-int specs/path/to/some.spec.js [config] [country]
+Options:
+  config: local.chrome.conf.js, local.chrome-headless.conf.js. [default local.chrome.conf.js]
+  country: US, CA [default US]
+EOF
+  exit 0
+fi
+
+set -x
+make wdio \
+  DOMAIN=localhost:3000 \
+  CONFIG="$config" \
+  SPEC="$spec" \
+  WEBUX_COUNTRY_CODE="$country"

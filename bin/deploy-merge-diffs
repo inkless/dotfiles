@@ -1,0 +1,27 @@
+#!/bin/bash
+
+if [ -z "$1" ]; then
+  echo 'diffs not specified'
+  exit 1
+fi
+
+suffix=$(date +"%m-%d-%y")
+release_branch="release/axp-$suffix"
+
+git checkout master
+git pull --ff-only origin master
+git checkout -b "$release_branch"
+
+IFS=',' # hyphen (-) is set as delimiter
+read -ra diffs <<< "$1" # str is read into an array as tokens separated by IFS
+for diff in "${diffs[@]}"; do # access each element of array
+  arc patch --nobranch "$diff"
+done
+IFS=' ' # reset to default value after usage
+
+git push origin "$release_branch"
+
+echo "Jenkins: https://jenkins-eldin.affirm-dev.com/job/all-the-things/job/stage-deploy/job/deploy-maestro/"
+
+
+

@@ -1,0 +1,37 @@
+#!/bin/bash
+
+odin=$1
+commit=${2:-master}
+dt=${3:-monolith}
+
+if [[ $odin == "-h" ]] || [[ $odin == "--help" ]]; then
+  cat << EOF
+Usage: odin-scp your-odin-name.odin.aff [commit] [dt]
+Options:
+  commit: git commit, we are using \`git diff \$commit --name-only\` to find files to upload [default master]
+  dt: data-platform, monolith, etc. [default monolith]
+EOF
+  exit 0
+fi
+
+if [ -z "$odin" ]; then
+  echo 'odin not specified'
+  exit 1
+fi
+
+# files=( $(git diff "$commit" --raw | awk -F'M\t' '{print $2}') )
+files=( $(git diff "$commit" --name-only) )
+
+for file in "${files[@]}"
+do
+  scp "$file" "${odin}:/opt/code/${dt}/all-the-things/${file}"
+done
+
+service=affirm-$dt-rpc2
+if [ "$dt" == 'monolith' ]; then
+  service=affirm-frontend-web
+fi
+if [ "$dt" == 'checkmate-web' ]; then
+  service=affirm-checkmate-web-public
+fi
+ssh "$odin" "sudo supdctl restart $service"
