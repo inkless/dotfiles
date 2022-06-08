@@ -222,6 +222,7 @@ if count(g:ivim_bundle_groups, 'complete') " Completion
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
     Plug 'neoclide/jsonc.vim'
     Plug 'honza/vim-snippets'
+    Plug 'github/copilot.vim'
 endif
 " }}}
 
@@ -524,8 +525,8 @@ set foldlevelstart=0 " Start with all folds closed
 set foldcolumn=1 " Set fold column
 
 " Space to toggle and create folds.
-nnoremap <silent> <Tab> @=(foldlevel('.') ? 'za' : '\<Tab>')<CR>
-vnoremap <Tab> zf
+nnoremap <silent> <F9> @=(foldlevel('.') ? 'za' : '\<Tab>')<CR>
+vnoremap <F9> zf
 
 function! MyFoldText()
   let line = getline(v:foldstart)
