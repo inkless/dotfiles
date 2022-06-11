@@ -107,7 +107,6 @@ export PATH="/usr/local/sbin:$PATH"
 export PATH="$PATH:$HOME/.rvm/bin"
 
 # node version manager
-export PATH="/usr/local/opt/node@12/bin:$PATH"
 eval "$(nodenv init -)"
 
 # zsh_functions
