@@ -206,12 +206,7 @@ endif
 if count(g:ivim_bundle_groups, 'navigate') " Navigation
     Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' } " NERD tree
     Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': 'NERDTreeToggle' } " NERD tree git plugin
-    " Plug 'junegunn/fzf' " fzf
-    if has('macunix')
-      Plug '/usr/local/opt/fzf' " fzf is installed through homebrew
-    else
-      Plug '~/.fzf' " in linux I have to put fzf here, so I need a soft link in mac
-    endif
+    Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
     Plug 'junegunn/fzf.vim' " fzf
     Plug 'mileszs/ack.vim' " ack
 endif
@@ -429,7 +424,6 @@ set mouse=a
 syntax on " Enable syntax
 set synmaxcol=300
 set lazyredraw
-set background=light " Set background
 set t_Co=256 " Use 256 colors
 
 " Load a colorscheme
@@ -438,6 +432,24 @@ if count(g:ivim_bundle_groups, 'ui')
 else
     colorscheme desert
 endif
+
+function! ChangeBackground()
+  try
+    if readfile(glob('~/.term-theme'))[0] == 'dark'
+      set background=dark   " for the dark version of the theme
+    else
+      set background=light  " for the light version of the theme
+    endif
+    execute "AirlineRefresh"
+  catch
+    set background=dark   " for the dark version of the theme
+  endtry
+endfunction
+
+" initialize the colorscheme for the first run
+call ChangeBackground()
+
+autocmd Signal SIGUSR1 call ChangeBackground()
 
 " Set GUI font
 if has('gui_running')

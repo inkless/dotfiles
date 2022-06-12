@@ -1,68 +1,43 @@
 #!/usr/bin/env bash
 
-mode=$1
+theme=$1
 
-if [ -z "$mode" ]; then
+if [ -z "$theme" ]; then
+  if [ "$DARKMODE" == "0" ]; then
+    theme="light"
+  else
+    theme="dark"
+  fi
+fi
+
+if [ "$theme" == "-h" ]; then
   cat << EOF
-Usage: swithch-term-theme [mode]
+Usage: swithch-term-theme [theme]
 Options:
-  mode: light | dark
+  theme: light | dark
 EOF
-  exit 1
+  exit 0
 fi
 
-if [[ $mode = "light" ]]; then
-  branch=master
-  iterm_profile=LightMode
-elif [[ $mode = "dark" ]]; then
-  branch="dark-mode"
-  iterm_profile=Default
+if [[ $theme = "light" ]]; then
+  echo "light" > $HOME/.term-theme
+  tmux_theme_conf="$HOME/.tmux/plugins/tmux-gruvbox/tmux-gruvbox-light.conf"
+elif [[ $theme = "dark" ]]; then
+  echo "dark" > $HOME/.term-theme
+  tmux_theme_conf="$HOME/.tmux/plugins/tmux-gruvbox/tmux-gruvbox-dark.conf"
 else
-  echo "Invalid mode"
+  echo "Invalid theme"
   exit 1
 fi
 
+echo "Switching theme to $theme"
 
-cd "$HOME/dotfiles" || exit
-git checkout "$branch"
+python3 $HOME/dotfiles/iterm/scripts/switch_color.py $theme
 
 if [ -n "$TMUX" ]; then
-  printf "Sourcing tmux.conf...\n"
-  tmux source-file "$HOME/.tmux.conf"
-  cat << EOF
-Sourcing tmux.conf done.
-
-Now you need to switch iterm profile manually or do following command outside of tmux
-==========================
-$ it2prof "$iterm_profile"
-==========================
-
-Copying above command toclipboard... Done.
-
-You may need to \`set background=light/dark\` in vim if needed.
-
-EOF
-  echo "it2prof \"$iterm_profile\" && tmux a" | pbcopy
-
-  read -r -p "Do you wish to detach tmux now? [Y/n] " input
-
-  case $input in
-    [yY][eE][sS]|[yY])
-      echo "detaching now..."
-      detach_now=true
-      ;;
-    [nN][oO]|[nN])
-      echo "You can always do ctrl-b d to detach tmux."
-      ;;
-    *)
-      echo "Invalid input..."
-      ;;
-  esac
-
-  if [[ $detach_now = "true" ]]; then
-    tmux detach
-  fi
-else
-  source "$HOME/.zsh_functions.zsh"
-  it2prof "$iterm_profile"
+  tmux source-file $tmux_theme_conf
 fi
+
+# notify nvim
+killall -SIGUSR1 nvim
+
