@@ -47,7 +47,7 @@
   process = git-lfs filter-process
   required = true
 [core]
-  excludesfile = /Users/guangdazhang/.gitignore_global
+  excludesfile = /Users/guangda.zhang/.gitignore_global
   pager = diff-so-fancy | less --tabs=2 -RFX
 [color "diff-highlight"]
   oldNormal = red bold

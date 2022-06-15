@@ -40,24 +40,22 @@ while true; do
 done
 
 echo "install homebrew..."
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
 echo "install homebrew packages..."
-brew install ncdu htop tree
-brew install nodenv pyenv
-brew install fzf tmux neovim diff-so-fancy tmuxinator
-
-echo "install node@12, path is already updated in .zshrc"
-brew install node@12
+brew install ncdu htop tree \
+  nodenv pyenv \
+  gh pick ripgrep gotop \
+  fzf tmux neovim diff-so-fancy tmuxinator node iterm2
 
 echo "install prettier related stuff..."
 npm install -g prettier
 
 echo "install python 3..."
-pyenv install 3.7.6
-pyenv global 3.7.6
+pyenv install 3.7.13
+pyenv global 3.7.13
 
-echo "install powerline..."
-pip3 install powerline-status
+# echo "install protobuf lower version to work with iterm2"
+pip3 install --upgrade protobuf==3.20.0
 
 echo "Congratulations! Script completed!!!"

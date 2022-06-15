@@ -442,7 +442,6 @@ function! ChangeBackground()
     endif
     execute "AirlineRefresh"
   catch
-    set background=dark   " for the dark version of the theme
   endtry
 endfunction
 
