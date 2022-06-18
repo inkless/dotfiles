@@ -1,6 +1,6 @@
 ;; -*- mode: emacs-lisp; eval: (progn (pp-buffer) (indent-buffer)) -*-
 ((def-persp "agenda"
-   ((def-buffer "affirm.org" "/Users/guangdazhang/Dropbox/org/affirm.org" org-mode))
+   ((def-buffer "affirm.org" "/Users/guangda.zhang/Dropbox/org/affirm.org" org-mode))
    (def-wconf
      (((min-height . 4)
        (min-width . 10)
@@ -24,7 +24,7 @@
       (parameters
        (better-jumper-struct . #s(better-jumper-jump-list-struct
                                   (0 1 .
-                                     [("/Users/guangdazhang/Dropbox/org-roam/20220121092219-affirm_international.org" 128 "8bjrkp")
+                                     [("/Users/guangda.zhang/Dropbox/org-roam/20220121092219-affirm_international.org" 128 "8bjrkp")
                                       nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil nil])
                                   -1)))
       (buffer "affirm.org"
@@ -43,10 +43,10 @@
        ("*Deft*" 1 554)
        ("*scratch*" 1 1))))
    (def-params
-     ((last-project-root . "/Users/guangdazhang/Dropbox/org/")))
+     ((last-project-root . "/Users/guangda.zhang/Dropbox/org/")))
    nil nil nil)
  (def-persp "notes"
-   ((def-buffer "notes.org" "/Users/guangdazhang/Dropbox/org/notes.org" org-mode))
+   ((def-buffer "notes.org" "/Users/guangda.zhang/Dropbox/org/notes.org" org-mode))
    (def-wconf
      (((min-height . 4)
        (min-width . 10)
@@ -89,10 +89,10 @@
        ("affirm.org" 1 164)
        ("*scratch*" 1 1))))
    (def-params
-     ((last-project-root . "/Users/guangdazhang/Dropbox/org/")))
+     ((last-project-root . "/Users/guangda.zhang/Dropbox/org/")))
    nil nil nil)
  (def-persp "org-roam"
-   ((def-buffer "20220121091955-affirm.org" "/Users/guangdazhang/Dropbox/org-roam/20220121091955-affirm.org" org-mode))
+   ((def-buffer "20220121091955-affirm.org" "/Users/guangda.zhang/Dropbox/org-roam/20220121091955-affirm.org" org-mode))
    (def-wconf
      (((min-height . 4)
        (min-width . 10)
@@ -135,5 +135,5 @@
        ("affirm.org" 1 164)
        ("*scratch*" 1 1))))
    (def-params
-     ((last-project-root . "/Users/guangdazhang/Dropbox/org-roam/")))
+     ((last-project-root . "/Users/guangda.zhang/Dropbox/org-roam/")))
    nil nil nil))

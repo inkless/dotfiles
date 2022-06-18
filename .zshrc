@@ -109,6 +109,10 @@ export PATH="$PATH:$HOME/.rvm/bin"
 # node version manager
 eval "$(nodenv init -)"
 
+# puppeteer
+export PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
+export PUPPETEER_EXECUTABLE_PATH=`which chromium`
+
 # zsh_functions
 [ -f ~/.zsh_functions.zsh ] && source ~/.zsh_functions.zsh
 
