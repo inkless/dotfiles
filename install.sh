@@ -1,27 +1,21 @@
 #!/bin/bash
 
-tmux_conf=".tmux.conf-linux"
-if [ "$(uname)" == "Darwin" ]; then
-  tmux_conf=".tmux.conf-mac"
-fi
 path="$HOME/dotfiles"
 
 echo "install dot files..."
 
-files=(.bash_aliases .editorconfig .gitconfig .zshenv .zshrc .eslintrc.js .prettierrc.js)
+files=(.bash_aliases .editorconfig .gitconfig .zshenv .zshrc .eslintrc.js .prettierrc.js .tmux.conf)
 pushd $HOME
 for file in "${files[@]}"
 do
   rm $file
-  ln -s "$path/$file"
+  ln -s "$path/$file" .
 done
-
-ln -s "$path/$tmux_conf" .tmux.conf
 popd
 
 echo "install .config files..."
 
-folders=(nvim powerline tmuxinator)
+folders=(nvim tmuxinator)
 
 pushd "$HOME/.config"
 for folder in "${folders[@]}"
@@ -44,9 +38,9 @@ echo "install homebrew..."
 
 echo "install homebrew packages..."
 brew install ncdu htop tree \
-  nodenv pyenv \
+  node nodenv pyenv \
   gh pick ripgrep gotop \
-  fzf tmux neovim diff-so-fancy tmuxinator node \
+  fzf tmux neovim diff-so-fancy tmuxinator \
   # emacs related
   shellcheck markdown cmake aspell editorconfig pngpaste graphviz
 

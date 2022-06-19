@@ -35,12 +35,7 @@
 (defconst doom-light-theme 'doom-opera-light)
 (defconst doom-dark-theme 'doom-one)
 
-(if IS-MAC
-    (setq doom-theme
-          (if (equal (plist-get (mac-application-state) :appearance) "NSAppearanceNameAqua")
-              doom-light-theme
-            doom-dark-theme))
-  (setq doom-theme doom-light-theme))
+(setq doom-theme doom-dark-theme)
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
