@@ -50,8 +50,8 @@
 ;(unpin! t)
 
 (package! org-bullets)
-(package! pocket-reader)
+;;(package! pocket-reader)
 (package! mac-pseudo-daemon)
 (package! eslintd-fix)
 (package! jest :recipe (:host github :repo "inkless/emacs-jest"))
-(package! org-kanban)
+;;(package! org-kanban)

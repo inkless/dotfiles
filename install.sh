@@ -46,15 +46,18 @@ echo "install homebrew packages..."
 brew install ncdu htop tree \
   nodenv pyenv \
   gh pick ripgrep gotop \
-  fzf tmux neovim diff-so-fancy tmuxinator node iterm2
+  fzf tmux neovim diff-so-fancy tmuxinator node \
+  # emacs related
+  shellcheck markdown cmake aspell editorconfig pngpaste graphviz
 
 echo "install prettier related stuff..."
-npm install -g prettier
+npm install -g prettier eslint_d
 
 echo "install python 3..."
 pyenv install 3.7.13
 pyenv global 3.7.13
 
+pip3 install iterm2
 # echo "install protobuf lower version to work with iterm2"
 pip3 install --upgrade protobuf==3.20.0
 
