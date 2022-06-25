@@ -1006,15 +1006,16 @@ if count(g:ivim_bundle_groups, 'compile')
     let g:ale_echo_msg_warning_str = 'W'
     let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 
-    " disable python linting, it's done in coc-python
     let g:ale_linters = {
     \   'javascript': ['eslint'],
     \   'javascriptreact': ['eslint'],
     \   'typescript': ['eslint'],
     \   'typescriptreact': ['eslint'],
     \   'ruby': ['rubocop'],
-    \   'python': ['flake8', 'mypy']
     \}
+    " disable python linting, it's done in coc-python
+    let g:ale_linters['python'] = []
+    " let g:ale_linters['python'] = ['flake8', 'mypy']
 
     let g:ale_fixers = {}
     let g:ale_fixers['html'] = ['prettier']
@@ -1025,7 +1026,9 @@ if count(g:ivim_bundle_groups, 'compile')
     let g:ale_fixers['typescriptreact'] = ['eslint']
     let g:ale_fixers['elixir'] = ['mix_format']
     let g:ale_fixers['ruby'] = ['trim_whitespace', 'rubocop']
-    let g:ale_fixers['python'] = ['black', 'autopep8']
+    " disable python fixer, it's done in coc-python
+    let g:ale_fixers['python'] = []
+    " let g:ale_fixers['python'] = ['black', 'autopep8']
 
     let g:ale_javascript_prettier_use_local_config = 1
 
