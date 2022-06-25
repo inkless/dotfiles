@@ -92,7 +92,7 @@ export LANG=en_US.UTF-8
 eval "$(pyenv init -)"
 
 # rust
-# source $HOME/.cargo/env
+source $HOME/.cargo/env
 
 # fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
