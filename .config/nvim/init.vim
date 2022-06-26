@@ -715,20 +715,11 @@ if count(g:ivim_bundle_groups, 'enhance')
     let delimitMate_balance_matchpairs=1
 
     " -> Tcomment
-    " Map \<Space> to commenting
-    function! IsWhiteLine()
-        if (getline('.')=~'^$')
-            exe 'TCommentBlock'
-            normal! j
-        else
-            normal! A
-            exe 'TCommentRight'
-            normal! l
-            normal! x
-        endif
-        startinsert!
-    endfunction
-    nnoremap <silent> <LocalLeader><Space> :call IsWhiteLine()<CR">
+    " <c-/><c-/> :: :TComment
+    " <c-/>b     :: :TCommentBlock
+    " <c-/>i     :: :TCommentInline
+    " <c-_>r     :: :TCommentRight
+    " <c-_>p     :: Comment the current inner paragraph
 
     " allow maintain cursor after exit
     let g:multi_cursor_exit_from_insert_mode=0
@@ -948,17 +939,17 @@ if count(g:ivim_bundle_groups, 'complete')
         nnoremap <silent> <Leader>ca <Plug>(coc-codeaction)
 
         " Show all diagnostics
-        nnoremap <silent> ga  :<C-u>CocList diagnostics<CR>
+        nnoremap <silent> <LocalLeader>a  :<C-u>CocList diagnostics<CR>
         " Find symbol of current document
-        nnoremap <silent> go  :<C-u>CocList outline<cr>
+        nnoremap <silent> <LocalLeader>o  :<C-u>CocList outline<cr>
         " Search workspace symbols
-        nnoremap <silent> gS  :<C-u>CocList -I symbols<cr>
+        nnoremap <silent> <LocalLeader>S  :<C-u>CocList -I symbols<cr>
         " Do default action for next item.
-        nnoremap <silent> gj  :<C-u>CocNext<CR>
+        nnoremap <silent> <LocalLeader>j  :<C-u>CocNext<CR>
         " Do default action for previous item.
-        nnoremap <silent> gk  :<C-u>CocPrev<CR>
+        nnoremap <silent> <LocalLeader>k  :<C-u>CocPrev<CR>
         " Resume latest coc list
-        nnoremap <silent> gp  :<C-u>CocListResume<CR>
+        nnoremap <silent> <LocalLeader>p  :<C-u>CocListResume<CR>
 
         " Highlight symbol under cursor on CursorHold
         autocmd CursorHold * silent call CocActionAsync('highlight')
