@@ -45,14 +45,15 @@ brew install ncdu htop tree \
   shellcheck markdown cmake aspell editorconfig pngpaste graphviz
 
 echo "install prettier related stuff..."
-npm install -g prettier eslint_d
+npm install -g prettier eslint_d neovim
 
 echo "install python 3..."
 pyenv install 3.7.13
 pyenv global 3.7.13
 
-pip3 install iterm2
+pip3 install --user iterm2
 # echo "install protobuf lower version to work with iterm2"
-pip3 install --upgrade protobuf==3.20.0
+pip3 install --user --upgrade protobuf==3.20.0
+pip3 install --user --upgrade pynvim
 
 echo "Congratulations! Script completed!!!"

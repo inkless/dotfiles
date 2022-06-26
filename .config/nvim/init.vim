@@ -74,7 +74,7 @@ set nocompatible " Get out of vi compatible mode
 
 filetype plugin indent on " Enable filetype
 let mapleader=' ' " Change the mapleader
-let maplocalleader='\' " Change the maplocalleader
+let maplocalleader=',' " Change the maplocalleader
 set timeoutlen=500 " Time to wait for a command
 
 " Source the vimrc file after saving it
@@ -175,7 +175,7 @@ if count(g:ivim_bundle_groups, 'enhance') " Vim enhancement
     Plug 'Raimondi/delimitMate' " Closing of quotes
     Plug 'tomtom/tcomment_vim' " Commenter
     Plug 'tpope/vim-repeat' " Repeat
-    Plug 'terryma/vim-multiple-cursors' " Multiple cursors
+    Plug 'mg979/vim-visual-multi', {'branch': 'master'} " Multiple cursors
     Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' } " Undo tree
     Plug 'tpope/vim-surround' " Surround
     Plug 'AndrewRadev/splitjoin.vim' " Splitjoin
@@ -189,7 +189,7 @@ if count(g:ivim_bundle_groups, 'enhance') " Vim enhancement
     Plug 'KabbAmine/vCoolor.vim' " Color Picker
     Plug 'godlygeek/tabular' " Vim script for text filtering and alignment
     Plug 'benmills/vimux' " Vim plugin to interact with tmux
-    Plug 'Shougo/echodoc.vim'
+    " Plug 'Shougo/echodoc.vim'
 endif
 " }}}
 
@@ -224,8 +224,7 @@ endif
 " Compiling/Linting {{{
 if count(g:ivim_bundle_groups, 'compile') " Compiling
     Plug 'w0rp/ale' " Async syntax checking
-    " Plug 'xuhdev/SingleCompile' " Single compile
-    Plug 'JamshedVesuna/vim-markdown-preview' " markdown preview
+    Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
     Plug 'inkless/vim-test' " run test
 endif
 " }}}
@@ -249,8 +248,7 @@ if count(g:ivim_bundle_groups, 'language') " Language Specificity
     " Language specific enhancement/completion etc.
     Plug 'pedrohdz/vim-yaml-folds'
     Plug 'mattn/emmet-vim' " Emmet
-    Plug 'heavenshell/vim-jsdoc' " JSDoc for vim
-    Plug 'greyblake/vim-preview' " vim preview
+    Plug 'kkoomen/vim-doge', { 'do': { -> doge#install() } }
     Plug 'slashmili/alchemist.vim'
     Plug 'tmhedberg/SimpylFold' " python folding
     " Plug 'sukima/vim-ember-imports'
@@ -794,6 +792,11 @@ if count(g:ivim_bundle_groups, 'enhance')
         autocmd FileType qf nnoremap <buffer> o :execute "cc " . line(".")<CR>
         autocmd FileType qf nnoremap <buffer> <CR> :execute "cc " . line(".")<CR>
     augroup END
+
+    " Surround
+    " Add " to a word
+    " vwS"
+    " ysiw"
 endif
 " }}}
 
@@ -827,8 +830,8 @@ endif
 if count(g:ivim_bundle_groups, 'navigate')
 
     " -> NERD Tree
-    nnoremap <Leader>d :NERDTreeToggle<CR>
-    nnoremap <Leader>f :NERDTreeFind<CR>
+    nnoremap <LocalLeader>d :NERDTreeToggle<CR>
+    nnoremap <LocalLeader>f :NERDTreeFind<CR>
     " emacs binding
     nnoremap <Leader>op :NERDTreeToggle<CR>
     nnoremap <Leader>oP :NERDTreeFind<CR>
@@ -917,8 +920,8 @@ if count(g:ivim_bundle_groups, 'complete')
         " :CocInstall coc-tsserver
         " :CocInstall coc-snippets
         " :CocInstall coc-solargraph
-        " :CocInstall coc-rls
-        " :CocInstall coc-python
+        " :CocInstall coc-rust-analyzer
+        " :CocInstall coc-pyright
         " :CocInstall coc-json
         " :CocInstall coc-html
         " :CocInstall coc-css
@@ -1013,7 +1016,7 @@ if count(g:ivim_bundle_groups, 'compile')
     \   'typescriptreact': ['eslint'],
     \   'ruby': ['rubocop'],
     \}
-    " disable python linting, it's done in coc-python
+    " disable python linting, it's done in coc-pyright
     let g:ale_linters['python'] = []
     " let g:ale_linters['python'] = ['flake8', 'mypy']
 
@@ -1087,13 +1090,6 @@ if count(g:ivim_bundle_groups, 'compile')
     command! LebabUnsafe :!lebab --transform='let,class,commonjs,template,default-param,destruct-param,includes' % -o %
 
 
-    " markdown preview
-    let vim_markdown_preview_hotkey='<C-m>'
-    let vim_markdown_preview_github=1
-    if has('macunix')
-        let vim_markdown_preview_browser='Google Chrome'
-    endif
-
     " vim-test
     " make test commands execute using dispatch.vim
     let test#strategy = "vimux"
@@ -1131,6 +1127,9 @@ if count(g:ivim_bundle_groups, 'compile')
     nnoremap <silent> t<C-l> :TestLast<CR>
     nnoremap <silent> t<C-d> :DebugFileWatch<CR>
     nnoremap <silent> t<C-w> :TestFileWatch<CR>
+
+    " Markdown
+    nnoremap <Leader>m <Plug>MarkdownPreviewToggle
 endif
 " }}}
 
@@ -1150,13 +1149,11 @@ if count(g:ivim_bundle_groups, 'language')
     let g:user_emmet_settings={'indentation':'  '}
     let g:use_emmet_complete_tag=1
 
-    " -> jsdoc.vim
-    nmap <silent> <C-m> <Plug>(jsdoc)
-    let g:jsdoc_enable_es6=1
-    let g:jsdoc_param_description_separator='-'
+    " -> vim-doge
+    let g:doge_mapping='<Leader>d'
 
     " -> javascript.vim
-    let g:javascript_plugin_jsdoc = 1
+    " let g:javascript_plugin_jsdoc = 1
 
     " -> SimplyFold
     let g:SimpylFold_docstring_preview = 1
