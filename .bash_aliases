@@ -1,5 +1,6 @@
 alias vi=nvim
 alias vim=nvim
+alias vimdiff="nvim -d"
 
 # ncdu
 alias du="ncdu --color dark -rr -x --exclude .git --exclude node_modules"

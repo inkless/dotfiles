@@ -18,14 +18,22 @@
   clean = git media clean %f
   smudge = git media smudge %f
 [merge]
-  tool = diffmerge
+  # tool = diffmerge
+  tool = nvimdiff
   conflictstyle = diff3
 [mergetool]
   prompt = false
 [diff]
-  tool = diffmerge
-[difftool]
+  # tool = diffmerge
+  tool = nvimdiff
+[mergetool "nvimdiff"]
   prompt = false
+  cmd = "nvim -f -c \"Gdiffsplit!\" \"$MERGED\""
+[difftool "nvimdiff"]
+  prompt = false
+  cmd = "nvim -d \"$LOCAL\" \"$REMOTE\""
+# [difftool]
+#   prompt = false
 # [merge]
 # 	tool = diffmerge
 # [mergetool "diffmerge"]
