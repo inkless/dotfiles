@@ -249,7 +249,11 @@ if count(g:ivim_bundle_groups, 'language') " Language Specificity
     " Language specific enhancement/completion etc.
     Plug 'pedrohdz/vim-yaml-folds'
     Plug 'mattn/emmet-vim' " Emmet
-    Plug 'kkoomen/vim-doge', { 'do': { -> doge#install() } }
+    " Plug 'kkoomen/vim-doge', { 'do': { -> doge#install() } }
+    Plug 'heavenshell/vim-jsdoc', {
+                \ 'for': ['javascript', 'javascript.jsx','typescript', 'typescript.tsx'],
+                \ 'do': 'make install'
+                \}
     Plug 'slashmili/alchemist.vim'
     Plug 'tmhedberg/SimpylFold' " python folding
     " Plug 'sukima/vim-ember-imports'
@@ -535,7 +539,7 @@ set foldlevelstart=0 " Start with all folds closed
 set foldcolumn=1 " Set fold column
 
 " Space to toggle and create folds.
-nnoremap <silent> <F9> @=(foldlevel('.') ? 'za' : '\<Tab>')<CR>
+nnoremap <silent> <CR> @=(foldlevel('.') ? 'za' : '<C-v><CR>')<CR>
 vnoremap <F9> zf
 
 function! MyFoldText()
@@ -1143,6 +1147,9 @@ if count(g:ivim_bundle_groups, 'language')
 
     " -> vim-doge
     let g:doge_mapping='<LocalLeader>d'
+
+    " -> jsdoc.vim
+    nmap <silent> <C-l> <Plug>(jsdoc)
 
     " -> javascript.vim
     " let g:javascript_plugin_jsdoc = 1
