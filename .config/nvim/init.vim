@@ -189,6 +189,7 @@ if count(g:ivim_bundle_groups, 'enhance') " Vim enhancement
     Plug 'KabbAmine/vCoolor.vim' " Color Picker
     Plug 'godlygeek/tabular' " Vim script for text filtering and alignment
     Plug 'benmills/vimux' " Vim plugin to interact with tmux
+    Plug 'junegunn/vim-easy-align'
     " Plug 'Shougo/echodoc.vim'
 endif
 " }}}
@@ -821,8 +822,8 @@ endif
 if count(g:ivim_bundle_groups, 'navigate')
 
     " -> NERD Tree
-    nnoremap <LocalLeader>d :NERDTreeToggle<CR>
-    nnoremap <LocalLeader>f :NERDTreeFind<CR>
+    nnoremap <Leader>d :NERDTreeToggle<CR>
+    nnoremap <Leader>f :NERDTreeFind<CR>
     " emacs binding
     nnoremap <Leader>op :NERDTreeToggle<CR>
     nnoremap <Leader>oP :NERDTreeFind<CR>
@@ -1141,7 +1142,7 @@ if count(g:ivim_bundle_groups, 'language')
     let g:use_emmet_complete_tag=1
 
     " -> vim-doge
-    let g:doge_mapping='<Leader>d'
+    let g:doge_mapping='<LocalLeader>d'
 
     " -> javascript.vim
     " let g:javascript_plugin_jsdoc = 1
