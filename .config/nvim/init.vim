@@ -1146,10 +1146,10 @@ if count(g:ivim_bundle_groups, 'language')
     let g:use_emmet_complete_tag=1
 
     " -> vim-doge
-    let g:doge_mapping='<LocalLeader>d'
+    " let g:doge_mapping='<LocalLeader>d'
 
     " -> jsdoc.vim
-    nmap <silent> <C-l> <Plug>(jsdoc)
+    nmap <silent> <LocalLeader>d <Plug>(jsdoc)
 
     " -> javascript.vim
     " let g:javascript_plugin_jsdoc = 1
