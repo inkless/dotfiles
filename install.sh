@@ -39,7 +39,7 @@ echo "install homebrew..."
 echo "install homebrew packages..."
 brew install ncdu htop tree \
   node nodenv pyenv \
-  gh pick ripgrep gotop \
+  gh pick ripgrep gotop bat \
   fzf tmux neovim diff-so-fancy tmuxinator \
   # emacs related
   shellcheck markdown cmake aspell editorconfig pngpaste graphviz

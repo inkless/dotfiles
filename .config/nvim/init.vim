@@ -209,7 +209,6 @@ if count(g:ivim_bundle_groups, 'navigate') " Navigation
     Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': 'NERDTreeToggle' } " NERD tree git plugin
     Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
     Plug 'junegunn/fzf.vim' " fzf
-    Plug 'mileszs/ack.vim' " ack
 endif
 " }}}
 
@@ -827,10 +826,7 @@ if count(g:ivim_bundle_groups, 'navigate')
 
     " -> NERD Tree
     nnoremap <Leader>d :NERDTreeToggle<CR>
-    nnoremap <Leader>f :NERDTreeFind<CR>
-    " emacs binding
-    nnoremap <Leader>op :NERDTreeToggle<CR>
-    nnoremap <Leader>oP :NERDTreeFind<CR>
+    nnoremap <Leader>o :NERDTreeFind<CR>
 
     let NERDTreeChDirMode=2
     let NERDTreeShowBookmarks=1
@@ -849,29 +845,24 @@ if count(g:ivim_bundle_groups, 'navigate')
     set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
     set wildignore+=**/bower_components/**,**/node_modules/**,**/tags
 
+    " fzf.vim
+    nnoremap <Leader>b :Buffers<CR>
+    nnoremap <Leader><Space> :Files<CR>
+    " Recent files
+    nnoremap <Leader>fo :History<CR>
+    nnoremap <Leader>f: :History:<CR>
+    nnoremap <Leader>f/ :History/<CR>
+    nnoremap <Leader>fc :Commands<CR>
+    nnoremap <Leader>fm :Maps<CR>
+    nnoremap <Leader>fa :Marks<CR>
+
     if executable('rg')
-        " Use rg over grep
-        set grepprg=rg\ --vimgrep\ --no-heading
-        set grepformat=%f:%l:%c:%m,%f:%l:%m
-
-        let g:ackprg = 'rg --vimgrep --no-heading'
-
-        cnoreabbrev Ack Ack!
-        nnoremap <Leader>a :Ack!<Space>
-        nnoremap <Leader>/ :Ack!<Space>
-        nnoremap <Leader>rg :Rg<CR>
-        nnoremap <Leader>b :Buffers<CR>
-        nnoremap <Leader>` <C-^>
-
-        nnoremap S :Ack! -F "<C-R><C-W>"<CR>
-
-        " Search file Ctrl-P
-        nnoremap <c-p> :Files<CR>
-        nnoremap <Leader><Space> :Files<CR>
-        " Recent files
-        nnoremap <c-e> :History<CR>
+        nnoremap <Leader>/ :Rg<CR>
+        nnoremap S :Rg <C-R><C-W><CR>
     endif
 
+    nnoremap <Leader>` <C-^>
+    nnoremap <c-q> :q!<CR>
 endif
 " }}}
 
@@ -1132,6 +1123,12 @@ endif
 " Setting for git plugins {{{
 if count(g:ivim_bundle_groups, 'git')
     set updatetime=1000
+
+    nnoremap <Leader>gl :Git blame<CR>
+    nnoremap <Leader>gj :GitGutterNextHunk<CR>
+    nnoremap <Leader>gk :GitGutterPrevHunk<CR>
+    nnoremap <Leader>gs :GitGutterStageHunk<CR>
+    nnoremap <Leader>gu :GitGutterUndoHunk<CR>
 endif
 " }}}
 
