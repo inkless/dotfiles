@@ -849,7 +849,7 @@ if count(g:ivim_bundle_groups, 'navigate')
     nnoremap <Leader>b :Buffers<CR>
     nnoremap <Leader><Space> :Files<CR>
     " Recent files
-    nnoremap <Leader>fo :History<CR>
+    nnoremap <Leader>fr :History<CR>
     nnoremap <Leader>f: :History:<CR>
     nnoremap <Leader>f/ :History/<CR>
     nnoremap <Leader>fc :Commands<CR>
