@@ -194,6 +194,18 @@ if count(g:ivim_bundle_groups, 'enhance') " Vim enhancement
 endif
 " }}}
 
+" which-key.nvim
+" this cannot be wrapped inside if
+set rtp+=~/.local/share/nvim/plugged/which-key.nvim/
+Plug 'folke/which-key.nvim'
+lua << EOF
+  require("which-key").setup {
+    -- your configuration comes here
+    -- or leave it empty to use the default settings
+    -- refer to the configuration section below
+  }
+EOF
+
 " Moving {{{
 if count(g:ivim_bundle_groups, 'move') " Moving
     Plug 'tpope/vim-unimpaired' " Pairs of mappings
@@ -792,6 +804,7 @@ if count(g:ivim_bundle_groups, 'enhance')
     " Add " to a word
     " vwS"
     " ysiw"
+
 endif
 " }}}
 
