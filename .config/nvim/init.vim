@@ -1121,12 +1121,12 @@ if count(g:ivim_bundle_groups, 'compile')
     endfunction
     command! TestFileWatch :call TestFileWatchFunc()
 
-    nnoremap <silent> t<C-n> :TestNearest<CR>
-    nnoremap <silent> t<C-f> :TestFile<CR>
-    nnoremap <silent> t<C-s> :TestSuite<CR>
-    nnoremap <silent> t<C-l> :TestLast<CR>
-    nnoremap <silent> t<C-d> :DebugFileWatch<CR>
-    nnoremap <silent> t<C-w> :TestFileWatch<CR>
+    nnoremap <Leader>tn :TestNearest<CR>
+    nnoremap <Leader>tf :TestFile<CR>
+    nnoremap <Leader>ts :TestSuite<CR>
+    nnoremap <Leader>tl :TestLast<CR>
+    nnoremap <Leader>td :DebugFileWatch<CR>
+    nnoremap <Leader>tw :TestFileWatch<CR>
 
     " Markdown
     nnoremap <Leader>m <Plug>MarkdownPreviewToggle
