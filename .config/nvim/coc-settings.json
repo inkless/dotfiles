@@ -14,6 +14,8 @@
   // "tsserver.trace.server": "verbose",
   // "tsserver.log": "verbose",
   // "tsserver.debugPort": 5859,
+  "eslint.enable": true,
+  "eslint.autoFixOnSave": true,
 
   // "solargraph.transport": "stdio",
   // "solargraph.trace.server": "verbose",

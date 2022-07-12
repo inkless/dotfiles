@@ -140,7 +140,7 @@ Plug 'github/copilot.vim'
 " }}}
 
 " Compiling/Linting {{{
-Plug 'w0rp/ale' " Async syntax checking
+" Plug 'w0rp/ale' " Async syntax checking
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install' }
 Plug 'inkless/vim-test' " run test
 " }}}
@@ -604,6 +604,7 @@ endif
 " coc settings {{{
 " To be able to actually use coc, we need to install following extensions
 " :CocInstall coc-tsserver
+" :CocInstall coc-eslint
 " :CocInstall coc-snippets
 " :CocInstall coc-solargraph
 " :CocInstall coc-rust-analyzer
@@ -665,6 +666,7 @@ nmap <silent> gD <Plug>(coc-references)
 nmap <silent> <Leader>cf <Plug>(coc-format-selected)
 vmap <silent> <Leader>cf <Plug>(coc-format-selected)
 nmap <silent> <Leader>cr <Plug>(coc-rename)
+nmap <silent> gR <Plug>(coc-rename)
 
 nmap <silent> K :call <SID>show_documentation()<CR>
 function! s:show_documentation()
@@ -679,34 +681,38 @@ endfunction
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " Using CocList
+nnoremap <Leader>a <Plug>(coc-codeaction)
 nnoremap <Leader>C :<C-u>CocList<cr>
-nnoremap <Leader>cc :<C-u>CocList commands<cr>
-nnoremap <Leader>ca <Plug>(coc-codeaction)
 " Apply AutoFix to problem on the current line.
 nnoremap <Leader>cq <Plug>(coc-fix-current)
 " Run the Code Lens action on the current line.
-nnoremap <Leader>cl  <Plug>(coc-codelens-action)
+nnoremap <Leader>cl <Plug>(coc-codelens-action)
 
 " Show all diagnostics
-nnoremap <silent> <LocalLeader>a  :<C-u>CocList diagnostics<CR>
+nnoremap <silent><nowait> <Leader>ca :<C-u>CocList diagnostics<CR>
+" Manage extensions.
+nnoremap <silent><nowait> <Leader>ce :<C-u>CocList extensions<cr>
+" Show coclist commands
+nnoremap <silent><nowait> <Leader>cc :<C-u>CocList commands<cr>
 " Find symbol of current document
-nnoremap <silent> <LocalLeader>o  :<C-u>CocList outline<cr>
+nnoremap <silent><nowait> <Leader>co :<C-u>CocList outline<cr>
 " Search workspace symbols
-nnoremap <silent> <LocalLeader>s  :<C-u>CocList -I symbols<cr>
+nnoremap <silent><nowait> <Leader>cs :<C-u>CocList -I symbols<cr>
 " Do default action for next item.
-nnoremap <silent> <LocalLeader>j  :<C-u>CocNext<CR>
+nnoremap <silent><nowait> <Leader>cj :<C-u>CocNext<CR>
 " Do default action for previous item.
-nnoremap <silent> <LocalLeader>k  :<C-u>CocPrev<CR>
+nnoremap <silent><nowait> <Leader>ck :<C-u>CocPrev<CR>
 " Resume latest coc list
-nnoremap <silent> <LocalLeader>p  :<C-u>CocListResume<CR>
+nnoremap <silent><nowait> <Leader>cp :<C-u>CocListResume<CR>
 
 " Remap <C-f> and <C-b> for scroll float windows/popups.
-nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
-inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
-inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
-vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+" Notice: this does work well in tmux, but annoying since <c-b> is tmux prefix
+" nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+" nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+" inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+" inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+" vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+" vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
 
 " Add `:Format` command to format current buffer.
 command! -nargs=0 Format :call CocActionAsync('format')
@@ -716,7 +722,7 @@ command! -nargs=0 OR   :call     CocActionAsync('runCommand', 'editor.action.org
 " Add (Neo)Vim's native statusline support.
 " NOTE: Please see `:h coc-status` for integrations with external plugins that
 " provide custom statusline: lightline.vim, vim-airline.
-" set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 augroup coc_group
   autocmd!
@@ -746,47 +752,6 @@ augroup prettier_group
     autocmd!
     autocmd BufNewFile,BufRead *.es6 setlocal filetype=javascript
 augroup END
-
-" -> Ale {{{
-let g:ale_fix_on_save = 1
-let g:ale_sign_error = '✗'
-let g:ale_sign_warning = '∆'
-let g:ale_echo_msg_error_str = 'E'
-let g:ale_echo_msg_warning_str = 'W'
-let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-
-let g:ale_linters = {
-            \   'javascript': ['eslint'],
-            \   'javascriptreact': ['eslint'],
-            \   'typescript': ['eslint'],
-            \   'typescriptreact': ['eslint'],
-            \   'ruby': ['rubocop'],
-            \}
-" disable python linting, it's done in coc-pyright
-let g:ale_linters['python'] = []
-" let g:ale_linters['python'] = ['flake8', 'mypy']
-
-let g:ale_fixers = {}
-let g:ale_fixers['html'] = ['prettier']
-let g:ale_fixers['javascript'] = ['eslint']
-let g:ale_fixers['javascriptreact'] = ['eslint']
-let g:ale_fixers['json'] = ['prettier']
-let g:ale_fixers['typescript'] = ['eslint']
-let g:ale_fixers['typescriptreact'] = ['eslint']
-let g:ale_fixers['elixir'] = ['mix_format']
-let g:ale_fixers['ruby'] = ['trim_whitespace', 'rubocop']
-" disable python fixer, it's done in coc-python
-let g:ale_fixers['python'] = []
-" let g:ale_fixers['python'] = ['black', 'autopep8']
-
-let g:ale_javascript_prettier_use_local_config = 1
-
-nnoremap <silent> [a :ALEPrevious<CR>
-nnoremap <silent> ]a :ALENext<CR>
-
-" Ale completion
-nnoremap <Leader>p :ALEFix<CR>
-" }}}
 
 " vim-test {{{
 " make test commands execute using dispatch.vim
@@ -835,11 +800,13 @@ nnoremap <Leader>m <Plug>MarkdownPreviewToggle
 " Setting for git plugins {{{
 " set updatetime=1000
 
+nnoremap <Leader>go :Git checkout %<CR>
 nnoremap <Leader>gl :Git blame<CR>
 nnoremap <Leader>gj :GitGutterNextHunk<CR>
 nnoremap <Leader>gk :GitGutterPrevHunk<CR>
 nnoremap <Leader>gs :GitGutterStageHunk<CR>
 nnoremap <Leader>gu :GitGutterUndoHunk<CR>
+nnoremap <Leader>gd :GitGutterDiffOrig<CR>
 " }}}
 
 " Setting for language specificity {{{
