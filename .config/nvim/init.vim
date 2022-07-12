@@ -55,11 +55,15 @@ endif
 "------------------------------------------------
 
 " nvim
-set termguicolors
-filetype plugin indent on " Enable filetype
 let mapleader=' ' " Change the mapleader
 let maplocalleader=',' " Change the maplocalleader
+
+filetype plugin indent on " Enable filetype
+set termguicolors
 set timeoutlen=500 " Time to wait for a command
+set undofile
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
+set wildignore+=**/bower_components/**,**/node_modules/**,**/tags
 
 " Source the vimrc file after saving it
 augroup vim_source
@@ -69,11 +73,6 @@ augroup END
 
 " Fast edit the .vimrc file using ,x
 nnoremap <Leader>x :tabedit $MYVIMRC<CR>
-
-set undofile
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" }}}
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " }}}
@@ -118,7 +117,6 @@ Plug 'godlygeek/tabular' " Vim script for text filtering and alignment
 Plug 'benmills/vimux' " Vim plugin to interact with tmux
 Plug 'junegunn/vim-easy-align'
 " }}}
-
 
 " Moving {{{
 Plug 'tpope/vim-unimpaired' " Pairs of mappings
@@ -288,9 +286,10 @@ set softtabstop=2 " Indentation levels every 2 columns
 set shiftround " Indent/outdent to nearest tabstop
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" }}}
 
 "-------------------------------------------------
-" => Search Related
+" => Search Related {{{
 "-------------------------------------------------
 
 set ignorecase " Case insensitive search
@@ -414,6 +413,8 @@ nnoremap <A-p> :bprevious<CR>:redraw<CR>
 " CTRL-C doesn't trigger the InsertLeave autocmd . map to <ESC> instead.
 inoremap <C-c> <ESC>
 
+nnoremap <Leader>` <C-^>
+nnoremap <c-q> :q!<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " }}}
@@ -554,7 +555,7 @@ nmap <Leader>w <Plug>(easymotion-overwin-w)
 
 " Setting for navigation plugins {{{
 
-" -> NERD Tree
+" -> NERD Tree {{{
 nnoremap <Leader>d :NERDTreeToggle<CR>
 nnoremap <Leader>o :NERDTreeFind<CR>
 
@@ -571,11 +572,9 @@ augroup nerd_loader
                 \|   execute 'autocmd! nerd_loader'
                 \| endif
 augroup END
+" }}}
 
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
-set wildignore+=**/bower_components/**,**/node_modules/**,**/tags
-
-" fzf.vim
+" fzf.vim {{{
 nnoremap <Leader>, :Buffers<CR>
 nnoremap <Leader><Space> :Files<CR>
 " Recent files
@@ -591,9 +590,7 @@ if executable('rg')
     nnoremap <Leader>/ :Rg<CR>
     nnoremap S :Rg <C-R><C-W><CR>
 endif
-
-nnoremap <Leader>` <C-^>
-nnoremap <c-q> :q!<CR>
+" }}}
 " }}}
 
 " Setting for completion plugins {{{
@@ -604,7 +601,7 @@ nnoremap <c-q> :q!<CR>
 " set completeopt+=longest
 " set completeopt-=preview
 
-" coc settings
+" coc settings {{{
 " To be able to actually use coc, we need to install following extensions
 " :CocInstall coc-tsserver
 " :CocInstall coc-snippets
@@ -732,15 +729,25 @@ augroup end
 
 " let g:coc_snippet_next = '<TAB>'
 " let g:coc_snippet_prev = '<S-TAB>'
+"
+" }}}
 
-" Setting info for snips
+" Setting info for snips {{{
 let g:snips_author=g:ivim_user
 let g:snips_email=g:ivim_email
 let g:snips_github=g:ivim_github
 " }}}
 
+" }}}
+
 " Setting for compiling plugins {{{
-" -> Ale
+
+augroup prettier_group
+    autocmd!
+    autocmd BufNewFile,BufRead *.es6 setlocal filetype=javascript
+augroup END
+
+" -> Ale {{{
 let g:ale_fix_on_save = 1
 let g:ale_sign_error = '✗'
 let g:ale_sign_warning = '∆'
@@ -779,13 +786,9 @@ nnoremap <silent> ]a :ALENext<CR>
 
 " Ale completion
 nnoremap <Leader>p :ALEFix<CR>
+" }}}
 
-augroup prettier_group
-    autocmd!
-    autocmd BufNewFile,BufRead *.es6 setlocal filetype=javascript
-augroup END
-
-" vim-test
+" vim-test {{{
 " make test commands execute using dispatch.vim
 let test#strategy = "vimux"
 function! DebugNearestFunc()
@@ -823,6 +826,8 @@ nnoremap <Leader>tl :TestLast<CR>
 nnoremap <Leader>td :DebugFileWatch<CR>
 nnoremap <Leader>tw :TestFileWatch<CR>
 
+" }}}
+
 " Markdown
 nnoremap <Leader>m <Plug>MarkdownPreviewToggle
 " }}}
@@ -852,7 +857,6 @@ nmap <silent> <LocalLeader>d <Plug>(jsdoc)
 
 " -> SimpylFold
 let g:SimpylFold_docstring_preview = 1
-
 
 " }}}
 
