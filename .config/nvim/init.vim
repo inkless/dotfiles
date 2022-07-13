@@ -94,13 +94,14 @@ Plug 'morhetz/gruvbox' " Colorscheme gruvbox
 " Plug 'NLKNguyen/papercolor-theme'
 " Plug 'mhartington/oceanic-next'
 Plug 'vim-airline/vim-airline' | Plug 'vim-airline/vim-airline-themes' " Status line
-Plug 'ryanoasis/vim-devicons' " Devicons
+Plug 'kyazdani42/nvim-web-devicons'
+Plug 'norcalli/nvim-colorizer.lua'
 Plug 'mhinz/vim-startify' " Start page
 " }}}
 
 " Vim enhance {{{
 Plug 'Raimondi/delimitMate' " Closing of quotes
-Plug 'tomtom/tcomment_vim' " Commenter
+Plug 'numToStr/Comment.nvim'
 Plug 'tpope/vim-repeat' " Repeat
 Plug 'mg979/vim-visual-multi', {'branch': 'master'} " Multiple cursors
 Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' } " Undo tree
@@ -111,11 +112,11 @@ Plug 'chrisbra/vim-diff-enhanced' " Create better diffs
 Plug 'mhinz/vim-hugefile' " Largefile
 " Plug 'vim-scripts/YankRing.vim' "yank history for vim
 Plug 'amiorin/vim-project' " Project
-Plug 'ap/vim-css-color', { 'for': ['css', 'less', 'scss', 'vim'] } " hmm
 Plug 'KabbAmine/vCoolor.vim' " Color Picker
 Plug 'godlygeek/tabular' " Vim script for text filtering and alignment
 Plug 'benmills/vimux' " Vim plugin to interact with tmux
 Plug 'junegunn/vim-easy-align'
+Plug 'famiu/bufdelete.nvim'
 " }}}
 
 " Moving {{{
@@ -126,8 +127,7 @@ Plug 'christoomey/vim-tmux-navigator' " Tmux navigation
 " }}}
 
 " Navigation {{{
-Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' } " NERD tree
-Plug 'Xuyuanp/nerdtree-git-plugin', { 'on': 'NERDTreeToggle' } " NERD tree git plugin
+Plug 'kyazdani42/nvim-tree.lua'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim' " fzf
 " }}}
@@ -156,7 +156,8 @@ endif
 
 " Language {{{
 Plug 'editorconfig/editorconfig-vim'
-Plug 'sheerun/vim-polyglot' " Language Support (includes javascript and all other types)
+" Plug 'sheerun/vim-polyglot' " Language Support (includes javascript and all other types)
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
 " Language specific enhancement/completion etc.
 Plug 'pedrohdz/vim-yaml-folds'
@@ -342,6 +343,9 @@ set nofoldenable " no fold by default
 " => Key Mapping {{{
 "-------------------------------------------------
 
+" Allow Q to quite vim
+:command Q q
+
 " avoid ESC
 inoremap jk <Esc>
 
@@ -404,11 +408,12 @@ inoremap <A-k> <Esc>:m .-2<CR>==gi
 vnoremap <A-j> :m '>+1<CR>gv=gv
 vnoremap <A-k> :m '<-2<CR>gv=gv
 
-nnoremap <Leader>br :e!<CR>
-nnoremap <Leader>b] :bnext<CR>
-nnoremap <Leader>b[ :bprevious<CR>
-nnoremap <A-n> :bnext<CR>:redraw<CR>
-nnoremap <A-p> :bprevious<CR>:redraw<CR>
+nnoremap <Leader>br :e!<CR>:redraw<CR>
+nnoremap <Leader>b] :bnext<CR>:redraw<CR>
+nnoremap <Leader>b[ :bprevious<CR>:redraw<CR>
+nnoremap <Leader>bc :Bdelete<CR>
+nnoremap <A-l> :bnext<CR>:redraw<CR>
+nnoremap <A-h> :bprevious<CR>:redraw<CR>
 
 " CTRL-C doesn't trigger the InsertLeave autocmd . map to <ESC> instead.
 inoremap <C-c> <ESC>
@@ -452,21 +457,35 @@ endif
 let g:startify_session_autoload       = 1
 let g:startify_session_persistence    = 1
 
+" nvim-colorizer.lua
+lua << EOF
+require('colorizer').setup()
+EOF
+
 " }}}
 
-" Setting for enhancement plugins {{{
+" Setting for VIM enhancement plugins {{{
 
 " -> delimitMate
 let delimitMate_expand_cr=1
 let delimitMate_expand_space=1
 let delimitMate_balance_matchpairs=1
 
-" -> Tcomment
-" <c-/><c-/> :: :TComment
-" <c-/>b     :: :TCommentBlock
-" <c-/>i     :: :TCommentInline
-" <c-_>r     :: :TCommentRight
-" <c-_>p     :: Comment the current inner paragraph
+" Comment.nvim {{{
+lua << EOF
+require('Comment').setup {
+    padding = true,
+}
+EOF
+
+" My old fashioned keymapping inherited from TComment
+command! -nargs=0 ToggleComment :lua require("Comment.api").call("toggle_current_linewise_op")
+command! -nargs=0 ToggleBlockComment :lua require("Comment.api").call("toggle_current_blockwise_op")
+nnoremap <c-_><c-_> :ToggleComment<CR>g@$
+nnoremap <c-_>b :ToggleBlockComment<CR>g@$
+xnoremap <c-_><c-_> :lua require("Comment.api").locked.toggle_linewise_op(vim.fn.visualmode())<CR>
+xnoremap <c-_> :lua require("Comment.api").locked.toggle_blockwise_op(vim.fn.visualmode())<CR>
+"}}}
 
 " -> Undo tree
 nnoremap <Leader>u :UndotreeToggle<CR>
@@ -555,23 +574,67 @@ nmap <Leader>w <Plug>(easymotion-overwin-w)
 
 " Setting for navigation plugins {{{
 
-" -> NERD Tree {{{
-nnoremap <Leader>d :NERDTreeToggle<CR>
-nnoremap <Leader>o :NERDTreeFind<CR>
+" -> Nvim Tree {{{
+lua << EOF
+require("nvim-tree").setup {
+    -- sync_root_with_cwd = true,
+    update_focused_file = {
+        -- enable = true,
+        -- update_root = true,
+    },
+    renderer = {
+        icons = {
+            glyphs = {
+                default = "",
+                symlink = "",
+                folder = {
+                    arrow_closed = "",
+                    arrow_open = "",
+                    default = "",
+                    open = "",
+                    empty = "",
+                    empty_open = "",
+                    symlink = "",
+                    symlink_open = "",
+                },
+                git = {
+                    unstaged = "",
+                    staged = "S",
+                    unmerged = "",
+                    renamed = "➜",
+                    untracked = "U",
+                    deleted = "",
+                    ignored = "◌",
+                },
+            },
+        },
+    },
+    diagnostics = {
+        -- enable = true,
+        enable = false,
+        show_on_dirs = true,
+        icons = {
+            hint = "",
+            info = "",
+            warning = "",
+            error = "",
+        },
+    },
+    view = {
+        side = "left",
+        adaptive_size = true,
+        mappings = {
+            list = {
+                { key = "u", action = "dir_up" },
+                { key = "-", action = "" },
+            },
+        },
+    },
+}
+EOF
 
-let NERDTreeChDirMode=2
-let NERDTreeShowBookmarks=1
-let NERDTreeShowHidden=1
-let NERDTreeShowLineNumbers=1
-augroup nerd_loader
-    autocmd!
-    autocmd VimEnter * silent! autocmd! FileExplorer
-    autocmd BufEnter,BufNew *
-                \  if isdirectory(expand('<amatch>'))
-                \|   call plug#load('nerdtree')
-                \|   execute 'autocmd! nerd_loader'
-                \| endif
-augroup END
+nnoremap <Leader>e :NvimTreeFindFile<CR>
+nnoremap <Leader>ot :NvimTreeToggle<CR>
 " }}}
 
 " fzf.vim {{{
@@ -794,7 +857,7 @@ nnoremap <Leader>tw :TestFileWatch<CR>
 " }}}
 
 " Markdown
-nnoremap <Leader>m <Plug>MarkdownPreviewToggle
+nnoremap <Leader>om <Plug>MarkdownPreviewToggle
 " }}}
 
 " Setting for git plugins {{{
@@ -810,6 +873,59 @@ nnoremap <Leader>gd :GitGutterDiffOrig<CR>
 " }}}
 
 " Setting for language specificity {{{
+
+" Nvim treesitter {{{
+lua << EOF
+require "nvim-treesitter.configs".setup {
+    -- A list of parser names, or "all"
+    ensure_installed = {
+        "lua",
+        "rust",
+        "javascript",
+        "typescript",
+        "tsx",
+        "css",
+        "scss",
+        "html",
+        "json",
+        "jsonc",
+        "python",
+        "kotlin",
+        "jsdoc",
+        "markdown",
+        "yaml",
+        "bash",
+        "sql",
+        "toml",
+        "solidity",
+        "vim",
+        "dockerfile"
+    },
+    -- Install parsers synchronously (only applied to `ensure_installed`)
+    sync_install = false,
+    -- Automatically install missing parsers when entering buffer
+    auto_install = true,
+    -- List of parsers to ignore installing (for "all")
+    -- ignore_install = { "javascript" },
+
+    highlight = {
+        -- `false` will disable the whole extension
+        enable = true,
+        -- NOTE: these are the names of the parsers and not the filetype. (for example if you want to
+        -- disable highlighting for the `tex` filetype, you need to include `latex` in this list as this is
+        -- the name of the parser)
+        -- list of language that will be disabled
+        -- disable = { "c", "rust" },
+
+        -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
+        -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
+        -- Using this option may slow down your editor, and you may see some duplicate highlights.
+        -- Instead of true it can also be a list of languages
+        additional_vim_regex_highlighting = false,
+    }
+}
+EOF
+"}}}
 
 " -> Emmet
 let g:user_emmet_leader_key='<c-y>'
@@ -834,9 +950,7 @@ let g:SimpylFold_docstring_preview = 1
 " => Project Setting {{{
 "--------------------------------------------------
 
-" User nerd tree
 let g:project_enable_welcome=0
-let g:project_use_nerdtree = 1
 
 set rtp+=~/.local/share/nvim/plugged/vim-project/
 
