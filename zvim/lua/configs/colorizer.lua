@@ -1,6 +1,6 @@
 local status_ok, colorizer = pcall(require, "colorizer")
 if not status_ok then return end
-local colorizer_opts = zvim.user_plugin_opts("plugins.colorizer", {
+local colorizer_opts = {
   { "*" },
   {
     RGB = true, -- #RGB hex codes
@@ -13,5 +13,5 @@ local colorizer_opts = zvim.user_plugin_opts("plugins.colorizer", {
     css_fn = false, -- Enable all CSS *functions*: rgb_fn, hsl_fn
     mode = "background", -- Set the display mode
   },
-})
+}
 colorizer.setup(colorizer_opts[1], colorizer_opts[2])

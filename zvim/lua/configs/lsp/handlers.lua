@@ -4,7 +4,7 @@ local conditional_func = zvim.conditional_func
 
 zvim.lsp.on_attach = function(client, bufnr)
   zvim.set_mappings(
-    user_plugin_opts("lsp.mappings", {
+    {
       n = {
         ["K"] = { function() vim.lsp.buf.hover() end, desc = "Hover symbol details" },
         ["<leader>la"] = { function() vim.lsp.buf.code_action() end, desc = "LSP code action" },
@@ -20,7 +20,7 @@ zvim.lsp.on_attach = function(client, bufnr)
         ["]d"] = { function() vim.diagnostic.goto_next() end, desc = "Next diagnostic" },
         ["gl"] = { function() vim.diagnostic.open_float() end, desc = "Hover diagnostics" },
       },
-    }),
+    },
     { buffer = bufnr }
   )
 

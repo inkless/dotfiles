@@ -1,6 +1,6 @@
 local status_ok, npairs = pcall(require, "nvim-autopairs")
 if not status_ok then return end
-npairs.setup(zvim.user_plugin_opts("plugins.nvim-autopairs", {
+npairs.setup({
   check_ts = true,
   ts_config = {
     lua = { "string", "source" },
@@ -19,12 +19,7 @@ npairs.setup(zvim.user_plugin_opts("plugins.nvim-autopairs", {
     highlight = "PmenuSel",
     highlight_grey = "LineNr",
   },
-}))
-
-local rules = zvim.user_plugin_opts("nvim-autopairs").add_rules
-if vim.tbl_contains({ "function", "table" }, type(rules)) then
-  npairs.add_rules(type(rules) == "function" and rules(npairs) or rules)
-end
+})
 
 local cmp_status_ok, cmp = pcall(require, "cmp")
 if cmp_status_ok then

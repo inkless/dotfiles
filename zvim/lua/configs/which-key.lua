@@ -1,12 +1,12 @@
 local status_ok, which_key = pcall(require, "which-key")
 if not status_ok then return end
+
 local show = which_key.show
-local show_override = zvim.user_plugin_opts("which-key.show", nil, false)
-which_key.show = type(show_override) == "function" and show_override(show)
-  or function(keys, opts)
-    if vim.bo.filetype ~= "TelescopePrompt" then show(keys, opts) end
-  end
-which_key.setup(zvim.user_plugin_opts("plugins.which-key", {
+which_key.show = function(keys, opts)
+  if vim.bo.filetype ~= "TelescopePrompt" then show(keys, opts) end
+end
+
+which_key.setup({
   plugins = {
     spelling = { enabled = true },
     presets = { operators = false },
@@ -15,4 +15,4 @@ which_key.setup(zvim.user_plugin_opts("plugins.which-key", {
     border = "rounded",
     padding = { 2, 2, 2, 2 },
   },
-}))
+})

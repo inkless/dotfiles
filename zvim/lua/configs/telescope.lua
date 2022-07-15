@@ -5,7 +5,7 @@ local actions = require "telescope.actions"
 zvim.conditional_func(telescope.load_extension, pcall(require, "notify"), "notify")
 zvim.conditional_func(telescope.load_extension, pcall(require, "aerial"), "aerial")
 
-telescope.setup(zvim.user_plugin_opts("plugins.telescope", {
+telescope.setup({
   defaults = {
 
     prompt_prefix = " ",
@@ -92,6 +92,6 @@ telescope.setup(zvim.user_plugin_opts("plugins.telescope", {
   },
   pickers = {},
   extensions = {},
-}))
+})
 
 require("telescope").load_extension("fzf")

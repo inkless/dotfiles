@@ -139,7 +139,6 @@ local plugins = {
     "L3MON4D3/LuaSnip",
     module = "luasnip",
     wants = "friendly-snippets",
-    config = function() require "configs.luasnip" end,
   },
 
   -- Completion engine
@@ -267,21 +266,24 @@ local plugins = {
   },
 
   -- Terminal
-  ["akinsho/toggleterm.nvim"] = {
+  {
+    "akinsho/toggleterm.nvim",
     cmd = "ToggleTerm",
     module = { "toggleterm", "toggleterm.terminal" },
     config = function() require "configs.toggleterm" end,
   },
 
   -- Commenting
-  ["numToStr/Comment.nvim"] = {
+  {
+    "numToStr/Comment.nvim",
     module = { "Comment", "Comment.api" },
     keys = { "gc", "gb", "g<", "g>" },
     config = function() require "configs.Comment" end,
   },
 
   -- Indentation
-  ["lukas-reineke/indent-blankline.nvim"] = {
+  {
+    "lukas-reineke/indent-blankline.nvim",
     event = "BufRead",
     config = function() require "configs.indent-line" end,
   },

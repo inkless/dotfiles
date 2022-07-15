@@ -1,6 +1,6 @@
 local status_ok, gitsigns = pcall(require, "gitsigns")
 if not status_ok then return end
-gitsigns.setup(zvim.user_plugin_opts("plugins.gitsigns", {
+gitsigns.setup({
   signs = {
     add = { text = "▎" },
     change = { text = "▎" },
@@ -8,4 +8,4 @@ gitsigns.setup(zvim.user_plugin_opts("plugins.gitsigns", {
     topdelete = { text = "契" },
     changedelete = { text = "▎" },
   },
-}))
+})

@@ -35,7 +35,7 @@ local function has_words_before()
   return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match "%s" == nil
 end
 
-setup(zvim.user_plugin_opts("plugins.cmp", {
+setup({
   preselect = cmp.PreselectMode.None,
   formatting = {
     -- fields = { "kind", "abbr", "menu" },
@@ -108,9 +108,4 @@ setup(zvim.user_plugin_opts("plugins.cmp", {
       "s",
     }),
   },
-}))
-for setup_opt, setup_table in pairs(zvim.user_plugin_opts("cmp.setup", {})) do
-  for pattern, options in pairs(setup_table) do
-    setup[setup_opt](pattern, options)
-  end
-end
+})

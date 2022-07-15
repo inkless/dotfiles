@@ -1,6 +1,6 @@
 local status_ok, indent_blankline = pcall(require, "indent_blankline")
 if not status_ok then return end
-indent_blankline.setup(zvim.user_plugin_opts("plugins.indent_blankline", {
+indent_blankline.setup({
   buftype_exclude = {
     "nofile",
     "terminal",
@@ -46,4 +46,4 @@ indent_blankline.setup(zvim.user_plugin_opts("plugins.indent_blankline", {
   char = "▏",
   context_char = "▏",
   show_current_context = true,
-}))
+})

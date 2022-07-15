@@ -1,6 +1,6 @@
 local status_ok, aerial = pcall(require, "aerial")
 if not status_ok then return end
-aerial.setup(zvim.user_plugin_opts("plugins.aerial", {
+aerial.setup({
   close_behavior = "global",
   backends = { "lsp", "treesitter", "markdown" },
   min_width = 28,
@@ -48,4 +48,4 @@ aerial.setup(zvim.user_plugin_opts("plugins.aerial", {
     vim.keymap.set("n", "[[", "<cmd>AerialPrevUp<cr>", { buffer = bufnr, desc = "Jump up and backwards in Aerial" })
     vim.keymap.set("n", "]]", "<cmd>AerialNextUp<cr>", { buffer = bufnr, desc = "Jump up and forwards in Aerial" })
   end,
-}))
+})

@@ -3,10 +3,8 @@ local stdpath = vim.fn.stdpath
 local tbl_insert = table.insert
 local map = vim.keymap.set
 
-zvim.install = zvim_installation or { home = stdpath "config" }
-zvim.install.config = stdpath("config"):gsub("nvim$", "zvim")
-vim.opt.rtp:append(zvim.install.config)
-local supported_configs = { zvim.install.home, zvim.install.config }
+zvim.install = { home = stdpath "config" }
+local supported_configs = { zvim.install.home }
 
 local function load_module_file(module)
   local found_module = nil
@@ -26,10 +24,7 @@ local function load_module_file(module)
 end
 
 zvim.user_settings = load_module_file "user.init"
-zvim.default_compile_path = stdpath "data" .. "/packer_compiled.lua"
 zvim.user_terminals = {}
-zvim.url_matcher =
-  "\\v\\c%(%(h?ttps?|ftp|file|ssh|git)://|[a-z]+[@][a-z]+[.][a-z]+:)%([&:#*@~%_\\-=?!+;/0-9a-z]+%(%([.;/?]|[.][.]+)[&:#*@~%_\\-=?!+/0-9a-z]+|:\\d+|,%(%(%(h?ttps?|ftp|file|ssh|git)://|[a-z]+[@][a-z]+[.][a-z]+:)@![0-9a-z]+))*|\\([&:#*@~%_\\-=?!+;/.0-9a-z]*\\)|\\[[&:#*@~%_\\-=?!+;/.0-9a-z]*\\]|\\{%([&:#*@~%_\\-=?!+;/.0-9a-z]*|\\{[&:#*@~%_\\-=?!+;/.0-9a-z]*})\\})+"
 
 local function func_or_extend(overrides, default, extend)
   if extend then
@@ -48,8 +43,6 @@ function zvim.conditional_func(func, condition, ...)
   if (condition == nil and true or condition) and type(func) == "function" then return func(...) end
 end
 
-function zvim.trim_or_nil(str) return type(str) == "string" and vim.trim(str) or nil end
-
 function zvim.notify(msg, type, opts)
   vim.notify(msg, type, vim.tbl_deep_extend("force", { title = "zvim" }, opts or {}))
 end
@@ -59,14 +52,6 @@ function zvim.echo(messages)
   if type(messages) == "table" then vim.api.nvim_echo(messages, false, {}) end
 end
 
-function zvim.confirm_prompt(messages)
-  if messages then zvim.echo(messages) end
-  local confirmed = string.lower(vim.fn.input "(y/n) ") == "y"
-  zvim.echo()
-  zvim.echo()
-  return confirmed
-end
-
 local function user_setting_table(module)
   local settings = zvim.user_settings or {}
   for tbl in string.gmatch(module, "([^%.]+)") do
@@ -74,44 +59,6 @@ local function user_setting_table(module)
     if settings == nil then break end
   end
   return settings
-end
-
-function zvim.initialize_packer()
-  local packer_avail, _ = pcall(require, "packer")
-  if not packer_avail then
-    local packer_path = stdpath "data" .. "/site/pack/packer/start/packer.nvim"
-    vim.fn.delete(packer_path, "rf")
-    vim.fn.system {
-      "git",
-      "clone",
-      "--depth",
-      "1",
-      "https://github.com/wbthomason/packer.nvim",
-      packer_path,
-    }
-    zvim.echo { { "Initializing Packer...\n\n" } }
-    vim.cmd "packadd packer.nvim"
-    packer_avail, _ = pcall(require, "packer")
-    if not packer_avail then vim.api.nvim_err_writeln("Failed to load packer at:" .. packer_path) end
-  end
-  if packer_avail then
-    local run_me, _ = loadfile(
-      zvim.user_plugin_opts("plugins.packer", { compile_path = zvim.default_compile_path }).compile_path
-    )
-    if run_me then
-      run_me()
-    else
-      zvim.echo { { "Please run " }, { ":PackerSync", "Title" } }
-    end
-  end
-end
-
-function zvim.vim_opts(options)
-  for scope, table in pairs(options) do
-    for setting, value in pairs(table) do
-      vim[scope][setting] = value
-    end
-  end
 end
 
 function zvim.user_plugin_opts(module, default, extend, prefix)
@@ -190,8 +137,6 @@ function zvim.null_ls_sources(filetype, source)
   return methods_avail and zvim.null_ls_providers(filetype)[methods.internal[source]] or {}
 end
 
-function zvim.is_available(plugin) return packer_plugins ~= nil and packer_plugins[plugin] ~= nil end
-
 function zvim.set_mappings(map_table, base)
   for mode, maps in pairs(map_table) do
     for keymap, options in pairs(maps) do
@@ -208,32 +153,5 @@ function zvim.set_mappings(map_table, base)
     end
   end
 end
-
-function zvim.delete_url_match()
-  for _, match in ipairs(vim.fn.getmatches()) do
-    if match.group == "HighlightURL" then vim.fn.matchdelete(match.id) end
-  end
-end
-
-function zvim.set_url_match()
-  zvim.delete_url_match()
-  if vim.g.highlighturl_enabled then vim.fn.matchadd("HighlightURL", zvim.url_matcher, 15) end
-end
-
-function zvim.toggle_url_match()
-  vim.g.highlighturl_enabled = not vim.g.highlighturl_enabled
-  zvim.set_url_match()
-end
-
-function zvim.cmd(cmd, show_error)
-  local result = vim.fn.system(cmd)
-  local success = vim.api.nvim_get_vvar "shell_error" == 0
-  if not success and (show_error == nil and true or show_error) then
-    vim.api.nvim_err_writeln("Error running command: " .. cmd .. "\nError message:\n" .. result)
-  end
-  return success and result or nil
-end
-
-require "core.utils.updater"
 
 return zvim

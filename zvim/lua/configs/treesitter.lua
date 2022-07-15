@@ -1,6 +1,6 @@
 local status_ok, treesitter = pcall(require, "nvim-treesitter.configs")
 if not status_ok then return end
-treesitter.setup(zvim.user_plugin_opts("plugins.treesitter", {
+treesitter.setup({
   ensure_installed = {},
   sync_install = false,
   ignore_install = {},
@@ -22,4 +22,4 @@ treesitter.setup(zvim.user_plugin_opts("plugins.treesitter", {
   autotag = { enable = true },
   incremental_selection = { enable = true },
   indent = { enable = false },
-}))
+})

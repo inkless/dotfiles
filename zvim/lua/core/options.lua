@@ -1,4 +1,12 @@
-zvim.vim_opts(zvim.user_plugin_opts("options", {
+local function vim_opts(options)
+  for scope, table in pairs(options) do
+    for setting, value in pairs(table) do
+      vim[scope][setting] = value
+    end
+  end
+end
+
+vim_opts({
   opt = {
     backspace = vim.opt.backspace + { "nostop" }, -- Don't stop backspace at insert
     clipboard = "unnamedplus", -- Connection to the system clipboard
@@ -60,4 +68,4 @@ zvim.vim_opts(zvim.user_plugin_opts("options", {
     loaded_vimball = true, -- disable vimball
     loaded_vimballPlugin = true, -- disable vimball
   },
-}))
+})

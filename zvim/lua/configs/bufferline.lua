@@ -1,6 +1,6 @@
 local status_ok, bufferline = pcall(require, "bufferline")
 if not status_ok then return end
-bufferline.setup(zvim.user_plugin_opts("plugins.bufferline", {
+bufferline.setup({
   options = {
     offsets = {
       { filetype = "NvimTree", text = "", padding = 1 },
@@ -17,4 +17,4 @@ bufferline.setup(zvim.user_plugin_opts("plugins.bufferline", {
     sort_by = "tabs",
     enforce_regular_tabs = true,
   },
-}))
+})

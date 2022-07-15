@@ -29,13 +29,13 @@ alpha.setup({
     { type = "padding", val = vim.fn.max { 2, vim.fn.floor(vim.fn.winheight(0) * 0.2) } },
     {
       type = "text",
-      val = zvim.user_plugin_opts("header", {
+      val = {
         "███    ██ ██    ██ ██ ███    ███",
         "████   ██ ██    ██ ██ ████  ████",
         "██ ██  ██ ██    ██ ██ ██ ████ ██",
         "██  ██ ██  ██  ██  ██ ██  ██  ██",
         "██   ████   ████   ██ ██      ██",
-      }, false),
+      },
       opts = { position = "center", hl = "DashboardHeader" },
     },
     { type = "padding", val = 5 },

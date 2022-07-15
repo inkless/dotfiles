@@ -130,6 +130,6 @@ function ui.telescope_select()
   end)
 end
 
-for ui_addition, enabled in pairs(zvim.user_plugin_opts("ui", { nui_input = true, telescope_select = true })) do
+for ui_addition, enabled in pairs({ nui_input = true, telescope_select = true }) do
   zvim.conditional_func(ui[ui_addition], enabled)
 end

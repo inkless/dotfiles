@@ -9,7 +9,6 @@ return {
         library = {
           [vim.fn.expand "$VIMRUNTIME/lua"] = true,
           [zvim.install.home .. "/lua"] = true,
-          [zvim.install.config .. "/lua"] = true,
         },
       },
     },
