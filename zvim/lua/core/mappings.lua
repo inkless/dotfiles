@@ -18,7 +18,7 @@ map("n", "<leader>w", "<cmd>w<cr>", { desc = "Save" })
 -- map("n", "<leader>q", "<cmd>q<cr>", { desc = "Quit" })
 map("n", "<leader>h", "<cmd>nohlsearch<cr>", { desc = "No Highlight" })
 map("n", "<leader>fn", "<cmd>enew<cr>", { desc = "New File" })
-map("n", "ob", function() zvim.url_opener() end, { desc = "Open the file under cursor with system app" })
+map("n", "<leader>ob", function() zvim.url_opener() end, { desc = "Open the file under cursor with system app" })
 map("n", "<C-s>", "<cmd>w!<cr>", { desc = "Force write" })
 map("n", "<C-q>", "<cmd>q!<cr>", { desc = "Force quit" })
 map("n", "Q", "<Nop>")
@@ -34,7 +34,7 @@ map("n", "<leader>pS", "<cmd>PackerStatus<cr>", { desc = "Packer Status" })
 map("n", "<leader>pu", "<cmd>PackerUpdate<cr>", { desc = "Packer Update" })
 
 -- Alpha
-map("n", "<leader>d", "<cmd>Alpha<cr>", { desc = "Alpha Dashboard" })
+map("n", "<leader>oa", "<cmd>Alpha<cr>", { desc = "Alpha Dashboard" })
 
 -- Bufdelete
 map("n", "<leader>c", "<cmd>Bdelete<cr>", { desc = "Close window" })
@@ -54,6 +54,7 @@ map(
   { desc = "Toggle comment line" }
 )
 
+-- Git
 -- GitSigns
 map("n", "<leader>gj", function() require("gitsigns").next_hunk() end, { desc = "Next git hunk" })
 map("n", "<leader>gk", function() require("gitsigns").prev_hunk() end, { desc = "Previous git hunk" })
@@ -64,9 +65,12 @@ map("n", "<leader>gr", function() require("gitsigns").reset_buffer() end, { desc
 map("n", "<leader>gs", function() require("gitsigns").stage_hunk() end, { desc = "Stage git hunk" })
 map("n", "<leader>gu", function() require("gitsigns").undo_stage_hunk() end, { desc = "Unstage git hunk" })
 map("n", "<leader>gd", function() require("gitsigns").diffthis() end, { desc = "View git diff" })
+-- Other git
+map("n", "<leader>gb", "<cmd>GBrowse<cr>", { desc = "Git browse" })
+map("n", "<leader>gl", "<cmd>Git blame<cr>", { desc = "Git blame" })
 
 -- NeoTree
-map("n", "<leader>ot", "<cmd>Neotree toggle<cr>", { desc = "Toggle Explorer" })
+map("n", "<leader>oe", "<cmd>Neotree toggle<cr>", { desc = "Toggle Explorer" })
 map("n", "<leader>e", "<cmd>Neotree focus<cr>", { desc = "Focus Explorer" })
 
 -- Session Manager
@@ -99,9 +103,9 @@ map("n", "<leader>fW",
   end,
   { desc = "Search words in all files" }
 )
-map("n", "<leader>gt", function() require("telescope.builtin").git_status() end, { desc = "Git status" })
-map("n", "<leader>gb", function() require("telescope.builtin").git_branches() end, { desc = "Git branches" })
-map("n", "<leader>gc", function() require("telescope.builtin").git_commits() end, { desc = "Git commits" })
+-- map("n", "<leader>gt", function() require("telescope.builtin").git_status() end, { desc = "Git status" })
+-- map("n", "<leader>gb", function() require("telescope.builtin").git_branches() end, { desc = "Git branches" })
+-- map("n", "<leader>gc", function() require("telescope.builtin").git_commits() end, { desc = "Git commits" })
 map("n", "<leader><space>", function() require("telescope.builtin").find_files() end, { desc = "Search files" })
 map("n", "<leader>fF",
   function() require("telescope.builtin").find_files { hidden = true, no_ignore = true } end,
@@ -136,7 +140,7 @@ map("n", "<leader>lD", function() require("telescope.builtin").diagnostics() end
 -- Terminal
 local toggle_term_cmd = zvim.toggle_term_cmd
 map("n", "<C-t>", "<cmd>ToggleTerm<cr>", { desc = "Toggle terminal" })
-map("n", "<leader>gg", function() toggle_term_cmd "lazygit" end, { desc = "ToggleTerm lazygit" })
+-- map("n", "<leader>gg", function() toggle_term_cmd "lazygit" end, { desc = "ToggleTerm lazygit" })
 map("n", "<leader>tn", function() toggle_term_cmd "node" end, { desc = "ToggleTerm node" })
 map("n", "<leader>tu", function() toggle_term_cmd "ncdu" end, { desc = "ToggleTerm NCDU" })
 map("n", "<leader>tt", function() toggle_term_cmd "htop" end, { desc = "ToggleTerm htop" })

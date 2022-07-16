@@ -235,6 +235,8 @@ local plugins = {
   },
 
   -- Git integration
+  "tpope/vim-fugitive", -- Git wrapper
+  "tpope/vim-rhubarb", -- Github extension for vim fugitive
   {
     "lewis6991/gitsigns.nvim",
     event = "BufEnter",

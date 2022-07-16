@@ -20,7 +20,7 @@
 [merge]
   # tool = diffmerge
   tool = nvimdiff
-  conflictstyle = diff3
+  # conflictstyle = diff3
 [mergetool]
   prompt = false
 [diff]
@@ -28,8 +28,8 @@
   tool = nvimdiff
 [mergetool "nvimdiff"]
   prompt = false
-  # cmd = "nvim -f -c \"Gdiffsplit!\" \"$MERGED\""
-  cmd = "nvim -d \"$LOCAL\" \"$REMOTE\" \"$MERGED\""
+  cmd = "nvim -f -c \"Gdiffsplit!\" \"$MERGED\""
+  # cmd = "nvim -d \"$LOCAL\" \"$MERGED\" \"$REMOTE\""
 [difftool "nvimdiff"]
   prompt = false
   cmd = "nvim -d \"$LOCAL\" \"$REMOTE\""
