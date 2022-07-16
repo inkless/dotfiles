@@ -1,28 +1,24 @@
 zvim.lsp = {}
-local user_plugin_opts = zvim.user_plugin_opts
-local conditional_func = zvim.conditional_func
+
+local map = vim.keymap.set
+local function get_buf_opts(buffer, desc)
+  return { noremap = true, silent = true, buffer = buffer, desc = desc}
+end
 
 zvim.lsp.on_attach = function(client, bufnr)
-  zvim.set_mappings(
-    {
-      n = {
-        ["K"] = { function() vim.lsp.buf.hover() end, desc = "Hover symbol details" },
-        ["<leader>la"] = { function() vim.lsp.buf.code_action() end, desc = "LSP code action" },
-        ["<leader>lf"] = { function() vim.lsp.buf.formatting_sync() end, desc = "Format code" },
-        ["<leader>lh"] = { function() vim.lsp.buf.signature_help() end, desc = "Signature help" },
-        ["<leader>lr"] = { function() vim.lsp.buf.rename() end, desc = "Rename current symbol" },
-        ["gD"] = { function() vim.lsp.buf.declaration() end, desc = "Declaration of current symbol" },
-        ["gI"] = { function() vim.lsp.buf.implementation() end, desc = "Implementation of current symbol" },
-        ["gd"] = { function() vim.lsp.buf.definition() end, desc = "Show the definition of current symbol" },
-        ["gr"] = { function() vim.lsp.buf.references() end, desc = "References of current symbol" },
-        ["<leader>ld"] = { function() vim.diagnostic.open_float() end, desc = "Hover diagnostics" },
-        ["[d"] = { function() vim.diagnostic.goto_prev() end, desc = "Previous diagnostic" },
-        ["]d"] = { function() vim.diagnostic.goto_next() end, desc = "Next diagnostic" },
-        ["gl"] = { function() vim.diagnostic.open_float() end, desc = "Hover diagnostics" },
-      },
-    },
-    { buffer = bufnr }
-  )
+  map("n", "K", function() vim.lsp.buf.hover() end, get_buf_opts(bufnr, "Hover symbol details"))
+  map("n", "<leader>la", function() vim.lsp.buf.code_action() end, get_buf_opts(bufnr, "LSP code action"))
+  map("n", "<leader>lf", function() vim.lsp.buf.formatting_sync() end, get_buf_opts(bufnr, "Format code"))
+  map("n", "<leader>lh", function() vim.lsp.buf.signature_help() end, get_buf_opts(bufnr, "Signature help"))
+  map("n", "<leader>lr", function() vim.lsp.buf.rename() end, get_buf_opts(bufnr, "Rename current symbol"))
+  map("n", "gD", function() vim.lsp.buf.declaration() end, get_buf_opts(bufnr, "Declaration of current symbol"))
+  map("n", "gI", function() vim.lsp.buf.implementation() end, get_buf_opts(bufnr, "Implementation of current symbol"))
+  map("n", "gd", function() vim.lsp.buf.definition() end, get_buf_opts(bufnr, "Show the definition of current symbol"))
+  map("n", "gr", function() vim.lsp.buf.references() end, get_buf_opts(bufnr, "References of current symbol"))
+  map("n", "<leader>ld", function() vim.diagnostic.open_float() end, get_buf_opts(bufnr, "Hover diagnostics"))
+  map("n", "[d", function() vim.diagnostic.goto_prev() end, get_buf_opts(bufnr, "Previous diagnostic"))
+  map("n", "]d", function() vim.diagnostic.goto_next() end, get_buf_opts(bufnr, "Next diagnostic"))
+  map("n", "gl", function() vim.diagnostic.open_float() end, get_buf_opts(bufnr, "Hover diagnostics"))
 
   vim.api.nvim_buf_create_user_command(
     bufnr,
@@ -45,10 +41,10 @@ zvim.lsp.on_attach = function(client, bufnr)
     })
   end
 
-  local on_attach_override = user_plugin_opts("lsp.on_attach", nil, false)
   local aerial_avail, aerial = pcall(require, "aerial")
-  conditional_func(on_attach_override, true, client, bufnr)
-  conditional_func(aerial.on_attach, aerial_avail, client, bufnr)
+  if aerial_avail then
+    aerial.on_attach(client, bufnr)
+  end
 end
 
 zvim.lsp.capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -63,24 +59,22 @@ zvim.lsp.capabilities.textDocument.completion.completionItem.tagSupport = { valu
 zvim.lsp.capabilities.textDocument.completion.completionItem.resolveSupport = {
   properties = { "documentation", "detail", "additionalTextEdits" },
 }
-zvim.lsp.capabilities = user_plugin_opts("lsp.capabilities", zvim.lsp.capabilities)
-zvim.lsp.flags = user_plugin_opts "lsp.flags"
+zvim.lsp.flags = {}
 
 function zvim.lsp.server_settings(server_name)
   local server = require("lspconfig")[server_name]
-  local opts = user_plugin_opts(
-    "lsp.server-settings." .. server_name,
-    user_plugin_opts("lsp.server-settings." .. server_name, {
-      capabilities = vim.tbl_deep_extend("force", zvim.lsp.capabilities, server.capabilities or {}),
-      flags = vim.tbl_deep_extend("force", zvim.lsp.flags, server.flags or {}),
-    }, true, "configs")
-  )
-  local old_on_attach = server.on_attach
-  local user_on_attach = opts.on_attach
+
+  local opts = zvim.load_module_file("configs.lsp.server-settings." .. server_name) or {}
+  opts = vim.tbl_deep_extend("force", opts, {
+    capabilities = vim.tbl_deep_extend("force", zvim.lsp.capabilities, server.capabilities or {}),
+    flags = vim.tbl_deep_extend("force", zvim.lsp.flags, server.flags or {}),
+  })
   opts.on_attach = function(client, bufnr)
-    conditional_func(old_on_attach, true, client, bufnr)
+    if type(server.on_attach) == "function" then
+      server.on_attach(client, bufnr)
+    end
+
     zvim.lsp.on_attach(client, bufnr)
-    conditional_func(user_on_attach, true, client, bufnr)
   end
   return opts
 end

@@ -2,13 +2,12 @@ local status_ok, telescope = pcall(require, "telescope")
 if not status_ok then return end
 local actions = require "telescope.actions"
 
-zvim.conditional_func(telescope.load_extension, pcall(require, "notify"), "notify")
-zvim.conditional_func(telescope.load_extension, pcall(require, "aerial"), "aerial")
+telescope.load_extension("notify")
+telescope.load_extension("aerial")
 
 telescope.setup({
   defaults = {
-
-    prompt_prefix = " ",
+    prompt_prefix = " ",
     selection_caret = "❯ ",
     path_display = { "truncate" },
     selection_strategy = "reset",

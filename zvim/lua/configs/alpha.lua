@@ -1,9 +1,9 @@
 local status_ok, alpha = pcall(require, "alpha")
 if not status_ok then return end
 
-local function alpha_button(sc, txt)
-  local sc_ = sc:gsub("%s", ""):gsub("LDR", "<leader>")
-  if vim.g.mapleader then sc = sc:gsub("LDR", vim.g.mapleader == " " and "SPC" or vim.g.mapleader) end
+local function button(sc, txt)
+  local sc_ = sc:gsub("%s", ""):gsub("SPC", "<leader>")
+
   return {
     type = "button",
     val = txt,
@@ -30,11 +30,12 @@ alpha.setup({
     {
       type = "text",
       val = {
-        "███    ██ ██    ██ ██ ███    ███",
-        "████   ██ ██    ██ ██ ████  ████",
-        "██ ██  ██ ██    ██ ██ ██ ████ ██",
-        "██  ██ ██  ██  ██  ██ ██  ██  ██",
-        "██   ████   ████   ██ ██      ██",
+        "███████╗██╗░░░██╗██╗███╗░░░███╗",
+        "╚════██║██║░░░██║██║████╗░████║",
+        "░░███╔═╝╚██╗░██╔╝██║██╔████╔██║",
+        "██╔══╝░░░╚████╔╝░██║██║╚██╔╝██║",
+        "███████╗░░╚██╔╝░░██║██║░╚═╝░██║",
+        "╚══════╝░░░╚═╝░░░╚═╝╚═╝░░░░░╚═╝",
       },
       opts = { position = "center", hl = "DashboardHeader" },
     },
@@ -42,12 +43,12 @@ alpha.setup({
     {
       type = "group",
       val = {
-        alpha_button("LDR LDR", "  Find File  "),
-        alpha_button("LDR /", "  Find Word  "),
-        alpha_button("LDR f r", "  Recents  "),
-        alpha_button("LDR f n", "  New File  "),
-        alpha_button("LDR f m", "  Bookmarks  "),
-        alpha_button("LDR S l", "  Last Session  "),
+        button("SPC /", "  Find Word  "),
+        button("SPC SPC", "  Find File  "),
+        button("SPC f r", "  Recents Files "),
+        button("SPC f n", "  New File  "),
+        button("SPC f m", "  Bookmarks  "),
+        button("SPC S l", "  Last Session  "),
       },
       opts = { spacing = 1 },
     },

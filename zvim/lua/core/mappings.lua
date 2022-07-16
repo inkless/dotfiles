@@ -46,6 +46,7 @@ map("n", ">b", "<cmd>BufferLineMoveNext<cr>", { desc = "Move buffer tab right" }
 map("n", "<b", "<cmd>BufferLineMovePrev<cr>", { desc = "Move buffer tab left" })
 
 -- Comment
+map("i", "<c-_><c-_>", function() require("Comment.api").toggle_current_linewise() end, { desc = "Comment line" })
 map("n", "<c-_><c-_>", function() require("Comment.api").toggle_current_linewise() end, { desc = "Comment line" })
 map(
   "v",
@@ -138,17 +139,8 @@ map("n", "<leader>lR", function() require("telescope.builtin").lsp_references() 
 map("n", "<leader>lD", function() require("telescope.builtin").diagnostics() end, { desc = "Search diagnostics" })
 
 -- Terminal
-local toggle_term_cmd = zvim.toggle_term_cmd
-map("n", "<C-t>", "<cmd>ToggleTerm<cr>", { desc = "Toggle terminal" })
--- map("n", "<leader>gg", function() toggle_term_cmd "lazygit" end, { desc = "ToggleTerm lazygit" })
-map("n", "<leader>tn", function() toggle_term_cmd "node" end, { desc = "ToggleTerm node" })
-map("n", "<leader>tu", function() toggle_term_cmd "ncdu" end, { desc = "ToggleTerm NCDU" })
-map("n", "<leader>tt", function() toggle_term_cmd "htop" end, { desc = "ToggleTerm htop" })
-map("n", "<leader>tp", function() toggle_term_cmd "python" end, { desc = "ToggleTerm python" })
-map("n", "<leader>tl", function() toggle_term_cmd "lazygit" end, { desc = "ToggleTerm lazygit" })
-map("n", "<leader>tf", "<cmd>ToggleTerm direction=float<cr>", { desc = "ToggleTerm float" })
-map("n", "<leader>th", "<cmd>ToggleTerm size=10 direction=horizontal<cr>", { desc = "ToggleTerm horizontal split" })
-map("n", "<leader>tv", "<cmd>ToggleTerm size=80 direction=vertical<cr>", { desc = "ToggleTerm vertical split" })
+-- not really useful... mostly for fun
+map("n", "<leader>ot", "<cmd>ToggleTerm<cr>", { desc = "Toggle terminal" })
 
 -- Stay in indent mode
 map("v", "<", "<gv", { desc = "unindent line" })

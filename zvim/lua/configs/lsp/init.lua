@@ -31,15 +31,10 @@ vim.diagnostic.config({
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
 vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" })
 
-local servers = {}
 local installer_avail, lsp_installer = pcall(require, "nvim-lsp-installer")
 if installer_avail then
   for _, server in ipairs(lsp_installer.get_installed_servers()) do
-    table.insert(servers, server.name)
+    local opts = zvim.lsp.server_settings(server.name)
+    lspconfig[server.name].setup(opts)
   end
-end
-
-for _, server in ipairs(servers) do
-  local opts = zvim.lsp.server_settings(server)
-  lspconfig[server].setup(opts)
 end

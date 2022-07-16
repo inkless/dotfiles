@@ -9,7 +9,6 @@ local mappings = {
       s = { name = "Search" },
       g = { name = "Git" },
       S = { name = "Session" },
-      t = { name = "Terminal" },
       o = { name = "Open" },
     },
   },
