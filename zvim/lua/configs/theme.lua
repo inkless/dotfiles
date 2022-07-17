@@ -1,4 +1,4 @@
 return {
-  colorscheme = "onedarkpro",
+  colorscheme = "onedark",
   lualine_theme = "auto",
 }

@@ -18,8 +18,8 @@ local function button(sc, txt)
       cursor = 5,
       width = 36,
       align_shortcut = "right",
-      hl = "DashboardCenter",
-      hl_shortcut = "DashboardShortcut",
+      -- hl = "DashboardCenter",
+      hl_shortcut = "Keyword",
     },
   }
 end
@@ -37,14 +37,14 @@ alpha.setup({
         "███████╗░░╚██╔╝░░██║██║░╚═╝░██║",
         "╚══════╝░░░╚═╝░░░╚═╝╚═╝░░░░░╚═╝",
       },
-      opts = { position = "center", hl = "DashboardHeader" },
+      opts = { position = "center", hl = "Type" },
     },
     { type = "padding", val = 5 },
     {
       type = "group",
       val = {
-        button("SPC /", "  Find Word  "),
-        button("SPC SPC", "  Find File  "),
+        button("SPC SPC", "  Find File  "),
+        button("SPC /  ", "  Find Word  "),
         button("SPC f r", "  Recents Files "),
         button("SPC f n", "  New File  "),
         button("SPC f m", "  Bookmarks  "),
@@ -55,3 +55,35 @@ alpha.setup({
   },
   opts = {},
 })
+
+local autocmd = vim.api.nvim_create_autocmd
+
+vim.api.nvim_create_augroup("alpha_settings", { clear = true })
+autocmd("FileType", {
+  desc = "Disable tabline for alpha",
+  group = "alpha_settings",
+  pattern = "alpha",
+  callback = function()
+    local prev_showtabline = vim.opt.showtabline
+    vim.opt.showtabline = 0
+    autocmd("BufUnload", {
+      pattern = "<buffer>",
+      callback = function() vim.opt.showtabline = prev_showtabline end,
+    })
+  end,
+})
+
+autocmd("FileType", {
+  desc = "Disable statusline for alpha",
+  group = "alpha_settings",
+  pattern = "alpha",
+  callback = function()
+    local prev_status = vim.opt.laststatus
+    vim.opt.laststatus = 0
+    autocmd("BufUnload", {
+      pattern = "<buffer>",
+      callback = function() vim.opt.laststatus = prev_status end,
+    })
+  end,
+})
+

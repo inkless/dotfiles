@@ -1,8 +1,31 @@
 local status_ok, treesitter = pcall(require, "nvim-treesitter.configs")
 if not status_ok then return end
 treesitter.setup({
-  ensure_installed = {},
+  ensure_installed = {
+    "lua",
+    "rust",
+    "javascript",
+    "typescript",
+    "tsx",
+    "css",
+    "scss",
+    "html",
+    "json",
+    "jsonc",
+    "python",
+    "kotlin",
+    "jsdoc",
+    "markdown",
+    "yaml",
+    "bash",
+    "sql",
+    "toml",
+    "solidity",
+    "vim",
+    "dockerfile",
+  },
   sync_install = false,
+  auto_install = true,
   ignore_install = {},
   highlight = {
     enable = true,

@@ -314,6 +314,34 @@ local plugins = {
 
   -- Vim Surround
   "tpope/vim-surround",
+  "tpope/vim-repeat",
+
+  -- multi cursor
+  "mg979/vim-visual-multi",
+
+  -- easy align
+  "junegunn/vim-easy-align",
+
+  -- markdown preview
+  {
+    "iamcco/markdown-preview.nvim",
+    run = "cd app && npm install",
+    setup = function() vim.g.mkdp_filetypes = { "markdown" } end,
+    ft = { "markdown" },
+  },
+
+  -- run test
+  "inkless/vim-test",
+
+  {
+    "heavenshell/vim-jsdoc",
+    ft = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
+    run = "make install",
+  },
+
+  -- github copilot
+  "github/copilot.vim",
+
 }
 
 local fn = vim.fn

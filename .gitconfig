@@ -28,7 +28,7 @@
   tool = nvimdiff
 [mergetool "nvimdiff"]
   prompt = false
-  cmd = "nvim -f -c \"Gdiffsplit!\" \"$MERGED\""
+  cmd = "nvim -f -c \"Gvdiffsplit!\" \"$MERGED\""
   # cmd = "nvim -d \"$LOCAL\" \"$MERGED\" \"$REMOTE\""
 [difftool "nvimdiff"]
   prompt = false

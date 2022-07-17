@@ -7,8 +7,9 @@ telescope.load_extension("aerial")
 
 telescope.setup({
   defaults = {
-    prompt_prefix = " ",
+    prompt_prefix = "   ",
     selection_caret = "❯ ",
+    multi_icon = "樂",
     path_display = { "truncate" },
     selection_strategy = "reset",
     sorting_strategy = "ascending",

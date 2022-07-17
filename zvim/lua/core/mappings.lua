@@ -23,7 +23,6 @@ map("n", "<C-s>", "<cmd>w!<cr>", { desc = "Force write" })
 map("n", "<C-q>", "<cmd>q!<cr>", { desc = "Force quit" })
 map("n", "Q", "<Nop>")
 map("n", "q:", "<Nop>")
-map("n", "<leader>`", "<c-^>", { desc = "Last buffer" })
 
 -- Packer
 map("n", "<leader>pl", "<cmd>luafile %<cr><cmd>PackerCompile<cr>", { desc = "Source luafile and Packer Compile" })
@@ -36,14 +35,18 @@ map("n", "<leader>pu", "<cmd>PackerUpdate<cr>", { desc = "Packer Update" })
 -- Alpha
 map("n", "<leader>oa", "<cmd>Alpha<cr>", { desc = "Alpha Dashboard" })
 
--- Bufdelete
-map("n", "<leader>c", "<cmd>Bdelete<cr>", { desc = "Close window" })
+-- Buffer
+map("n", "<leader>`", "<c-^>", { desc = "Last buffer" })
+map("n", "<leader>,", "<cmd>Telescope buffers<cr>", { desc = "Switch buffer" })
+map("n", "<S-Right>", "<cmd>bnext<cr>", { desc = "Next buffer tab" })
+map("n", "<S-Left>", "<cmd>bprevios<cr>", { desc = "Previous buffer tab" })
 
--- Navigate buffers
-map("n", "<S-Right>", "<cmd>BufferLineCycleNext<cr>", { desc = "Next buffer tab" })
-map("n", "<S-Left>", "<cmd>BufferLineCyclePrev<cr>", { desc = "Previous buffer tab" })
-map("n", ">b", "<cmd>BufferLineMoveNext<cr>", { desc = "Move buffer tab right" })
-map("n", "<b", "<cmd>BufferLineMovePrev<cr>", { desc = "Move buffer tab left" })
+map("n", "<leader>bl", "<c-^>", { desc = "Last buffer" })
+map("n", "<leader>bb", "<cmd>Telescope buffers<cr>", { desc = "Switch buffer" })
+map("n", "<leader>br", "<cmd>e!<cr><cmd>redraw<cr>", { desc = "Reload buffer" })
+map("n", "<leader>bd", "<cmd>Bdelete<cr>", { desc = "Delete buffer" })
+map("n", "<leader>b]", "<cmd>bnext<cr>", { desc = "Next buffer tab" })
+map("n", "<leader>b[", "<cmd>bprevios<cr>", { desc = "Previous buffer tab" })
 
 -- Comment
 map("i", "<c-_><c-_>", function() require("Comment.api").toggle_current_linewise() end, { desc = "Comment line" })
@@ -69,6 +72,7 @@ map("n", "<leader>gd", function() require("gitsigns").diffthis() end, { desc = "
 -- Other git
 map("n", "<leader>gb", "<cmd>GBrowse<cr>", { desc = "Git browse" })
 map("n", "<leader>gl", "<cmd>Git blame<cr>", { desc = "Git blame" })
+map("n", "<leader>go", "<cmd>Git checkout %<cr>", { desc = "Git checkout current file" })
 
 -- NeoTree
 map("n", "<leader>oe", "<cmd>Neotree toggle<cr>", { desc = "Toggle Explorer" })
@@ -114,6 +118,7 @@ map("n", "<leader>fF",
 )
 map("n", "<leader>fb", function() require("telescope.builtin").buffers() end, { desc = "Search buffers" })
 map("n", "<leader>fh", function() require("telescope.builtin").help_tags() end, { desc = "Search help" })
+map("n", "<leader>fk", function() require("telescope.builtin").keymaps() end, { desc = "Search keymaps" })
 map("n", "<leader>fm", function() require("telescope.builtin").marks() end, { desc = "Search marks" })
 map("n", "<leader>fr", function() require("telescope.builtin").oldfiles() end, { desc = "Search recent files" })
 map("n", "S", function() require("telescope.builtin").grep_string() end, { desc = "Search for word under cursor" })
@@ -138,6 +143,9 @@ map("n", "<leader>ls",
 map("n", "<leader>lR", function() require("telescope.builtin").lsp_references() end, { desc = "Search references" })
 map("n", "<leader>lD", function() require("telescope.builtin").diagnostics() end, { desc = "Search diagnostics" })
 
+-- Markdown preview
+map("n", "<leader>om", "<Plug>MarkdownPreviewToggle", { desc = "Toggle Markdown preview" })
+
 -- Terminal
 -- not really useful... mostly for fun
 map("n", "<leader>ot", "<cmd>ToggleTerm<cr>", { desc = "Toggle terminal" })
@@ -145,6 +153,27 @@ map("n", "<leader>ot", "<cmd>ToggleTerm<cr>", { desc = "Toggle terminal" })
 -- Stay in indent mode
 map("v", "<", "<gv", { desc = "unindent line" })
 map("v", ">", ">gv", { desc = "indent line" })
+
+-- easy align
+
+-- Start interactive EasyAlign in visual mode (e.g. vipga)
+map("x", "ga", "<Plug>(EasyAlign)", { desc = "EasyAlign" })
+-- Start interactive EasyAlign for a motion/text object (e.g. gaip)
+map("n", "ga", "<Plug>(EasyAlign)", { desc = "EasyAlign" })
+
+-- vim-jsdoc
+map("n", "<localleader>d", "<Plug>(jsdoc)", { desc = "Genereate JSDoc" })
+
+-- Allow run macro in multi lines
+-- https://github.com/stoeffel/.dotfiles/blob/master/vim/visual-at.vim
+vim.cmd([[
+xnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<CR>
+
+function! ExecuteMacroOverVisualRange()
+    echo "@".getcmdline()
+    execute ":'<,'>normal @".nr2char(getchar())
+endfunction
+]])
 
 -- Improved Terminal Mappings
 map("t", "<esc>", "<C-\\><C-n>", { desc = "Terminal normal mode" })

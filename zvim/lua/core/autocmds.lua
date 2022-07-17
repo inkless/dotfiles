@@ -8,35 +8,7 @@ autocmd("BufWritePost", {
   command = "luafile <afile>",
 })
 
-augroup("alpha_settings", { clear = true })
-autocmd("FileType", {
-  desc = "Disable tabline for alpha",
-  group = "alpha_settings",
-  pattern = "alpha",
-  callback = function()
-    local prev_showtabline = vim.opt.showtabline
-    vim.opt.showtabline = 0
-    autocmd("BufUnload", {
-      pattern = "<buffer>",
-      callback = function() vim.opt.showtabline = prev_showtabline end,
-    })
-  end,
-})
-
-autocmd("FileType", {
-  desc = "Disable statusline for alpha",
-  group = "alpha_settings",
-  pattern = "alpha",
-  callback = function()
-    local prev_status = vim.opt.laststatus
-    vim.opt.laststatus = 0
-    autocmd("BufUnload", {
-      pattern = "<buffer>",
-      callback = function() vim.opt.laststatus = prev_status end,
-    })
-  end,
-})
-
+-- This need to be done here
 augroup("neotree_start", { clear = true })
 autocmd("BufEnter", {
   desc = "Open Neo-Tree on startup with directory",
@@ -47,12 +19,11 @@ autocmd("BufEnter", {
   end,
 })
 
-augroup("lualine_setup", { clear = true })
-autocmd("ColorScheme", {
-  desc = "Reload lualine on colorscheme change",
-  group = "lualine_setup",
-  callback = function()
-    package.loaded["configs.lualine"] = nil
-    require "configs.lualine"
-  end,
+augroup("quickfix_mapping", { clear = true })
+autocmd("FileType", {
+  group = "quickfix_mapping",
+  pattern = "qf",
+  callback = function ()
+    vim.keymap.set("n", "q", "<cmd>cclose<cr>", { buffer = true })
+  end
 })

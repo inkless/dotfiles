@@ -7,7 +7,18 @@ lualine.setup({
   },
   sections = {
     lualine_c = { "filename", "lsp_progress" },
-    lualine_x = {'encoding', 'filetype'},
+    lualine_x = { 'encoding', 'filetype' },
+    lualine_z = { 'location' },
   }
+})
+
+vim.api.nvim_create_augroup("lualine_setup", { clear = true })
+vim.api.nvim_create_autocmd("ColorScheme", {
+  desc = "Reload lualine on colorscheme change",
+  group = "lualine_setup",
+  callback = function()
+    package.loaded["configs.lualine"] = nil
+    require "configs.lualine"
+  end,
 })
 

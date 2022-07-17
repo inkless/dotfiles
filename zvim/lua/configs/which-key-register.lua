@@ -10,6 +10,7 @@ local mappings = {
       g = { name = "Git" },
       S = { name = "Session" },
       o = { name = "Open" },
+      b = { name = "Buffer" },
     },
   },
 }
