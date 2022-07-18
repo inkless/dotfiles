@@ -33,5 +33,5 @@ autocmd("Signal", {
   desc = "Detect signal to change background",
   group = "auto_change_bg",
   pattern = "SIGUSR1",
-  callback = require("configs.colorscheme").change_background,
+  callback = require("configs.colorscheme").update,
 })

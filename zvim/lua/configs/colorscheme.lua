@@ -1,6 +1,15 @@
-local M = {}
+local M = {
+  colorscheme = "gruvbox",
+  dark_theme = "dark",
+  light_theme = "light",
 
-M.colorscheme = "gruvbox"
+  -- if use_background, we don't change colorscheme
+  -- just use background to toggle dark or light
+  -- otherwise, set dark_theme and light_theme to the desired colorscheme
+  use_background = true,
+
+  use_themer = false,
+}
 
 local function read_file(path)
   local file = io.open(path, "rb") -- r read mode and b binary mode
@@ -10,21 +19,38 @@ local function read_file(path)
   return content
 end
 
-function M.change_background()
+local function get_theme()
   local theme = read_file(os.getenv("HOME") .. "/.term-theme")
-  if not theme then
-    return
+  local is_light = false
+  if theme then
+    is_light = theme:gsub("%s+", "") == "light"
   end
 
-  local is_light = theme:gsub("%s+", "") == "light"
-  vim.opt.background = is_light and "light" or "dark"
+  return is_light and M.light_theme or M.dark_theme
+end
 
-  -- local colorscheme = is_dark and "themer_gruvbox" or "themer_ayu"
+if not M.use_background then
+  M.colorscheme = get_theme()
+end
+
+function M.update()
+  if M.use_background then
+    vim.opt.background = get_theme()
+  else
+    M.colorscheme = get_theme()
+  end
+
+  if M.use_themer then
+    require("themer").setup({
+	    colorscheme = M.colorscheme
+    })
+  else
+    vim.cmd("colorscheme " .. M.colorscheme)
+  end
 end
 
 function M.initialize()
-  M.change_background()
-  pcall(vim.cmd, "colorscheme " .. M.colorscheme)
+  M.update()
 end
 
 return M

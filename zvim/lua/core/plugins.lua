@@ -16,12 +16,12 @@ local plugins = {
   -- "christianchiarulli/nvcode-color-schemes.vim", - bad for jsx/tsx
   "projekt0n/github-nvim-theme", -- not bad, but covered by themer
   -- "rose-pine/neovim", - not bad, but covered by themer
-  "morhetz/gruvbox",
-  -- {
-  --   "themercorp/themer.lua",
-  --   requires ={ "nvim-telescope/telescope.nvim" },
-  --   config = function() require "configs.themer" end
-  -- },
+  "ellisonleao/gruvbox.nvim",
+  {
+    "themercorp/themer.lua",
+    requires ={ "nvim-telescope/telescope.nvim" },
+    config = function() require "configs.themer" end
+  },
 
   -- Indent detection
   {
