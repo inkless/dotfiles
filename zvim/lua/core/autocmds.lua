@@ -46,8 +46,8 @@ local function change_background()
   vim.opt.background = is_dark and "dark" or "light"
   -- local colorscheme = is_dark and require("configs.theme").colorscheme or "gruvbox-material"
   -- pcall(vim.cmd, "colorscheme " .. colorscheme)
-  package.loaded["configs.lualine"] = nil
-  require "configs.lualine"
+  -- package.loaded["configs.lualine"] = nil
+  -- require "configs.lualine"
 end
 
 augroup("auto_change_bg", { clear = true })
