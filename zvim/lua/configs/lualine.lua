@@ -3,7 +3,7 @@ if not status_ok then return end
 
 lualine.setup({
   options = {
-    theme = require("configs.theme").lualine_theme,
+    theme = "auto",
   },
   sections = {
     lualine_c = { "filename", "lsp_progress" },

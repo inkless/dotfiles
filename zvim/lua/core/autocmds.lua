@@ -28,30 +28,10 @@ autocmd("FileType", {
   end
 })
 
-local function read_file(path)
-    local file = io.open(path, "rb") -- r read mode and b binary mode
-    if not file then return nil end
-    local content = file:read "*a" -- *a or *all reads the whole file
-    file:close()
-    return content
-end
-
-local function change_background()
-  local theme = read_file(os.getenv("HOME") .. "/.term-theme")
-  if not theme then
-    return
-  end
-
-  local is_dark = theme:gsub("%s+", "") == "dark"
-  vim.opt.background = is_dark and "dark" or "light"
-  -- local colorscheme = is_dark and require("configs.theme").colorscheme or "gruvbox-material"
-  -- pcall(vim.cmd, "colorscheme " .. colorscheme)
-end
-
 augroup("auto_change_bg", { clear = true })
 autocmd("Signal", {
   desc = "Detect signal to change background",
   group = "auto_change_bg",
   pattern = "SIGUSR1",
-  callback = change_background,
+  callback = require("configs.colorscheme").change_background,
 })

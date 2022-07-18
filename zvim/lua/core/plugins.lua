@@ -12,9 +12,16 @@ local plugins = {
   "nvim-lua/popup.nvim",
 
   -- Color Theme
-  "sainnhe/gruvbox-material",
-  "christianchiarulli/nvcode-color-schemes.vim",
-  "projekt0n/github-nvim-theme",
+  -- "sainnhe/gruvbox-material", -- bad for jsx/tsx
+  -- "christianchiarulli/nvcode-color-schemes.vim", - bad for jsx/tsx
+  "projekt0n/github-nvim-theme", -- not bad, but covered by themer
+  -- "rose-pine/neovim", - not bad, but covered by themer
+  "morhetz/gruvbox",
+  -- {
+  --   "themercorp/themer.lua",
+  --   requires ={ "nvim-telescope/telescope.nvim" },
+  --   config = function() require "configs.themer" end
+  -- },
 
   -- Indent detection
   {
@@ -224,7 +231,7 @@ local plugins = {
   -- Fuzzy finder
   {
     "nvim-telescope/telescope.nvim",
-    requires = { {'nvim-lua/plenary.nvim'} },
+    requires = { 'nvim-lua/plenary.nvim' },
     config = function() require "configs.telescope" end,
   },
 
