@@ -175,6 +175,25 @@ function! ExecuteMacroOverVisualRange()
 endfunction
 ]])
 
+-- reload colorscheme
+map("n", "<leader>rc", function () require("configs.colorscheme").update() end, { desc = "Reload colorscheme" })
+
+-- tabs
+map("n", "<leader><tab>n", "<cmd>tabnew<cr>", { desc = "New tab" })
+map("n", "<leader><tab>x", "<cmd>tabclose<cr>", { desc = "Close tab" })
+
+
+-- Move lines up/dowk
+map("n", "<A-j>", "<cmd>m .+1<cr>==")
+map("n", "<A-k>", "<cmd>m .-2<cr>==")
+map("i", "<A-j>", "<esc><cmd>m .+1<cr>==gi")
+map("i", "<A-k>", "<esc><cmd>m .-2<cr>==gi")
+vim.cmd([[
+vnoremap <A-j> :m '>+1<CR>gv=gv
+vnoremap <A-k> :m '<-2<CR>gv=gv
+]])
+
+
 -- Improved Terminal Mappings
 map("t", "<esc>", "<C-\\><C-n>", { desc = "Terminal normal mode" })
 map("t", "jk", "<C-\\><C-n>", { desc = "Terminal normal mode" })

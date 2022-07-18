@@ -11,6 +11,7 @@ local mappings = {
       S = { name = "Session" },
       o = { name = "Open" },
       b = { name = "Buffer" },
+      ["<tab>"] = { name = "Tab" },
     },
   },
 }

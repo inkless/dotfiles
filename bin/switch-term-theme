@@ -20,10 +20,10 @@ EOF
 fi
 
 if [[ $theme = "light" ]]; then
-  echo "light" > $HOME/.term-theme
+  echo "light" > "$HOME/.term-theme"
   tmux_theme_conf="$HOME/.tmux/plugins/tmux-gruvbox/tmux-gruvbox-light.conf"
 elif [[ $theme = "dark" ]]; then
-  echo "dark" > $HOME/.term-theme
+  echo "dark" > "$HOME/.term-theme"
   tmux_theme_conf="$HOME/.tmux/plugins/tmux-gruvbox/tmux-gruvbox-dark.conf"
 else
   echo "Invalid theme"
@@ -32,10 +32,10 @@ fi
 
 echo "Switching theme to $theme"
 
-python3 $HOME/dotfiles/iterm/scripts/switch_color.py $theme
+python3 "$HOME"/dotfiles/iterm/scripts/switch_color.py $theme
 
 if [ -n "$TMUX" ]; then
-  tmux source-file $tmux_theme_conf
+  tmux source-file "$tmux_theme_conf"
 fi
 
 # notify nvim
