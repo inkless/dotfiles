@@ -1,4 +1,4 @@
 return {
-  colorscheme = "onedark",
+  colorscheme = "github_dark_default",
   lualine_theme = "auto",
 }

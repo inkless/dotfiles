@@ -14,9 +14,7 @@ local plugins = {
   -- Color Theme
   "sainnhe/gruvbox-material",
   "christianchiarulli/nvcode-color-schemes.vim",
-  "olimorris/onedarkpro.nvim",
-  "NTBBloodbath/doom-one.nvim",
-  "folke/tokyonight.nvim",
+  "projekt0n/github-nvim-theme",
 
   -- Indent detection
   {
