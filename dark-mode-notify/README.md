@@ -12,7 +12,7 @@ The program will be run immediately when the command starts, and every time the 
 
 ## Background agent
 
-To keep this program running in the background, compile the binary to somewhere and create the following file at `~/Library/LaunchAgents/ke.bou.dark-mode-notify.plist`. Don't forget to replace the arguments and the path to the logs (which comes in handy for debugging)
+To keep this program running in the background, compile the binary to somewhere and create the following file at `~/Library/LaunchAgents/gz.dark-mode-notify.plist`. Don't forget to replace the arguments and the path to the logs (which comes in handy for debugging)
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -21,7 +21,7 @@ To keep this program running in the background, compile the binary to somewhere 
 <plist version="1.0">
 <dict>
     <key>Label</key>
-    <string>ke.bou.dark-mode-notify</string>
+    <string>gz.dark-mode-notify</string>
     <key>KeepAlive</key>
     <true/>
     <key>StandardErrorPath</key>
@@ -37,7 +37,7 @@ To keep this program running in the background, compile the binary to somewhere 
 </plist>
 ```
 
-Then `launchctl load -w ~/Library/LaunchAgents/ke.bou.dark-mode-notify.plist` will keep it running on boot.
+Then `launchctl load -w ~/Library/LaunchAgents/gz.dark-mode-notify.plist` will keep it running on boot.
 
 ## Credit
 

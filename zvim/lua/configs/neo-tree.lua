@@ -32,7 +32,7 @@ neotree.setup({
   window = {
     width = 25,
     mappings = {
-      ["o"] = "open",
+      ["u"] = "navigate_up",
     },
   },
   filesystem = {
