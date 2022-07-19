@@ -3,6 +3,9 @@ local M = {
   dark_theme = "dark",
   light_theme = "light",
 
+  -- dark_theme = "gruvbox",
+  -- light_theme = "rose_pine_dawn",
+
   -- if use_background, we don't change colorscheme
   -- just use background to toggle dark or light
   -- otherwise, set dark_theme and light_theme to the desired colorscheme
