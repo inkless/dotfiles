@@ -33,7 +33,11 @@ autocmd("Signal", {
   desc = "Detect signal to change background",
   group = "auto_change_bg",
   pattern = "SIGUSR1",
-  callback = require("configs.colorscheme").update,
+  callback = function ()
+    vim.defer_fn(function ()
+      require("configs.colorscheme").update()
+    end, 0)
+  end
 })
 
 augroup("eslint_fix_on_save", { clear = true })
