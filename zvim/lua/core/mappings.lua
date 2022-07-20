@@ -183,6 +183,15 @@ map("n", "<leader>rc", function () require("configs.colorscheme").update() end, 
 map("n", "<leader><tab>n", "<cmd>tabnew<cr>", { desc = "New tab" })
 map("n", "<leader><tab>d", "<cmd>tabclose<cr>", { desc = "Close tab" })
 
+-- fold
+map("n", "<cr>", "@=(foldlevel('.') ? 'za' : '<C-v><CR>')<CR>", { desc = "Toggle fold" })
+-- there is an issue with treesitter, remap zi as a workaround
+-- https://github.com/nvim-treesitter/nvim-treesitter/issues/1337
+map("n", "zi", function ()
+  vim.wo.foldenable = not vim.wo.foldenable
+  vim.wo.foldmethod = vim.wo.foldmethod
+end, { desc = "Toggle foldenable" })
+
 
 -- Move lines up/dowk
 map("n", "<A-j>", "<cmd>m .+1<cr>==")

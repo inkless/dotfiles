@@ -69,4 +69,11 @@ vim_opts({
     loaded_vimball = true, -- disable vimball
     loaded_vimballPlugin = true, -- disable vimball
   },
+  wo = {
+    -- fold related
+    foldenable = false, -- no fold by default
+    foldcolumn = "auto", -- set fold column
+    foldexpr = "nvim_treesitter#foldexpr()",
+    foldmethod = "expr", -- Use syntax to determine fold
+  }
 })
