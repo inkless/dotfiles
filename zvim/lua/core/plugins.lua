@@ -332,7 +332,11 @@ local plugins = {
   },
 
   -- run test
-  "inkless/vim-test",
+  {
+    "inkless/vim-test",
+    requires = {"preservim/vimux"},
+    setup = function() require "configs.vim-test" end,
+  },
 
   -- jsdoc
   {
@@ -340,6 +344,12 @@ local plugins = {
     ft = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
     run = "make install",
   },
+
+  -- emmet
+  "mattn/emmet-vim",
+
+  -- better quickfix
+  { "kevinhwang91/nvim-bqf", ft = "qf" },
 
   -- github copilot
   "github/copilot.vim",

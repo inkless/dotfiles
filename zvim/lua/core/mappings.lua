@@ -20,7 +20,7 @@ map("n", "<leader>hl", "<cmd>set hlsearch!<cr>", { desc = "No Highlight" })
 map("n", "<leader>fn", "<cmd>enew<cr>", { desc = "New File" })
 map("n", "<leader>ob", function() zvim.url_opener() end, { desc = "Open the file under cursor with system app" })
 map("n", "<C-s>", "<cmd>w!<cr>", { desc = "Force write" })
-map("n", "<C-q>", "<cmd>q!<cr>", { desc = "Force quit" })
+-- map("n", "<C-q>", "<cmd>q!<cr>", { desc = "Force quit" })
 map("n", "Q", "<Nop>")
 map("n", "q:", "<Nop>")
 
@@ -144,7 +144,7 @@ map("n", "<leader>cS", "<cmd>AerialToggle<cr>", { desc = "Symbols outline" })
 map("n", "<leader>cr", function() require("telescope.builtin").lsp_references() end, { desc = "Search references" })
 map("n", "<leader>cd", function() require("telescope.builtin").diagnostics({ bufnr = 0 }) end, { desc = "Search current diagnostics" })
 map("n", "<leader>cD", function() require("telescope.builtin").diagnostics() end, { desc = "Search all diagnostics" })
-map("n", "<leader>cq", "<cmd>%s/\\s\\+$//<cr><cmd>let @/=''<cr>", { desc = "Strip trailing whitespaces" })
+map("n", "<leader>c\\", "<cmd>%s/\\s\\+$//<cr><cmd>let @/=''<cr>", { desc = "Strip trailing whitespaces" })
 
 -- Markdown preview
 map("n", "<leader>om", "<Plug>MarkdownPreviewToggle", { desc = "Toggle Markdown preview" })

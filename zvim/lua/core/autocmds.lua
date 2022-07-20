@@ -19,14 +19,14 @@ autocmd("BufEnter", {
   end,
 })
 
-augroup("quickfix_mapping", { clear = true })
-autocmd("FileType", {
-  group = "quickfix_mapping",
-  pattern = "qf",
-  callback = function ()
-    vim.keymap.set("n", "q", "<cmd>cclose<cr>", { buffer = true })
-  end
-})
+-- augroup("quickfix_mapping", { clear = true })
+-- autocmd("FileType", {
+--   group = "quickfix_mapping",
+--   pattern = "qf",
+--   callback = function ()
+--     vim.keymap.set("n", "q", "<cmd>cclose<cr>", { buffer = true })
+--   end
+-- })
 
 augroup("auto_change_bg", { clear = true })
 autocmd("Signal", {
