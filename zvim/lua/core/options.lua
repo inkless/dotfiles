@@ -41,6 +41,7 @@ vim_opts({
     updatetime = 300, -- Length of time to wait before triggering the plugin
     wrap = true,
     textwidth = 80,
+    hlsearch = false,
     -- wrap = false, -- Disable wrapping of lines longer than the width of window
     -- writebackup = false, -- Disable making a backup before overwriting a file
   },

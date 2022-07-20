@@ -43,6 +43,11 @@ local plugins = {
     module = "nui",
   },
 
+  {
+    "stevearc/dressing.nvim",
+    config = function () require("configs.dressing") end
+  },
+
   -- Cursorhold fix
   {
     "antoinemadec/FixCursorHold.nvim",

@@ -16,7 +16,7 @@ map("i", "jk", "<esc>", { desc = "Escape"})
 -- Standard Operations
 map("n", "<leader>w", "<cmd>w<cr>", { desc = "Save" })
 -- map("n", "<leader>q", "<cmd>q<cr>", { desc = "Quit" })
-map("n", "<leader>h", "<cmd>nohlsearch<cr>", { desc = "No Highlight" })
+map("n", "<leader>hl", "<cmd>set hlsearch!<cr>", { desc = "No Highlight" })
 map("n", "<leader>fn", "<cmd>enew<cr>", { desc = "New File" })
 map("n", "<leader>ob", function() zvim.url_opener() end, { desc = "Open the file under cursor with system app" })
 map("n", "<C-s>", "<cmd>w!<cr>", { desc = "Force write" })
@@ -95,9 +95,6 @@ map("n", "<A-j>", function() require("smart-splits").resize_down() end, { desc =
 map("n", "<A-h>", function() require("smart-splits").resize_left() end, { desc = "Resize split left" })
 map("n", "<A-l>", function() require("smart-splits").resize_right() end, { desc = "Resize split right" })
 
--- SymbolsOutline
-map("n", "<leader>lS", "<cmd>AerialToggle<cr>", { desc = "Symbols outline" })
-
 -- Telescope
 map("n", "<leader>/", function() require("telescope.builtin").live_grep() end, { desc = "Search words" })
 map("n", "<leader>fW",
@@ -116,21 +113,22 @@ map("n", "<leader>fF",
   function() require("telescope.builtin").find_files { hidden = true, no_ignore = true } end,
   { desc = "Search all files" }
 )
+map("n", "S", function() require("telescope.builtin").grep_string() end, { desc = "Search for word under cursor" })
 map("n", "<leader>fb", function() require("telescope.builtin").buffers() end, { desc = "Search buffers" })
 map("n", "<leader>fh", function() require("telescope.builtin").help_tags() end, { desc = "Search help" })
 map("n", "<leader>fk", function() require("telescope.builtin").keymaps() end, { desc = "Search keymaps" })
 map("n", "<leader>fc", function() require("telescope.builtin").commands() end, { desc = "Search commands" })
 map("n", "<leader>fm", function() require("telescope.builtin").marks() end, { desc = "Search marks" })
 map("n", "<leader>fr", function() require("telescope.builtin").oldfiles() end, { desc = "Search recent files" })
-map("n", "S", function() require("telescope.builtin").grep_string() end, { desc = "Search for word under cursor" })
-map("n", "<leader>sb", function() require("telescope.builtin").git_branches() end, { desc = "Git branches" })
-map("n", "<leader>sh", function() require("telescope.builtin").help_tags() end, { desc = "Search help" })
+-- git
+map("n", "<leader>gb", function() require("telescope.builtin").git_branches() end, { desc = "Git branches" })
+-- secondary search that's used less
 map("n", "<leader>sm", function() require("telescope.builtin").man_pages() end, { desc = "Search man" })
 map("n", "<leader>sn", function() require("telescope").extensions.notify.notify() end, { desc = "Search notifications" })
 map("n", "<leader>sr", function() require("telescope.builtin").registers() end, { desc = "Search registers" })
-map("n", "<leader>sk", function() require("telescope.builtin").keymaps() end, { desc = "Search keymaps" })
-map("n", "<leader>sc", function() require("telescope.builtin").commands() end, { desc = "Search commands" })
-map("n", "<leader>ls",
+
+-- lsp/code related
+map("n", "<leader>cs",
   function()
     local aerial_avail, _ = pcall(require, "aerial")
     if aerial_avail then
@@ -141,8 +139,12 @@ map("n", "<leader>ls",
   end,
   { desc = "Search symbols" }
 )
-map("n", "<leader>lR", function() require("telescope.builtin").lsp_references() end, { desc = "Search references" })
-map("n", "<leader>lD", function() require("telescope.builtin").diagnostics() end, { desc = "Search diagnostics" })
+-- SymbolsOutline
+map("n", "<leader>cS", "<cmd>AerialToggle<cr>", { desc = "Symbols outline" })
+map("n", "<leader>cr", function() require("telescope.builtin").lsp_references() end, { desc = "Search references" })
+map("n", "<leader>cd", function() require("telescope.builtin").diagnostics({ bufnr = 0 }) end, { desc = "Search current diagnostics" })
+map("n", "<leader>cD", function() require("telescope.builtin").diagnostics() end, { desc = "Search all diagnostics" })
+map("n", "<leader>cq", "<cmd>%s/\\s\\+$//<cr><cmd>let @/=''<cr>", { desc = "Strip trailing whitespaces" })
 
 -- Markdown preview
 map("n", "<leader>om", "<Plug>MarkdownPreviewToggle", { desc = "Toggle Markdown preview" })

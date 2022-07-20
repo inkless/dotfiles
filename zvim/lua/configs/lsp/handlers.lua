@@ -7,18 +7,24 @@ end
 
 zvim.lsp.on_attach = function(client, bufnr)
   map("n", "K", function() vim.lsp.buf.hover() end, get_buf_opts(bufnr, "Hover symbol details"))
-  map("n", "<leader>la", function() vim.lsp.buf.code_action() end, get_buf_opts(bufnr, "LSP code action"))
-  map("n", "<leader>lf", function() vim.lsp.buf.formatting_sync() end, get_buf_opts(bufnr, "Format code"))
-  map("n", "<leader>lh", function() vim.lsp.buf.signature_help() end, get_buf_opts(bufnr, "Signature help"))
-  map("n", "<leader>lr", function() vim.lsp.buf.rename() end, get_buf_opts(bufnr, "Rename current symbol"))
-  map("n", "gD", function() vim.lsp.buf.declaration() end, get_buf_opts(bufnr, "Declaration of current symbol"))
+  map("n", "<leader>ca", function() vim.lsp.buf.code_action() end, get_buf_opts(bufnr, "LSP code action"))
+  map("n", "<leader>cf", function() vim.lsp.buf.formatting_sync() end, get_buf_opts(bufnr, "Format code"))
+  map("n", "<leader>ch", function() vim.lsp.buf.signature_help() end, get_buf_opts(bufnr, "Signature help"))
+  map("n", "<leader>cR", function() vim.lsp.buf.rename() end, get_buf_opts(bufnr, "Rename current symbol"))
+  -- I prefer to use gR to rename
+  map("n", "gR", function() vim.lsp.buf.rename() end, get_buf_opts(bufnr, "Rename current symbol"))
+  -- few lsp servers implemented this
+  map("n", "<leader>cl", function() vim.lsp.buf.declaration() end, get_buf_opts(bufnr, "Declaration of current symbol"))
   map("n", "gI", function() vim.lsp.buf.implementation() end, get_buf_opts(bufnr, "Implementation of current symbol"))
   map("n", "gd", function() vim.lsp.buf.definition() end, get_buf_opts(bufnr, "Show the definition of current symbol"))
   map("n", "gr", function() vim.lsp.buf.references() end, get_buf_opts(bufnr, "References of current symbol"))
-  map("n", "<leader>ld", function() vim.diagnostic.open_float() end, get_buf_opts(bufnr, "Hover diagnostics"))
+  -- map("n", "<leader>cd", function() vim.diagnostic.open_float() end, get_buf_opts(bufnr, "Hover diagnostics"))
   map("n", "[d", function() vim.diagnostic.goto_prev() end, get_buf_opts(bufnr, "Previous diagnostic"))
   map("n", "]d", function() vim.diagnostic.goto_next() end, get_buf_opts(bufnr, "Next diagnostic"))
   map("n", "gl", function() vim.diagnostic.open_float() end, get_buf_opts(bufnr, "Hover diagnostics"))
+  -- telescope related
+  -- I prefer to use gD as go to references
+  map("n", "gD", function() require("telescope.builtin").lsp_references() end, { desc = "Search references" })
 
   vim.api.nvim_buf_create_user_command(
     bufnr,

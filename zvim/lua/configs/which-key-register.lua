@@ -6,6 +6,7 @@ local mappings = {
       f = { name = "File" },
       p = { name = "Packer" },
       l = { name = "LSP" },
+      c = { name = "Code" },
       s = { name = "Search" },
       g = { name = "Git" },
       S = { name = "Session" },
