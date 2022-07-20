@@ -119,6 +119,7 @@ map("n", "<leader>fF",
 map("n", "<leader>fb", function() require("telescope.builtin").buffers() end, { desc = "Search buffers" })
 map("n", "<leader>fh", function() require("telescope.builtin").help_tags() end, { desc = "Search help" })
 map("n", "<leader>fk", function() require("telescope.builtin").keymaps() end, { desc = "Search keymaps" })
+map("n", "<leader>fc", function() require("telescope.builtin").commands() end, { desc = "Search commands" })
 map("n", "<leader>fm", function() require("telescope.builtin").marks() end, { desc = "Search marks" })
 map("n", "<leader>fr", function() require("telescope.builtin").oldfiles() end, { desc = "Search recent files" })
 map("n", "S", function() require("telescope.builtin").grep_string() end, { desc = "Search for word under cursor" })
@@ -180,7 +181,7 @@ map("n", "<leader>rc", function () require("configs.colorscheme").update() end, 
 
 -- tabs
 map("n", "<leader><tab>n", "<cmd>tabnew<cr>", { desc = "New tab" })
-map("n", "<leader><tab>x", "<cmd>tabclose<cr>", { desc = "Close tab" })
+map("n", "<leader><tab>d", "<cmd>tabclose<cr>", { desc = "Close tab" })
 
 
 -- Move lines up/dowk

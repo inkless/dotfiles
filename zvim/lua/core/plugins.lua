@@ -67,11 +67,10 @@ local plugins = {
     config = function() require "configs.icons" end,
   },
 
-  -- Bufferline
+  -- tabline
   {
-    "akinsho/bufferline.nvim",
-    after = "nvim-web-devicons",
-    config = function() require "configs.bufferline" end,
+    'alvarosevilla95/luatab.nvim',
+    config = function() require("luatab").setup() end
   },
 
   -- Better buffer closing
@@ -199,19 +198,8 @@ local plugins = {
     end,
   },
 
-  {
-    "ray-x/lsp_signature.nvim",
-    after = "nvim-lspconfig",
-    event = "BufRead",
-    config = function()
-      require("lsp_signature").setup({
-        bind = true, -- This is mandatory, otherwise border config won't get registered.
-        handler_opts = {
-          border = "rounded",
-        }
-      })
-    end,
-  },
+  -- LSP signature
+  "ray-x/lsp_signature.nvim",
 
   -- LSP symbols
   {
@@ -340,6 +328,7 @@ local plugins = {
   -- run test
   "inkless/vim-test",
 
+  -- jsdoc
   {
     "heavenshell/vim-jsdoc",
     ft = { "javascript", "javascriptreact", "typescript", "typescriptreact" },

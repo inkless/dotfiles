@@ -45,6 +45,16 @@ zvim.lsp.on_attach = function(client, bufnr)
   if aerial_avail then
     aerial.on_attach(client, bufnr)
   end
+
+  local lsp_sig_avail, lsp_signature = pcall(require, "lsp_signature")
+  if lsp_sig_avail then
+    lsp_signature.on_attach({
+      bind = true, -- This is mandatory, otherwise border config won't get registered.
+      handler_opts = {
+        border = "rounded",
+      }
+    })
+  end
 end
 
 zvim.lsp.capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -69,12 +79,18 @@ function zvim.lsp.server_settings(server_name)
     capabilities = vim.tbl_deep_extend("force", zvim.lsp.capabilities, server.capabilities or {}),
     flags = vim.tbl_deep_extend("force", zvim.lsp.flags, server.flags or {}),
   })
+
+  local opts_on_attach = opts.on_attach
   opts.on_attach = function(client, bufnr)
     if type(server.on_attach) == "function" then
       server.on_attach(client, bufnr)
     end
 
     zvim.lsp.on_attach(client, bufnr)
+
+    if type(opts_on_attach) == "function" then
+      opts_on_attach(client, bufnr)
+    end
   end
   return opts
 end
