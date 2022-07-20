@@ -1,10 +1,10 @@
 local create_cmd = vim.api.nvim_create_user_command
 local function map(mode, lhs, rhs, opts)
-    local options = { noremap = true }
-    if opts then
-        options = vim.tbl_extend("force", options, opts)
-    end
-    vim.keymap.set(mode, lhs, rhs, options)
+local options = { noremap = true }
+if opts then
+  options = vim.tbl_extend("force", options, opts)
+end
+vim.keymap.set(mode, lhs, rhs, options)
 end
 
 map("", "<Space>", "<Nop>")
@@ -171,8 +171,8 @@ vim.cmd([[
 xnoremap @ :<C-u>call ExecuteMacroOverVisualRange()<CR>
 
 function! ExecuteMacroOverVisualRange()
-    echo "@".getcmdline()
-    execute ":'<,'>normal @".nr2char(getchar())
+  echo "@".getcmdline()
+  execute ":'<,'>normal @".nr2char(getchar())
 endfunction
 ]])
 
@@ -184,12 +184,12 @@ map("n", "<leader><tab>n", "<cmd>tabnew<cr>", { desc = "New tab" })
 map("n", "<leader><tab>d", "<cmd>tabclose<cr>", { desc = "Close tab" })
 
 -- fold
-map("n", "<cr>", "@=(foldlevel('.') ? 'za' : '<C-v><CR>')<CR>", { desc = "Toggle fold" })
 -- there is an issue with treesitter, remap zi as a workaround
 -- https://github.com/nvim-treesitter/nvim-treesitter/issues/1337
 map("n", "zi", function ()
   vim.wo.foldenable = not vim.wo.foldenable
   vim.wo.foldmethod = vim.wo.foldmethod
+  map("n", "<tab>", "@=(foldlevel('.') ? 'za' : '<tab>')<CR>", { desc = "Toggle fold", buffer = true, noremap = true })
 end, { desc = "Toggle foldenable" })
 
 
