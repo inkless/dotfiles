@@ -13,6 +13,7 @@ local mappings = {
       o = { name = "Open" },
       b = { name = "Buffer" },
       t = { name = "Test" },
+      v = { name = "Vimux" },
       ["<tab>"] = { name = "Tab" },
     },
   },

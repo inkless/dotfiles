@@ -205,6 +205,14 @@ vnoremap <A-j> :m '>+1<CR>gv=gv
 vnoremap <A-k> :m '<-2<CR>gv=gv
 ]])
 
+-- vimux
+map("n", "<leader>vo", "<cmd>VimuxOpenRunner<cr><cmd>VimuxInspectRunner<cr>", { desc = "Vimux open runner" })
+map("n", "<leader>vp", "<cmd>VimuxPromptCommand<cr>", { desc = "Vimux prompt command" })
+map("n", "<leader>vL", "<cmd>VimuxRunLastCommand<cr>", { desc = "Run last command from VimuxRunCommand" })
+map("n", "<leader>vl", function ()
+  require("core.vimux").run_last_tmux_cmd()
+end, { desc = "Run last command from tmux" })
+
 
 -- Improved Terminal Mappings
 map("t", "<esc>", "<C-\\><C-n>", { desc = "Terminal normal mode" })

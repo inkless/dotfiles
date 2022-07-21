@@ -331,6 +331,9 @@ local plugins = {
     ft = { "markdown" },
   },
 
+  -- vimux
+  "preservim/vimux",
+
   -- run test
   {
     "inkless/vim-test",
