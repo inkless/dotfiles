@@ -166,7 +166,7 @@ map("x", "ga", "<Plug>(EasyAlign)", { desc = "EasyAlign" })
 map("n", "ga", "<Plug>(EasyAlign)", { desc = "EasyAlign" })
 
 -- vim-jsdoc
-map("n", "<localleader>d", "<Plug>(jsdoc)", { desc = "Genereate JSDoc" })
+map("n", "<leader>cc", "<Plug>(jsdoc)", { desc = "Genereate JSDoc" })
 
 -- Allow run macro in multi lines
 -- https://github.com/stoeffel/.dotfiles/blob/master/vim/visual-at.vim
