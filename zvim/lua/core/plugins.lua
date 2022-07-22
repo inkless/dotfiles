@@ -314,8 +314,16 @@ local plugins = {
   },
 
   -- Vim Surround
-  "tpope/vim-surround",
-  "tpope/vim-repeat",
+  {
+    "kylechui/nvim-surround",
+    config = function()
+      require("nvim-surround").setup({
+        -- Configuration here, or leave empty to use defaults
+      })
+    end
+  },
+  -- "tpope/vim-surround",
+  -- "tpope/vim-repeat",
 
   -- multi cursor
   "mg979/vim-visual-multi",
