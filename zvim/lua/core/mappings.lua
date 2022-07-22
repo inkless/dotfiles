@@ -213,6 +213,26 @@ map("n", "<leader>vl", function ()
   require("core.vimux").run_last_tmux_cmd()
 end, { desc = "Run last command from tmux" })
 
+-- diff related
+-- nvimdiff notes
+-- ]c :        - next difference
+-- [c :        - previous difference
+-- do          - diff obtain
+-- dp          - diff put
+-- za          - toggle folded text
+-- :diffupdate - re-scan the files for differences
+map("n", "<leader>dd", function ()
+  if vim.wo.diff then
+    vim.cmd([[windo diffoff]])
+  else
+    vim.cmd([[windo diffthis]])
+  end
+end, { desc = "Make current tab diff mode" })
+map("n", "<leader>dL", "<cmd>%diffget 2<cr>", { desc = "Get all [merge local]/[rebase onto]" })
+map("n", "<leader>dl", "<cmd>diffget 2<cr>", { desc = "Get [merge local]/[rebase onto]" })
+map("n", "<leader>dR", "<cmd>%diffget 4<cr>", { desc = "Get all [merge remote]/[rebase current]" })
+map("n", "<leader>dr", "<cmd>diffget 4<cr>", { desc = "Get [merge remote]/[rebase current]" })
+
 
 -- Improved Terminal Mappings
 map("t", "<esc>", "<C-\\><C-n>", { desc = "Terminal normal mode" })
