@@ -38,8 +38,8 @@ map("n", "<leader>oa", "<cmd>Alpha<cr>", { desc = "Alpha Dashboard" })
 -- Buffer
 map("n", "<leader>`", "<c-^>", { desc = "Last buffer" })
 map("n", "<leader>,", "<cmd>Telescope buffers<cr>", { desc = "Switch buffer" })
-map("n", "<S-Right>", "<cmd>bnext<cr>", { desc = "Next buffer tab" })
-map("n", "<S-Left>", "<cmd>bprevios<cr>", { desc = "Previous buffer tab" })
+map("n", "<A-l>", "<cmd>bnext<cr>", { desc = "Next buffer tab" })
+map("n", "<A-h>", "<cmd>bprevios<cr>", { desc = "Previous buffer tab" })
 
 map("n", "<leader>bl", "<c-^>", { desc = "Last buffer" })
 map("n", "<leader>bb", "<cmd>Telescope buffers<cr>", { desc = "Switch buffer" })
@@ -90,10 +90,10 @@ map("n", "<leader>li", "<cmd>LspInfo<cr>", { desc = "LSP information" })
 map("n", "<leader>lI", "<cmd>LspInstallInfo<cr>", { desc = "LSP installer" })
 
 -- Smart Splits
-map("n", "<A-k>", function() require("smart-splits").resize_up() end, { desc = "Resize split up" })
-map("n", "<A-j>", function() require("smart-splits").resize_down() end, { desc = "Resize split down" })
-map("n", "<A-h>", function() require("smart-splits").resize_left() end, { desc = "Resize split left" })
-map("n", "<A-l>", function() require("smart-splits").resize_right() end, { desc = "Resize split right" })
+map("n", "<A-Up>", function() require("smart-splits").resize_up() end, { desc = "Resize split up" })
+map("n", "<A-Down>", function() require("smart-splits").resize_down() end, { desc = "Resize split down" })
+map("n", "<A-Left>", function() require("smart-splits").resize_left() end, { desc = "Resize split left" })
+map("n", "<A-Right>", function() require("smart-splits").resize_right() end, { desc = "Resize split right" })
 
 -- Telescope
 map("n", "<leader>/", function() require("telescope.builtin").live_grep() end, { desc = "Search words" })
@@ -152,6 +152,7 @@ map("n", "<leader>om", "<Plug>MarkdownPreviewToggle", { desc = "Toggle Markdown 
 -- Terminal
 -- not really useful... mostly for fun
 map("n", "<leader>ot", "<cmd>ToggleTerm<cr>", { desc = "Toggle terminal" })
+map("n", "<A-`>", "<cmd>ToggleTerm<cr>", { desc = "Toggle terminal" })
 
 -- Stay in indent mode
 map("v", "<", "<gv", { desc = "unindent line" })
