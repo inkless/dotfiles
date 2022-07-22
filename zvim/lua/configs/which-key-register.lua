@@ -3,7 +3,7 @@ if not status_ok then return end
 local mappings = {
   n = {
     ["<leader>"] = {
-      f = { name = "File" },
+      f = { name = "Find" },
       p = { name = "Packer" },
       l = { name = "LSP" },
       c = { name = "Code" },

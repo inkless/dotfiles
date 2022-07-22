@@ -1,13 +1,11 @@
 local create_cmd = vim.api.nvim_create_user_command
 local function map(mode, lhs, rhs, opts)
-local options = { noremap = true }
-if opts then
-  options = vim.tbl_extend("force", options, opts)
+  local options = { noremap = true }
+  if opts then
+    options = vim.tbl_extend("force", options, opts)
+  end
+  vim.keymap.set(mode, lhs, rhs, options)
 end
-vim.keymap.set(mode, lhs, rhs, options)
-end
-
-map("", "<Space>", "<Nop>")
 
 -- Escape --
 map("i", "jk", "<esc>", { desc = "Escape"})
@@ -97,6 +95,7 @@ map("n", "<A-Right>", function() require("smart-splits").resize_right() end, { d
 
 -- Telescope
 map("n", "<leader>/", function() require("telescope.builtin").live_grep() end, { desc = "Search words" })
+map("n", "<leader>fw", function() require("telescope.builtin").live_grep() end, { desc = "Search words" })
 map("n", "<leader>fW",
   function()
     require("telescope.builtin").live_grep {
@@ -109,6 +108,7 @@ map("n", "<leader>fW",
 -- map("n", "<leader>gb", function() require("telescope.builtin").git_branches() end, { desc = "Git branches" })
 -- map("n", "<leader>gc", function() require("telescope.builtin").git_commits() end, { desc = "Git commits" })
 map("n", "<leader><space>", function() require("telescope.builtin").find_files() end, { desc = "Search files" })
+map("n", "<leader>ff", function() require("telescope.builtin").find_files() end, { desc = "Search files" })
 map("n", "<leader>fF",
   function() require("telescope.builtin").find_files { hidden = true, no_ignore = true } end,
   { desc = "Search all files" }
