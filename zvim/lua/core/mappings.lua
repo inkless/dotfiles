@@ -37,7 +37,7 @@ map("n", "<leader>oa", "<cmd>Alpha<cr>", { desc = "Alpha Dashboard" })
 map("n", "<leader>`", "<c-^>", { desc = "Last buffer" })
 map("n", "<leader>,", "<cmd>Telescope buffers<cr>", { desc = "Switch buffer" })
 map("n", "<A-l>", "<cmd>bnext<cr>", { desc = "Next buffer tab" })
-map("n", "<A-h>", "<cmd>bprevios<cr>", { desc = "Previous buffer tab" })
+map("n", "<A-h>", "<cmd>bprevious<cr>", { desc = "Previous buffer tab" })
 
 map("n", "<leader>bl", "<c-^>", { desc = "Last buffer" })
 map("n", "<leader>bb", "<cmd>Telescope buffers<cr>", { desc = "Switch buffer" })
@@ -233,7 +233,11 @@ map("n", "<leader>dL", "<cmd>%diffget 2<cr>", { desc = "Get all [merge local]/[r
 map("n", "<leader>dl", "<cmd>diffget 2<cr>", { desc = "Get [merge local]/[rebase onto]" })
 map("n", "<leader>dR", "<cmd>%diffget 4<cr>", { desc = "Get all [merge remote]/[rebase current]" })
 map("n", "<leader>dr", "<cmd>diffget 4<cr>", { desc = "Get [merge remote]/[rebase current]" })
-
+map("n",
+  "<leader>do",
+  "<cmd>vert new | set bt=nofile | set bh=hide | r ++edit # | 0d_ | diffthis | wincmd p | diffthis<cr>",
+  { desc = "Diff original file" }
+)
 
 -- Improved Terminal Mappings
 map("t", "<esc>", "<C-\\><C-n>", { desc = "Terminal normal mode" })
