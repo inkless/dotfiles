@@ -2,9 +2,6 @@ local status_ok, telescope = pcall(require, "telescope")
 if not status_ok then return end
 local actions = require "telescope.actions"
 
-telescope.load_extension("notify")
-telescope.load_extension("aerial")
-
 telescope.setup({
   defaults = {
     prompt_prefix = "   ",
@@ -94,4 +91,12 @@ telescope.setup({
   extensions = {},
 })
 
-require("telescope").load_extension("fzf")
+if pcall(require, "notify") then
+  telescope.load_extension("notify")
+end
+if pcall(require, "aerial") then
+  telescope.load_extension("aerial")
+end
+if pcall(require, "fzf") then
+  telescope.load_extension("fzf")
+end
