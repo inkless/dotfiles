@@ -346,7 +346,7 @@ local plugins = {
   {
     "inkless/vim-test",
     requires = {"preservim/vimux"},
-    setup = function() require "configs.vim-test" end,
+    config = function() require "configs.vim-test" end,
   },
 
   -- jsdoc
@@ -361,6 +361,13 @@ local plugins = {
 
   -- better quickfix
   { "kevinhwang91/nvim-bqf", ft = "qf" },
+
+  -- scratch
+  {
+    "~/workspace/scratch.nvim",
+    requires = {"preservim/vimux"},
+    config = function () require "configs.scratch" end
+  },
 
   -- github copilot
   "github/copilot.vim",

@@ -1,19 +1,17 @@
-local system = vim.fn.system
+local fn = vim.fn
 local send_keys = vim.fn.VimuxSendKeys
-local match = vim.fn.match
-local split = vim.fn.split
 
-M = {}
+local M = {}
 
 function M.has_runner(index)
-  return match(system("tmux list-panes -F '#{pane_id}'"), index)
+  return fn.match(fn.system("tmux list-panes -F '#{pane_id}'"), index)
 end
 
 function M.get_nearest_tmux_index()
-  local views = split(system("tmux list-panes -F '#{pane_active}:#{pane_id}'"), "\n")
+  local views = fn.split(fn.system("tmux list-panes -F '#{pane_active}:#{pane_id}'"), "\n")
   for _, v in ipairs(views) do
-    if match(v, '1:') == -1 then
-      return split(v, ':')[2]
+    if fn.match(v, '1:') == -1 then
+      return fn.split(v, ':')[2]
     end
   end
 

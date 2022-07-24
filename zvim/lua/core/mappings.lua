@@ -16,8 +16,6 @@ map("n", "<leader>w", "<cmd>w<cr>", { desc = "Save" })
 -- map("n", "<leader>q", "<cmd>q<cr>", { desc = "Quit" })
 map("n", "<leader>hl", "<cmd>set hlsearch!<cr>", { desc = "No Highlight" })
 map("n", "<leader>fn", "<cmd>enew<cr>", { desc = "New File" })
-map("n", "<leader>f<c-v>", "<cmd>vnew | set bt=nofile | set bh=hide<cr>", { desc = "Scratch file vertically" })
-map("n", "<leader>x", "<cmd>bo new | set bt=nofile | set bh=hide<cr><cmd>resize 15<cr>", { desc = "Scratch file in bottom" })
 map("n", "<leader>ob", function() zvim.url_opener() end, { desc = "Open the file under cursor with system app" })
 map("n", "<C-s>", "<cmd>w!<cr>", { desc = "Force write" })
 -- map("n", "<C-q>", "<cmd>q!<cr>", { desc = "Force quit" })
@@ -124,10 +122,9 @@ map("n", "<leader>fm", function() require("telescope.builtin").marks() end, { de
 map("n", "<leader>fr", function() require("telescope.builtin").oldfiles() end, { desc = "Search recent files" })
 -- git
 map("n", "<leader>gb", function() require("telescope.builtin").git_branches() end, { desc = "Git branches" })
--- secondary search that's used less
-map("n", "<leader>sm", function() require("telescope.builtin").man_pages() end, { desc = "Search man" })
-map("n", "<leader>sn", function() require("telescope").extensions.notify.notify() end, { desc = "Search notifications" })
-map("n", "<leader>sr", function() require("telescope.builtin").registers() end, { desc = "Search registers" })
+map("n", "<leader>fM", function() require("telescope.builtin").man_pages() end, { desc = "Search man" })
+map("n", "<leader>fN", function() require("telescope").extensions.notify.notify() end, { desc = "Search notifications" })
+map("n", "<leader>fR", function() require("telescope.builtin").registers() end, { desc = "Search registers" })
 
 -- lsp/code related
 map("n", "<leader>cs",

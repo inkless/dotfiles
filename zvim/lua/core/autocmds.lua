@@ -39,11 +39,3 @@ autocmd("Signal", {
     end, 0)
   end
 })
-
-augroup("eslint_fix_on_save", { clear = true })
-autocmd("BufWritePre", {
-  desc = "EslintFixAll on save",
-  group = "eslint_fix_on_save",
-  pattern = "*.tsx,*.ts,*.jsx,*.js,*.mjs,*.cjs",
-  command = "EslintFixAll",
-})
