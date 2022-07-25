@@ -1,5 +1,5 @@
 return {
-  on_attach = function (client, bufnr)
+  on_attach = function(client, bufnr)
     zvim.lsp.disable_formatting(client)
 
     vim.api.nvim_create_augroup("eslint_fix_on_save", { clear = true })
