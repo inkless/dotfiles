@@ -13,18 +13,29 @@ zvim.lsp.on_attach = function(client, bufnr)
   map("n", "<leader>cR", function() vim.lsp.buf.rename() end, get_buf_opts(bufnr, "Rename current symbol"))
   -- I prefer to use gR to rename
   map("n", "gR", function() vim.lsp.buf.rename() end, get_buf_opts(bufnr, "Rename current symbol"))
-  -- few lsp servers implemented this
-  map("n", "<leader>cl", function() vim.lsp.buf.declaration() end, get_buf_opts(bufnr, "Declaration of current symbol"))
   map("n", "gI", function() vim.lsp.buf.implementation() end, get_buf_opts(bufnr, "Implementation of current symbol"))
-  map("n", "gd", function() vim.lsp.buf.definition() end, get_buf_opts(bufnr, "Show the definition of current symbol"))
-  map("n", "gr", function() vim.lsp.buf.references() end, get_buf_opts(bufnr, "References of current symbol"))
   -- map("n", "<leader>cd", function() vim.diagnostic.open_float() end, get_buf_opts(bufnr, "Hover diagnostics"))
   map("n", "[d", function() vim.diagnostic.goto_prev() end, get_buf_opts(bufnr, "Previous diagnostic"))
   map("n", "]d", function() vim.diagnostic.goto_next() end, get_buf_opts(bufnr, "Next diagnostic"))
   map("n", "gl", function() vim.diagnostic.open_float() end, get_buf_opts(bufnr, "Hover diagnostics"))
-  -- telescope related
-  -- I prefer to use gD as go to references
-  map("n", "gD", function() require("telescope.builtin").lsp_references() end, { desc = "Search references" })
+
+  if vim.g.lsp_qf_list == "quickfix" then
+    map("n", "gd", function() vim.lsp.buf.definition() end, get_buf_opts(bufnr, "Show the definition of current symbol"))
+    map("n", "gD", function() vim.lsp.buf.references() end, get_buf_opts(bufnr, "References of current symbol"))
+    -- few lsp servers implemented this
+    map("n", "gr", function() vim.lsp.buf.declaration() end, get_buf_opts(bufnr, "Declaration of current symbol"))
+  end
+  if vim.g.lsp_qf_list == "telescope" then
+    map("n", "gd", function() require("telescope.builtin").lsp_definitions() end, get_buf_opts(bufnr, "Show the definition of current symbol"))
+    map("n", "gr", function() require("telescope.builtin").lsp_type_definitions() end, get_buf_opts(bufnr, "Declaration of current symbol"))
+    map("n", "gD", function() require("telescope.builtin").lsp_references() end, get_buf_opts(bufnr, "References of current symbol"))
+  end
+  if vim.g.lsp_qf_list == "trouble" then
+    -- somehow TroubleToggle lsp_definitions does not work...
+    map("n", "gd", function() require("telescope.builtin").lsp_definitions() end, get_buf_opts(bufnr, "Show the definition of current symbol"))
+    map("n", "gD", "<cmd>TroubleToggle lsp_references<cr>", get_buf_opts(bufnr, "References of current symbol"))
+    map("n", "gr", "<cmd>TroubleToggle lsp_type_definitions<cr>", get_buf_opts(bufnr, "References of current symbol"))
+  end
 
   vim.api.nvim_buf_create_user_command(
     bufnr,

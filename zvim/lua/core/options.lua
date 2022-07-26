@@ -69,6 +69,7 @@ vim_opts({
     loaded_zipPlugin = true, -- disable zip
     loaded_vimball = true, -- disable vimball
     loaded_vimballPlugin = true, -- disable vimball
+    lsp_qf_list = "trouble", -- quickfix / trouble / telescope
   },
   wo = {
     -- fold related

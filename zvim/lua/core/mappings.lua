@@ -140,9 +140,26 @@ map("n", "<leader>cs",
 )
 -- SymbolsOutline
 map("n", "<leader>cS", "<cmd>AerialToggle<cr>", { desc = "Symbols outline" })
-map("n", "<leader>cr", function() require("telescope.builtin").lsp_references() end, { desc = "Search references" })
-map("n", "<leader>cd", function() require("telescope.builtin").diagnostics({ bufnr = 0 }) end, { desc = "Search current diagnostics" })
-map("n", "<leader>cD", function() require("telescope.builtin").diagnostics() end, { desc = "Search all diagnostics" })
+
+-- lsp lists
+if vim.g.lsp_qf_list == "quickfix" then
+  map("n", "<leader>cr", function() vim.lsp.buf.references() end, { desc = "Search references" })
+  map("n", "<leader>cd", function() vim.lsp.diagnostic.set_qflist() end, { desc = "Search current diagnostics" })
+end
+
+if vim.g.lsp_qf_list == "telescope" then
+  map("n", "<leader>cr", function() require("telescope.builtin").lsp_references() end, { desc = "Search references" })
+  map("n", "<leader>cd", function() require("telescope.builtin").diagnostics({ bufnr = 0 }) end, { desc = "Search current diagnostics" })
+  map("n", "<leader>cD", function() require("telescope.builtin").diagnostics() end, { desc = "Search all diagnostics" })
+end
+
+if vim.g.lsp_qf_list == "trouble" then
+  map("n", "<leader>cr", "<cmd>TroubleToggle lsp_references<cr>", { desc = "Search references" })
+  map("n", "<leader>cd", "<cmd>TroubleToggle document_diagnostics<cr>", { desc = "Search current diagnostics" })
+  map("n", "<leader>cD", "<cmd>TroubleToggle workspace_diagnostics<cr>", { desc = "Search all diagnostics" })
+  map("n", "<leader>ot", "<cmd>TroubleToggle<cr>", { desc = "Toggle trouble" })
+end
+
 map("n", "<leader>c\\", "<cmd>%s/\\s\\+$//<cr><cmd>let @/=''<cr>", { desc = "Strip trailing whitespaces" })
 
 -- Markdown preview
@@ -150,7 +167,7 @@ map("n", "<leader>om", "<Plug>MarkdownPreviewToggle", { desc = "Toggle Markdown 
 
 -- Terminal
 -- not really useful... mostly for fun
-map("n", "<leader>ot", "<cmd>ToggleTerm<cr>", { desc = "Toggle terminal" })
+map("n", "<leader>oT", "<cmd>ToggleTerm<cr>", { desc = "Toggle terminal" })
 map("n", "<A-`>", "<cmd>ToggleTerm<cr>", { desc = "Toggle terminal" })
 
 -- Stay in indent mode

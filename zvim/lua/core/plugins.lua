@@ -369,6 +369,12 @@ local plugins = {
     config = function () require "configs.scratch" end
   },
 
+  {
+    "folke/trouble.nvim",
+    requires = "kyazdani42/nvim-web-devicons",
+    config = function () require "configs.trouble" end
+  },
+
   -- github copilot
   "github/copilot.vim",
 
