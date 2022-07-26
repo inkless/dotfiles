@@ -21,20 +21,20 @@ zvim.lsp.on_attach = function(client, bufnr)
 
   if vim.g.lsp_qf_list == "quickfix" then
     map("n", "gd", function() vim.lsp.buf.definition() end, get_buf_opts(bufnr, "Show the definition of current symbol"))
-    map("n", "gD", function() vim.lsp.buf.references() end, get_buf_opts(bufnr, "References of current symbol"))
+    map("n", "gr", function() vim.lsp.buf.references() end, get_buf_opts(bufnr, "References of current symbol"))
     -- few lsp servers implemented this
-    map("n", "gr", function() vim.lsp.buf.declaration() end, get_buf_opts(bufnr, "Declaration of current symbol"))
+    map("n", "gD", function() vim.lsp.buf.declaration() end, get_buf_opts(bufnr, "Declaration of current symbol"))
   end
   if vim.g.lsp_qf_list == "telescope" then
     map("n", "gd", function() require("telescope.builtin").lsp_definitions() end, get_buf_opts(bufnr, "Show the definition of current symbol"))
-    map("n", "gr", function() require("telescope.builtin").lsp_type_definitions() end, get_buf_opts(bufnr, "Declaration of current symbol"))
-    map("n", "gD", function() require("telescope.builtin").lsp_references() end, get_buf_opts(bufnr, "References of current symbol"))
+    map("n", "gr", function() require("telescope.builtin").lsp_references() end, get_buf_opts(bufnr, "References of current symbol"))
+    map("n", "gD", function() require("telescope.builtin").lsp_type_definitions() end, get_buf_opts(bufnr, "Declaration of current symbol"))
   end
   if vim.g.lsp_qf_list == "trouble" then
-    -- somehow TroubleToggle lsp_definitions does not work...
+    -- somehow TroubleToggle lsp_definitions does not work, more details here: https://github.com/folke/trouble.nvim/issues/153
     map("n", "gd", function() require("telescope.builtin").lsp_definitions() end, get_buf_opts(bufnr, "Show the definition of current symbol"))
-    map("n", "gD", "<cmd>TroubleToggle lsp_references<cr>", get_buf_opts(bufnr, "References of current symbol"))
-    map("n", "gr", "<cmd>TroubleToggle lsp_type_definitions<cr>", get_buf_opts(bufnr, "References of current symbol"))
+    map("n", "gr", "<cmd>TroubleToggle lsp_references<cr>", get_buf_opts(bufnr, "References of current symbol"))
+    map("n", "gD", "<cmd>TroubleToggle lsp_type_definitions<cr>", get_buf_opts(bufnr, "References of current symbol"))
   end
 
   vim.api.nvim_buf_create_user_command(
