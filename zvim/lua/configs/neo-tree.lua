@@ -30,9 +30,10 @@ neotree.setup({
     },
   },
   window = {
-    width = 25,
+    width = 30,
     mappings = {
-      ["u"] = "navigate_up",
+      ["<c-x>"] = "open_split",
+      ["<c-t>"] = "open_tabnew",
     },
   },
   filesystem = {
@@ -50,6 +51,16 @@ neotree.setup({
     follow_current_file = true,
     hijack_netrw_behavior = "open_current",
     use_libuv_file_watcher = true,
+    window = {
+      mappings = {
+        ["/"] = "",
+        ["u"] = "navigate_up",
+        ["<c-c>"] = "clear_filter",
+        ["f"] = "fuzzy_finder",
+        ["F"] = "filter_on_submit",
+        ["D"] = "fuzzy_finder_directory",
+      },
+    },
   },
   git_status = {
     window = {
