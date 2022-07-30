@@ -74,8 +74,8 @@ map("n", "<leader>go", "<cmd>Git checkout %<cr>", { desc = "Git checkout current
 -- Telescope
 map("n", "<leader>gt", function() require("telescope.builtin").git_status() end, { desc = "Git status" })
 map("n", "<leader>gb", function() require("telescope.builtin").git_branches() end, { desc = "Git branches" })
-map("n", "<leader>gc", function() require("telescope.builtin").git_commits() end, { desc = "Git commits" })
-map("n", "<leader>gC", function() require("telescope.builtin").git_bcommits() end, { desc = "Git buffer commits" })
+map("n", "<leader>gc", function() require("telescope.builtin").git_bcommits() end, { desc = "Git buffer commits" })
+map("n", "<leader>gC", function() require("telescope.builtin").git_commits() end, { desc = "Git commits" })
 map("n", "<leader>gf", function() require("telescope.builtin").git_files() end, { desc = "Git files" })
 
 -- NeoTree
