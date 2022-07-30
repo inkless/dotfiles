@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: jnl
+# uuid: jnl
+# key: jnl
+# --
+** `(format-time-string "%m/%d/%Y")`
+*** $0
