@@ -70,19 +70,19 @@
                                  ("l" "Tasks with link" entry
                                   (file "inbox.org")
                                   "* TODO %?\n%i\n%a\n/Entered on/ %U" :prepend t)
-                                 ("n" "Notes" entry
-                                  (file+headline "notes.org" "Notes")
-                                  "* %?\n%i\n%a\n/Entered on/ %U" :prepend t)
-                                 ("m" "Meetings" entry
-                                  (file+headline "notes.org" "Meetings")
-                                  "* %?\n%i\n%a\n/Entered on/ %U" :prepend t)
-                                 ("e" "Emails" entry
-                                  (file+headline "notes.org" "Emails")
-                                  "* %?\n%i\n%a\n/Entered on/ %U" :prepend t)
+                                 ;; ("n" "Notes" entry
+                                 ;;  (file+headline "notes.org" "Notes")
+                                 ;;  "* %?\n%i\n%a\n/Entered on/ %U" :prepend t)
+                                 ;; ("m" "Meetings" entry
+                                 ;;  (file+headline "notes.org" "Meetings")
+                                 ;;  "* %?\n%i\n%a\n/Entered on/ %U" :prepend t)
+                                 ;; ("e" "Emails" entry
+                                 ;;  (file+headline "notes.org" "Emails")
+                                 ;;  "* %?\n%i\n%a\n/Entered on/ %U" :prepend t)
                                  )
          org-refile-targets '((nil :maxlevel . 3)
                               (org-agenda-files :maxlevel . 3)
-                              ("notes.org" :level . 2)
+                              ("work.org" :level . 2)
                               )
          org-archive-location "archive/%s_archive::datetree/* Archived Tasks"
          org-agenda-custom-commands '(("g" "Get Things Done (GTD)"

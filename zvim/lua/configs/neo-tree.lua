@@ -48,7 +48,7 @@ neotree.setup({
         "__pycache__",
       },
     },
-    follow_current_file = true,
+    follow_current_file = false,
     hijack_netrw_behavior = "open_current",
     use_libuv_file_watcher = true,
     window = {

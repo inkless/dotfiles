@@ -65,16 +65,23 @@ map("n", "<leader>gp", function() require("gitsigns").preview_hunk() end, { desc
 map("n", "<leader>gh", function() require("gitsigns").reset_hunk() end, { desc = "Reset git hunk" })
 map("n", "<leader>gr", function() require("gitsigns").reset_buffer() end, { desc = "Reset git buffer" })
 map("n", "<leader>gs", function() require("gitsigns").stage_hunk() end, { desc = "Stage git hunk" })
-map("n", "<leader>gu", function() require("gitsigns").undo_stage_hunk() end, { desc = "Unstage git hunk" })
+map("n", "<leader>gU", function() require("gitsigns").undo_stage_hunk() end, { desc = "Unstage git hunk" })
 map("n", "<leader>gd", function() require("gitsigns").diffthis() end, { desc = "View git diff" })
 -- Other git
 map("n", "<leader>gb", "<cmd>GBrowse<cr>", { desc = "Git browse" })
 map("n", "<leader>gl", "<cmd>Git blame<cr>", { desc = "Git blame" })
 map("n", "<leader>go", "<cmd>Git checkout %<cr>", { desc = "Git checkout current file" })
+-- Telescope
+map("n", "<leader>gt", function() require("telescope.builtin").git_status() end, { desc = "Git status" })
+map("n", "<leader>gb", function() require("telescope.builtin").git_branches() end, { desc = "Git branches" })
+map("n", "<leader>gc", function() require("telescope.builtin").git_commits() end, { desc = "Git commits" })
+map("n", "<leader>gC", function() require("telescope.builtin").git_bcommits() end, { desc = "Git buffer commits" })
+map("n", "<leader>gf", function() require("telescope.builtin").git_files() end, { desc = "Git files" })
 
 -- NeoTree
 map("n", "<leader>oe", "<cmd>Neotree toggle<cr>", { desc = "Toggle Explorer" })
-map("n", "<leader>e", "<cmd>Neotree focus<cr>", { desc = "Focus Explorer" })
+map("n", "<leader>op", "<cmd>Neotree focus<cr>", { desc = "Focus Explorer" })
+map("n", "<leader>e", "<cmd>Neotree reveal<cr>", { desc = "Reveal in Explorer" })
 
 -- Session Manager
 map("n", "<leader>Sl", "<cmd>SessionManager! load_last_session<cr>", { desc = "Load last session" })
@@ -104,9 +111,6 @@ map("n", "<leader>fW",
   end,
   { desc = "Search words in all files" }
 )
--- map("n", "<leader>gt", function() require("telescope.builtin").git_status() end, { desc = "Git status" })
--- map("n", "<leader>gb", function() require("telescope.builtin").git_branches() end, { desc = "Git branches" })
--- map("n", "<leader>gc", function() require("telescope.builtin").git_commits() end, { desc = "Git commits" })
 map("n", "<leader><space>", function() require("telescope.builtin").find_files() end, { desc = "Search files" })
 map("n", "<leader>ff", function() require("telescope.builtin").find_files() end, { desc = "Search files" })
 map("n", "<leader>fF",
@@ -122,11 +126,11 @@ map("n", "<leader>fc", function() require("telescope.builtin").commands() end, {
 map("n", "<A-x>", function() require("telescope.builtin").commands() end, { desc = "Search commands" })
 map("n", "<leader>fm", function() require("telescope.builtin").marks() end, { desc = "Search marks" })
 map("n", "<leader>fr", function() require("telescope.builtin").oldfiles() end, { desc = "Search recent files" })
--- git
-map("n", "<leader>gb", function() require("telescope.builtin").git_branches() end, { desc = "Git branches" })
 map("n", "<leader>fM", function() require("telescope.builtin").man_pages() end, { desc = "Search man" })
 map("n", "<leader>fN", function() require("telescope").extensions.notify.notify() end, { desc = "Search notifications" })
 map("n", "<leader>fR", function() require("telescope.builtin").registers() end, { desc = "Search registers" })
+map("n", "<leader>f.d", ":Telescope live_grep cwd=", { desc = "Search words in directory" })
+map("n", "<leader>f.t", ":Telescope live_grep type_filter=", { desc = "Search words by file type" })
 
 -- lsp/code related
 map("n", "<leader>cs",
