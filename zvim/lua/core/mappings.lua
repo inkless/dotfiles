@@ -207,7 +207,7 @@ endfunction
 ]])
 
 -- reload colorscheme
-map("n", "<leader>rc", function () require("configs.colorscheme").update() end, { desc = "Reload colorscheme" })
+-- map("n", "<leader>rc", function () require("configs.colorscheme").update() end, { desc = "Reload colorscheme" })
 
 -- tabs
 map("n", "<leader><tab>n", "<cmd>tabnew<cr>", { desc = "New tab" })
