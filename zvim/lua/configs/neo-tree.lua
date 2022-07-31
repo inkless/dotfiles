@@ -33,6 +33,7 @@ neotree.setup({
     width = 30,
     mappings = {
       ["<c-x>"] = "open_split",
+      ["<c-v>"] = "open_vsplit",
       ["<c-t>"] = "open_tabnew",
     },
   },

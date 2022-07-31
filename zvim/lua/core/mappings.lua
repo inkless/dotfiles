@@ -113,8 +113,8 @@ map("n", "<leader>fW",
 )
 map("n", "<leader><space>", function() require("telescope.builtin").find_files() end, { desc = "Search files" })
 map("n", "<leader>ff",
-  function() require("telescope.builtin").find_files { hidden = true, no_ignore = true } end,
-  { desc = "Search all files" }
+  function() require("telescope.builtin").find_files { hidden = true } end,
+  { desc = "Search files (includes hidden)" }
 )
 map("n", "S", function() require("telescope.builtin").grep_string() end, { desc = "Search for word under cursor" })
 map("n", "<leader>fb", function() require("telescope.builtin").buffers() end, { desc = "Search buffers" })
@@ -130,11 +130,11 @@ map("n", "<leader>fN", function() require("telescope").extensions.notify.notify(
 map("n", "<leader>fR", function() require("telescope.builtin").registers() end, { desc = "Search registers" })
 map("n", "<leader>f/d", ":Telescope live_grep cwd=", { desc = "Search words in directory" })
 map("n", "<leader>f/t", ":Telescope live_grep type_filter=", { desc = "Search words by file type" })
-map("n", "<leader>f/o", "<cmd>Telescope live_grep grep_open_files=true<cr>", { desc = "Search words in open files" })
 map("n", "<leader>f/g", ":Telescope live_grep glob_pattern=", { desc = "Search words in files with glob pattern" })
+map("n", "<leader>f/o", "<cmd>Telescope live_grep grep_open_files=true<cr>", { desc = "Search words in open files" })
+map("n", "<leader>fFa", "<cmd>Telescope find_files hidden=true no_ignore=true<cr>", { desc = "Search all files" })
 map("n", "<leader>fFd", ":Telescope find_files cwd=", { desc = "Search files in directory" })
 map("n", "<leader>fFD", ":Telescope find_files search_dirs=", { desc = "Search files in list of directories" })
-map("n", "<leader>fFh", ":Telescope find_files hidden=true no_ignore=true", { desc = "Search all files" })
 map("n", "<leader>fFc", ":Telescope find_files find_command=rg,--ignore,--hidden,--files", { desc = "Search files by command" })
 
 -- lsp/code related
