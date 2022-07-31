@@ -135,7 +135,7 @@ map("n", "<leader>f/o", "<cmd>Telescope live_grep grep_open_files=true<cr>", { d
 map("n", "<leader>fFa", "<cmd>Telescope find_files hidden=true no_ignore=true<cr>", { desc = "Search all files" })
 map("n", "<leader>fFd", ":Telescope find_files cwd=", { desc = "Search files in directory" })
 map("n", "<leader>fFD", ":Telescope find_files search_dirs=", { desc = "Search files in list of directories" })
-map("n", "<leader>fFc", ":Telescope find_files find_command=rg,--ignore,--hidden,--files", { desc = "Search files by command" })
+map("n", "<leader>fFc", ":Telescope find_files find_command=rg,--hidden,--files", { desc = "Search files by command" })
 
 -- lsp/code related
 map("n", "<leader>cs",
