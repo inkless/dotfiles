@@ -112,8 +112,7 @@ map("n", "<leader>fW",
   { desc = "Search words in all files" }
 )
 map("n", "<leader><space>", function() require("telescope.builtin").find_files() end, { desc = "Search files" })
-map("n", "<leader>ff", function() require("telescope.builtin").find_files() end, { desc = "Search files" })
-map("n", "<leader>fF",
+map("n", "<leader>ff",
   function() require("telescope.builtin").find_files { hidden = true, no_ignore = true } end,
   { desc = "Search all files" }
 )
@@ -129,8 +128,14 @@ map("n", "<leader>fr", function() require("telescope.builtin").oldfiles() end, {
 map("n", "<leader>fM", function() require("telescope.builtin").man_pages() end, { desc = "Search man" })
 map("n", "<leader>fN", function() require("telescope").extensions.notify.notify() end, { desc = "Search notifications" })
 map("n", "<leader>fR", function() require("telescope.builtin").registers() end, { desc = "Search registers" })
-map("n", "<leader>f.d", ":Telescope live_grep cwd=", { desc = "Search words in directory" })
-map("n", "<leader>f.t", ":Telescope live_grep type_filter=", { desc = "Search words by file type" })
+map("n", "<leader>f/d", ":Telescope live_grep cwd=", { desc = "Search words in directory" })
+map("n", "<leader>f/t", ":Telescope live_grep type_filter=", { desc = "Search words by file type" })
+map("n", "<leader>f/o", "<cmd>Telescope live_grep grep_open_files=true<cr>", { desc = "Search words in open files" })
+map("n", "<leader>f/g", ":Telescope live_grep glob_pattern=", { desc = "Search words in files with glob pattern" })
+map("n", "<leader>fFd", ":Telescope find_files cwd=", { desc = "Search files in directory" })
+map("n", "<leader>fFD", ":Telescope find_files search_dirs=", { desc = "Search files in list of directories" })
+map("n", "<leader>fFh", ":Telescope find_files hidden=true no_ignore=true", { desc = "Search all files" })
+map("n", "<leader>fFc", ":Telescope find_files find_command=rg,--ignore,--hidden,--files", { desc = "Search files by command" })
 
 -- lsp/code related
 map("n", "<leader>cs",

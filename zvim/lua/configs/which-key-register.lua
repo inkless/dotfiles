@@ -4,7 +4,8 @@ local mappings = {
   n = {
     ["<leader>"] = {
       f = { name = "Find" },
-      ["f."] = { name = "Additional Find" },
+      ["f/"] = { name = "Advanced Find Word" },
+      ["fF"] = { name = "Advanced Find files" },
       p = { name = "Packer" },
       l = { name = "LSP" },
       c = { name = "Code" },
