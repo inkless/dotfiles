@@ -79,8 +79,8 @@ map("n", "<leader>gC", function() require("telescope.builtin").git_commits() end
 map("n", "<leader>gf", function() require("telescope.builtin").git_files() end, { desc = "Git files" })
 
 -- NeoTree
-map("n", "<leader>oe", "<cmd>Neotree toggle<cr>", { desc = "Toggle Explorer" })
-map("n", "<leader>op", "<cmd>Neotree focus<cr>", { desc = "Focus Explorer" })
+map("n", "<leader>op", "<cmd>Neotree toggle<cr>", { desc = "Toggle Explorer" })
+map("n", "<leader>oe", "<cmd>Neotree focus<cr>", { desc = "Focus Explorer" })
 map("n", "<leader>e", "<cmd>Neotree reveal<cr>", { desc = "Reveal in Explorer" })
 
 -- Session Manager
