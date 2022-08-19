@@ -35,12 +35,13 @@ map("n", "<leader>oa", "<cmd>Alpha<cr>", { desc = "Alpha Dashboard" })
 
 -- Buffer
 map("n", "<leader>`", "<c-^>", { desc = "Last buffer" })
+
 map("n", "<leader>,", "<cmd>Telescope buffers<cr>", { desc = "Switch buffer" })
+map("n", "<leader>bb", "<cmd>Telescope buffers<cr>", { desc = "Switch buffer" })
 map("n", "<A-l>", "<cmd>bnext<cr>", { desc = "Next buffer tab" })
 map("n", "<A-h>", "<cmd>bprevious<cr>", { desc = "Previous buffer tab" })
 
 map("n", "<leader>bl", "<c-^>", { desc = "Last buffer" })
-map("n", "<leader>bb", "<cmd>Telescope buffers<cr>", { desc = "Switch buffer" })
 map("n", "<leader>br", "<cmd>e!<cr><cmd>redraw<cr>", { desc = "Reload buffer" })
 map("n", "<leader>bd", "<cmd>Bdelete<cr>", { desc = "Delete buffer" })
 map("n", "<leader>b]", "<cmd>bnext<cr>", { desc = "Next buffer tab" })
@@ -64,19 +65,30 @@ map("n", "<leader>gl", function() require("gitsigns").blame_line() end, { desc =
 map("n", "<leader>gp", function() require("gitsigns").preview_hunk() end, { desc = "Preview git hunk" })
 map("n", "<leader>gh", function() require("gitsigns").reset_hunk() end, { desc = "Reset git hunk" })
 map("n", "<leader>gr", function() require("gitsigns").reset_buffer() end, { desc = "Reset git buffer" })
-map("n", "<leader>gs", function() require("gitsigns").stage_hunk() end, { desc = "Stage git hunk" })
+map("n", "<leader>gt", function() require("gitsigns").stage_hunk() end, { desc = "Stage git hunk" })
 map("n", "<leader>gU", function() require("gitsigns").undo_stage_hunk() end, { desc = "Unstage git hunk" })
 map("n", "<leader>gd", function() require("gitsigns").diffthis() end, { desc = "View git diff" })
 -- Other git
 map("n", "<leader>gb", "<cmd>GBrowse<cr>", { desc = "Git browse" })
 map("n", "<leader>gl", "<cmd>Git blame<cr>", { desc = "Git blame" })
 map("n", "<leader>go", "<cmd>Git checkout %<cr>", { desc = "Git checkout current file" })
+
+if vim.g.search_lib == "telescope" then
 -- Telescope
-map("n", "<leader>gt", function() require("telescope.builtin").git_status() end, { desc = "Git status" })
-map("n", "<leader>gb", function() require("telescope.builtin").git_branches() end, { desc = "Git branches" })
-map("n", "<leader>gc", function() require("telescope.builtin").git_bcommits() end, { desc = "Git buffer commits" })
-map("n", "<leader>gC", function() require("telescope.builtin").git_commits() end, { desc = "Git commits" })
-map("n", "<leader>gf", function() require("telescope.builtin").git_files() end, { desc = "Git files" })
+  map("n", "<leader>gf", function() require("telescope.builtin").git_files() end, { desc = "Git files" })
+  map("n", "<leader>gs", function() require("telescope.builtin").git_status() end, { desc = "Git status" })
+  map("n", "<leader>gb", function() require("telescope.builtin").git_branches() end, { desc = "Git branches" })
+  map("n", "<leader>gc", function() require("telescope.builtin").git_bcommits() end, { desc = "Git buffer commits" })
+  map("n", "<leader>gC", function() require("telescope.builtin").git_commits() end, { desc = "Git commits" })
+end
+
+if vim.g.search_lib == "fzf" then
+  map("n", "<leader>gf", function() require("fzf-lua").git_files() end, { desc = "Git files" })
+  map("n", "<leader>gs", function() require("fzf-lua").git_status() end, { desc = "Git status" })
+  map("n", "<leader>gb", function() require("fzf-lua").git_branches() end, { desc = "Git branches" })
+  map("n", "<leader>gc", function() require("fzf-lua").git_bcommits() end, { desc = "Git buffer commits" })
+  map("n", "<leader>gC", function() require("fzf-lua").git_commits() end, { desc = "Git commits" })
+end
 
 -- NeoTree
 map("n", "<leader>op", "<cmd>Neotree toggle<cr>", { desc = "Toggle Explorer" })
@@ -101,41 +113,73 @@ map("n", "<A-Left>", function() require("smart-splits").resize_left() end, { des
 map("n", "<A-Right>", function() require("smart-splits").resize_right() end, { desc = "Resize split right" })
 
 -- Telescope
-map("n", "<leader>/", function() require("telescope.builtin").live_grep() end, { desc = "Search words" })
-map("n", "<leader>fw", function() require("telescope.builtin").live_grep() end, { desc = "Search words" })
-map("n", "<leader>fW",
-  function()
-    require("telescope.builtin").live_grep {
-      additional_args = function(args) return vim.list_extend(args, { "--hidden", "--no-ignore" }) end
-    }
-  end,
-  { desc = "Search words in all files" }
-)
-map("n", "<leader><space>", function() require("telescope.builtin").find_files() end, { desc = "Search files" })
-map("n", "<leader>ff",
-  function() require("telescope.builtin").find_files { hidden = true } end,
-  { desc = "Search files (includes hidden)" }
-)
-map("n", "S", function() require("telescope.builtin").grep_string() end, { desc = "Search for word under cursor" })
-map("n", "<leader>fb", function() require("telescope.builtin").buffers() end, { desc = "Search buffers" })
-map("n", "<leader>fh", function() require("telescope.builtin").help_tags() end, { desc = "Search help" })
-map("n", "<leader>fk", function() require("telescope.builtin").keymaps() end, { desc = "Search keymaps" })
+
+if vim.g.search_lib == "telescope" then
+  map("n", "<leader>/", function() require("telescope.builtin").live_grep() end, { desc = "Search words" })
+  map("n", "<leader>fw", function() require("telescope.builtin").live_grep() end, { desc = "Search words" })
+  map("n", "<leader>fW",
+    function()
+      require("telescope.builtin").live_grep {
+        additional_args = function(args) return vim.list_extend(args, { "--hidden", "--no-ignore" }) end
+      }
+    end,
+    { desc = "Search words in all files" }
+  )
+  map("n", "<leader><space>", function() require("telescope.builtin").find_files() end, { desc = "Search files" })
+  map("n", "<leader>ff",
+    function() require("telescope.builtin").find_files { hidden = true } end,
+    { desc = "Search files (includes hidden)" }
+  )
+  map("n", "S", function() require("telescope.builtin").grep_string() end, { desc = "Search for word under cursor" })
+  map("n", "<leader>fr", function() require("telescope.builtin").oldfiles() end, { desc = "Search recent files" })
+  map("n", "<leader>f/d", ":Telescope live_grep cwd=", { desc = "Search words in directory" })
+  map("n", "<leader>f/t", ":Telescope live_grep type_filter=", { desc = "Search words by file type" })
+  map("n", "<leader>f/g", ":Telescope live_grep glob_pattern=", { desc = "Search words in files with glob pattern" })
+  map("n", "<leader>fFa", "<cmd>Telescope find_files hidden=true no_ignore=true<cr>", { desc = "Search all files" })
+  map("n", "<leader>fFd", ":Telescope find_files cwd=", { desc = "Search files in directory" })
+  map("n", "<leader>fFD", ":Telescope find_files search_dirs=", { desc = "Search files in list of directories" })
+  map("n", "<leader>fFc", ":Telescope find_files find_command=rg,--hidden,--files", { desc = "Search files by command" })
+  map("n", "<leader>f.", function() require("telescope.builtin").resume() end, { desc = "Resume last Search" })
+end
+
+if vim.g.search_lib == "fzf" then
+  map("n", "<leader>/", function() require("fzf-lua").live_grep_native() end, { desc = "Search words" })
+  map("n", "<leader>fw", function() require("fzf-lua").live_grep_native() end, { desc = "Search words" })
+  map("n", "<leader>fW",
+    function()
+      require("fzf-lua").live_grep_native {
+        rg_opts = "--column --line-number --no-heading --color=always --smart-case --max-columns=512 --hidden --no-ignore",
+      }
+    end,
+    { desc = "Search words in all files" }
+  )
+  map("n", "<leader><space>", function() require("fzf-lua").files() end, { desc = "Search files" })
+  map("n", "<leader>ff", function() require("fzf-lua").files() end, { desc = "Search files" })
+  map("n", "S", function() require("fzf-lua").grep_cword() end, { desc = "Search for word under cursor" })
+  map("n", "<leader>fr", function() require("fzf-lua").oldfiles() end, { desc = "Search recent files" })
+  map("n", "<leader>f/.", function () require("fzf-lua").live_grep_resume() end, { desc = "Resume last Search" })
+  map("n", "<leader>f/d", ":FzfLua live_grep_native cwd=", { desc = "Search words in directory" })
+  map("n", "<leader>f/p", function () require("fzf-lua").grep() end, { desc = "Search for a pattern" })
+  map("n", "<leader>f/g", function () require("fzf-lua").live_grep_glob() end, { desc = "Search words in files with glob pattern" })
+  map("n", "<leader>fFa", function ()
+    require("fzf-lua").files({ rg_opts = "--color=never --files --hidden --no-ignore --follow -g '!.git'"})
+  end, { desc = "Search all files" })
+  map("n", "<leader>fFd", ":FzfLua files cwd=", { desc = "Search files in directory" })
+  map("n", "<leader>f.", function() require("fzf-lua").resume() end, { desc = "Resume last Search" })
+  map("n", "<leader>fz", ":FzfLua ", { desc = "Open fzf-lua" })
+end
+
+-- telescope only
 map("n", "<leader>fc", function() require("telescope.builtin").commands() end, { desc = "Search commands" })
 -- emacs like M-x
 map("n", "<A-x>", function() require("telescope.builtin").commands() end, { desc = "Search commands" })
 map("n", "<leader>fm", function() require("telescope.builtin").marks() end, { desc = "Search marks" })
-map("n", "<leader>fr", function() require("telescope.builtin").oldfiles() end, { desc = "Search recent files" })
 map("n", "<leader>fM", function() require("telescope.builtin").man_pages() end, { desc = "Search man" })
-map("n", "<leader>fN", function() require("telescope").extensions.notify.notify() end, { desc = "Search notifications" })
 map("n", "<leader>fR", function() require("telescope.builtin").registers() end, { desc = "Search registers" })
-map("n", "<leader>f/d", ":Telescope live_grep cwd=", { desc = "Search words in directory" })
-map("n", "<leader>f/t", ":Telescope live_grep type_filter=", { desc = "Search words by file type" })
-map("n", "<leader>f/g", ":Telescope live_grep glob_pattern=", { desc = "Search words in files with glob pattern" })
+map("n", "<leader>fh", function() require("telescope.builtin").help_tags() end, { desc = "Search help" })
+map("n", "<leader>fk", function() require("telescope.builtin").keymaps() end, { desc = "Search keymaps" })
+map("n", "<leader>fN", function() require("telescope").extensions.notify.notify() end, { desc = "Search notifications" })
 map("n", "<leader>f/o", "<cmd>Telescope live_grep grep_open_files=true<cr>", { desc = "Search words in open files" })
-map("n", "<leader>fFa", "<cmd>Telescope find_files hidden=true no_ignore=true<cr>", { desc = "Search all files" })
-map("n", "<leader>fFd", ":Telescope find_files cwd=", { desc = "Search files in directory" })
-map("n", "<leader>fFD", ":Telescope find_files search_dirs=", { desc = "Search files in list of directories" })
-map("n", "<leader>fFc", ":Telescope find_files find_command=rg,--hidden,--files", { desc = "Search files by command" })
 
 -- lsp/code related
 map("n", "<leader>cs",
@@ -267,12 +311,12 @@ map("n",
 )
 
 -- Improved Terminal Mappings
-map("t", "<esc>", "<C-\\><C-n>", { desc = "Terminal normal mode" })
-map("t", "jk", "<C-\\><C-n>", { desc = "Terminal normal mode" })
-map("t", "<C-h>", "<c-\\><c-n><c-w>h", { desc = "Terminal left window navigation" })
-map("t", "<C-j>", "<c-\\><c-n><c-w>j", { desc = "Terminal down window navigation" })
-map("t", "<C-k>", "<c-\\><c-n><c-w>k", { desc = "Terminal up window navigation" })
-map("t", "<C-l>", "<c-\\><c-n><c-w>l", { desc = "Terminal right window naviation" })
+-- map("t", "<esc>", "<C-\\><C-n>", { desc = "Terminal normal mode" })
+-- map("t", "jk", "<C-\\><C-n>", { desc = "Terminal normal mode" })
+-- map("t", "<C-h>", "<c-\\><c-n><c-w>h", { desc = "Terminal left window navigation" })
+-- map("t", "<C-j>", "<c-\\><c-n><c-w>j", { desc = "Terminal down window navigation" })
+-- map("t", "<C-k>", "<c-\\><c-n><c-w>k", { desc = "Terminal up window navigation" })
+-- map("t", "<C-l>", "<c-\\><c-n><c-w>l", { desc = "Terminal right window naviation" })
 
 
 create_cmd("W", "w", {})

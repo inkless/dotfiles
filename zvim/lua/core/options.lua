@@ -70,6 +70,7 @@ vim_opts({
     loaded_vimball = true, -- disable vimball
     loaded_vimballPlugin = true, -- disable vimball
     lsp_qf_list = "trouble", -- quickfix / trouble / telescope
+    search_lib = "fzf", -- fzf / telescope
   },
   wo = {
     -- fold related

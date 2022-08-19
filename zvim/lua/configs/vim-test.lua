@@ -2,6 +2,7 @@ local map = vim.keymap.set
 local notify = require("core.utils").notify
 
 vim.g["test#strategy"] = "vimux"
+vim.g["test#python#runner"] = "nose"
 
 local function test_with_watch(nearest, debug)
   if vim.fn.filereadable("node_modules/.bin/jest") == 1 then

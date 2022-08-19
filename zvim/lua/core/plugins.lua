@@ -235,6 +235,13 @@ local plugins = {
     run = "make",
   },
 
+  -- FZF
+  { 'ibhagwan/fzf-lua',
+    -- optional for icon support
+    requires = { 'kyazdani42/nvim-web-devicons' },
+    config = function() require "configs.fzf-lua" end,
+  },
+
   -- Git integration
   "tpope/vim-fugitive", -- Git wrapper
   "tpope/vim-rhubarb", -- Github extension for vim fugitive

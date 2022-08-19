@@ -100,6 +100,6 @@ end
 if pcall(require, "aerial") then
   telescope.load_extension("aerial")
 end
-if pcall(require, "fzf") then
+if pcall(require, "fzf_lib") then
   telescope.load_extension("fzf")
 end
