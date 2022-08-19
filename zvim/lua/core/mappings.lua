@@ -158,13 +158,19 @@ if vim.g.search_lib == "fzf" then
   map("n", "S", function() require("fzf-lua").grep_cword() end, { desc = "Search for word under cursor" })
   map("n", "<leader>fr", function() require("fzf-lua").oldfiles() end, { desc = "Search recent files" })
   map("n", "<leader>f/.", function () require("fzf-lua").live_grep_resume() end, { desc = "Resume last Search" })
-  map("n", "<leader>f/d", ":FzfLua live_grep_native cwd=", { desc = "Search words in directory" })
+  map("n", "<leader>f/d", function ()
+    local directory = require("fzf-lua.utils").input("Directory❯ ")
+    require("fzf-lua").live_grep_native({ cwd = directory })
+  end, { desc = "Search words in directory" })
   map("n", "<leader>f/p", function () require("fzf-lua").grep() end, { desc = "Search for a pattern" })
   map("n", "<leader>f/g", function () require("fzf-lua").live_grep_glob() end, { desc = "Search words in files with glob pattern" })
   map("n", "<leader>fFa", function ()
     require("fzf-lua").files({ rg_opts = "--color=never --files --hidden --no-ignore --follow -g '!.git'"})
   end, { desc = "Search all files" })
-  map("n", "<leader>fFd", ":FzfLua files cwd=", { desc = "Search files in directory" })
+  map("n", "<leader>fFd", function ()
+    local directory = require("fzf-lua.utils").input("Directory❯ ")
+    require("fzf-lua").files({ cwd = directory })
+  end, { desc = "Search words in directory" })
   map("n", "<leader>f.", function() require("fzf-lua").resume() end, { desc = "Resume last Search" })
   map("n", "<leader>fz", ":FzfLua ", { desc = "Open fzf-lua" })
 end
@@ -321,3 +327,12 @@ map("n",
 
 create_cmd("W", "w", {})
 create_cmd("Q", "q", {})
+create_cmd(
+  "Rg",
+  function(args)
+    local rg_opts = "--column --line-number --no-heading --color=always --smart-case --max-columns=512 --hidden "
+      .. table.concat(args.fargs, " ")
+    require("fzf-lua").live_grep_native({ rg_opts = rg_opts })
+  end,
+  { desc = "Rg", nargs = "*" }
+)
