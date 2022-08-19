@@ -113,6 +113,12 @@
   (define-key global-map            (kbd "C-c a") 'org-agenda)
   (define-key global-map            (kbd "C-c c") 'org-capture))
 
+;; (setq ob-mermaid-cli-path "/usr/local/bin/mmdc")
+(org-babel-do-load-languages
+    'org-babel-load-languages
+    '((mermaid . t)
+      (scheme . t)))
+
 (after! deft
   (setq deft-directory org-directory))
 

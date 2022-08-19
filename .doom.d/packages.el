@@ -55,3 +55,4 @@
 (package! eslintd-fix)
 (package! jest :recipe (:host github :repo "inkless/emacs-jest"))
 ;;(package! org-kanban)
+(package! ob-mermaid)
