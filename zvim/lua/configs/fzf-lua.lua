@@ -3,6 +3,10 @@ if not status_ok then
   return
 end
 
+local is_light = require("configs.colorscheme").is_light
+local delta_theme = is_light and "--light" or "--dark"
+local delta_pager = "delta --width=$FZF_PREVIEW_COLUMNS " .. delta_theme
+
 fzf_lua.setup({
   keymap = {
     -- These override the default tables completely
@@ -49,7 +53,7 @@ fzf_lua.setup({
       cmd_untracked   = "git diff --color --no-index /dev/null",
       -- uncomment if you wish to use git-delta as pager
       -- can also be set under 'git.status.preview_pager'
-      pager           = "delta --width=$FZF_PREVIEW_COLUMNS",
+      pager           = delta_pager
     },
     -- builtin = {
     --   syntax          = true,         -- preview syntax highlight?
@@ -74,10 +78,10 @@ fzf_lua.setup({
   },
   git = {
     commits = {
-      preview_pager = "delta --width=$FZF_PREVIEW_COLUMNS",
+      preview_pager = delta_pager
     },
     bcommits = {
-      preview_pager = "delta --width=$FZF_PREVIEW_COLUMNS",
+      preview_pager = delta_pager
     },
   },
 })

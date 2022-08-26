@@ -3,6 +3,8 @@ local M = {
   dark_theme = "dark",
   light_theme = "light",
 
+  is_light = false,
+
   -- dark_theme = "gruvbox",
   -- light_theme = "rose_pine_dawn",
 
@@ -28,6 +30,8 @@ local function get_theme()
   if theme then
     is_light = theme:gsub("%s+", "") == "light"
   end
+
+  M.is_light = is_light
 
   return is_light and M.light_theme or M.dark_theme
 end
