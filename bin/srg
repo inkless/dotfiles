@@ -1,0 +1,34 @@
+#!/bin/bash
+#
+# @filename: srg
+#
+# @author: Guangda Zhang (zhangxiaoyu9350@gmail.com)
+# @date: 2017-02-23
+#
+# @description: 
+# s(hortcut)-rg - wrapper to use rg instead of ack as the
+# underlying search tool
+# 
+# For more details:
+# https://github.com/inkless/sack
+# 
+# @dependencies:
+# - rg
+# - ag
+# - tee
+# - awk
+# - sed (GNU sed)
+# 
+# @version:
+# 1.0
+#
+# @license:
+# - MIT as of this version.
+#
+# @usage:
+# - for additional usage information, see README.md
+
+# ==============================================================
+# ==============================================================
+
+sack -rg "$@"

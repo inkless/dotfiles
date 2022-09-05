@@ -1,0 +1,6 @@
+#!/bin/bash
+
+$HOME/bin/mount-wdmycloud inkless
+
+cd $HOME
+cryfs /mnt/wdmycloud/inkless/encrypted encrypted

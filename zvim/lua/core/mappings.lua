@@ -48,12 +48,12 @@ map("n", "<leader>b]", "<cmd>bnext<cr>", { desc = "Next buffer tab" })
 map("n", "<leader>b[", "<cmd>bprevios<cr>", { desc = "Previous buffer tab" })
 
 -- Comment
-map("i", "<c-_><c-_>", function() require("Comment.api").toggle_current_linewise() end, { desc = "Comment line" })
-map("n", "<c-_><c-_>", function() require("Comment.api").toggle_current_linewise() end, { desc = "Comment line" })
+map("i", "<c-_><c-_>", function() require("Comment.api").toggle.linewise.current(nil) end, { desc = "Comment line" })
+map("n", "<c-_><c-_>", function() require("Comment.api").toggle.linewise.current(nil) end, { desc = "Comment line" })
 map(
   "v",
   "<c-_><c-_>",
-  "<esc><cmd>lua require('Comment.api').toggle_linewise_op(vim.fn.visualmode())<cr>",
+  "<esc><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<cr>",
   { desc = "Toggle comment line" }
 )
 
