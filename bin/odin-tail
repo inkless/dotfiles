@@ -25,7 +25,7 @@ log_name=$dt
 if [ "$dt" == 'monolith' ]; then
   log_name=frontend-web
 fi
-log_name="/nail/logs/$dt/$log_name-*.log"
+log_name="/nail/logs/$dt/*.log"
 
 extra_grep=""
 if [ -n "$grep_pattern" ]; then

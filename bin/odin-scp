@@ -34,4 +34,7 @@ fi
 if [ "$dt" == 'checkmate-web' ]; then
   service=affirm-checkmate-web-public
 fi
+if [ "$dt" == 'data-platform' ]; then
+  service=affirm-data-platform-public
+fi
 ssh "$odin" "sudo supdctl restart $service"

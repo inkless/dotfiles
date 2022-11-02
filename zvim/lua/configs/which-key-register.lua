@@ -17,6 +17,7 @@ local mappings = {
       v = { name = "Vimux" },
       s = { name = "Scratch" },
       d = { name = "Diff" },
+      D = { name = "DAP" },
       ["<tab>"] = { name = "Tab" },
     },
   },

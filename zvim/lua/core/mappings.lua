@@ -316,6 +316,33 @@ map("n",
   { desc = "Diff original file" }
 )
 
+-- dap
+    -- nnoremap <silent> <F5> <Cmd>lua require'dap'.continue()<CR>
+    -- nnoremap <silent> <F10> <Cmd>lua require'dap'.step_over()<CR>
+    -- nnoremap <silent> <F11> <Cmd>lua require'dap'.step_into()<CR>
+    -- nnoremap <silent> <F12> <Cmd>lua require'dap'.step_out()<CR>
+    -- nnoremap <silent> <Leader>b <Cmd>lua require'dap'.toggle_breakpoint()<CR>
+    -- nnoremap <silent> <Leader>B <Cmd>lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>
+    -- nnoremap <silent> <Leader>lp <Cmd>lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>
+    -- nnoremap <silent> <Leader>dr <Cmd>lua require'dap'.repl.open()<CR>
+    -- nnoremap <silent> <Leader>dl <Cmd>lua require'dap'.run_last()<CR>
+map("n", "<F8>", function () require("dap").continue() end, { desc = "Continue" })
+map("n", "<F10>", function () require("dap").step_over() end, { desc = "Step over" })
+map("n", "<F11>", function () require("dap").step_into() end, { desc = "Step into" })
+map("n", "<S-F11>", function () require("dap").step_out() end, { desc = "Step out" })
+map("n", "<leader>Db", function () require("dap").toggle_breakpoint() end, { desc = "Toggle breakpoint" })
+map("n", "<leader>DB", function ()
+  require("dap").set_breakpoint(vim.fn.input('Breakpoint condition: '))
+end, { desc = "Set breakpoint with condition" })
+map("n", "<leader>Dl", function ()
+  require("dap").set_breakpoint(nil, nil, vim.fn.input('Log point message: '))
+end, { desc = "Set breakpoint with condition" })
+map("n", "<leader>Dr", function () require("dap").repl.open() end, { desc = "Open REPL" })
+map("n", "<leader>Dl", function () require("dap").run_last() end, { desc = "Run last" })
+map("n", "<leader>Do", function () require("dapui").open() end, { desc = "Open DAP UI" })
+map("n", "<leader>Dc", function () require("dapui").close() end, { desc = "Close DAP UI" })
+map("n", "<leader>Dt", function () require("dapui").toggle() end, { desc = "Toggle DAP UI" })
+
 -- Improved Terminal Mappings
 -- map("t", "<esc>", "<C-\\><C-n>", { desc = "Terminal normal mode" })
 -- map("t", "jk", "<C-\\><C-n>", { desc = "Terminal normal mode" })

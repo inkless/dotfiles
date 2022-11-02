@@ -386,6 +386,14 @@ local plugins = {
     config = function () require "configs.trouble" end
   },
 
+  -- dap
+  'mfussenegger/nvim-dap',
+  {
+    "rcarriga/nvim-dap-ui",
+    requires = {"mfussenegger/nvim-dap"},
+    config = function () require "configs.dapui" end
+  },
+
   -- github copilot
   -- "github/copilot.vim",
 
