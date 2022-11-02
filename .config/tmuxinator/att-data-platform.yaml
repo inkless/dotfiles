@@ -1,0 +1,71 @@
+# /Users/inkless/.config/tmuxinator/att-data-platform.yml
+
+name: att-data-platform
+root: ~/workspace/all-the-things
+
+# Optional tmux socket
+# socket_name: foo
+
+# Note that the pre and post options have been deprecated and will be replaced by
+# project hooks.
+
+# Project hooks
+# Runs on project start, always
+# on_project_start: command
+# Run on project start, the first time
+# on_project_first_start: command
+# Run on project start, after the first time
+# on_project_restart: command
+# Run on project exit ( detaching from tmux session )
+# on_project_exit: command
+# Run on project stop
+# on_project_stop: command
+
+# Runs in each window and pane before window/pane specific commands. Useful for setting up interpreter versions.
+# pre_window: rbenv shell 2.0.0-p247
+
+# Pass command line options to tmux. Useful for specifying a different tmux.conf.
+# tmux_options: -f ~/.tmux.mac.conf
+
+# Change the command to call tmux.  This can be used by derivatives/wrappers like byobu.
+# tmux_command: byobu
+
+# Specifies (by name or index) which window will be selected on project startup. If not set, the first window is used.
+# startup_window: editor
+
+# Specifies (by index) which pane of the specified window will be selected on project startup. If not set, the first pane is used.
+# startup_pane: 1
+
+# Controls whether the tmux session should be attached to automatically. Defaults to true.
+# attach: false
+
+windows:
+  - data-platform:
+      layout: main-horizontal
+      panes:
+        - vim:
+          - activate_venv data-platform
+          - cd data_platform
+          - vim .
+        - activate_venv data-platform
+        - deployable:
+          - cd deployable/data-platform
+          - ls
+  - axp:
+      layout: main-horizontal
+      panes:
+        - vim:
+          - activate_venv data-platform
+          - cd axp
+          - vim .
+        - activate_venv data-platform
+        - deployable:
+          - ls
+  - deployable:
+      layout: main-horizontal
+      panes:
+        - vim:
+          - cd deployable/data-platform
+          - vim .
+        - ls
+
