@@ -16,7 +16,10 @@ local plugins = {
   -- "christianchiarulli/nvcode-color-schemes.vim", - bad for jsx/tsx
   "projekt0n/github-nvim-theme", -- not bad, but covered by themer
   -- "rose-pine/neovim", - not bad, but covered by themer
-  "ellisonleao/gruvbox.nvim",
+  {
+    "ellisonleao/gruvbox.nvim",
+    commit = "29c50f1327d9d84436e484aac362d2fa6bca590b",
+  },
   {
     "themercorp/themer.lua",
     requires ={ "nvim-telescope/telescope.nvim" },
@@ -208,12 +211,13 @@ local plugins = {
   "ray-x/lsp_signature.nvim",
 
   -- LSP symbols
-  {
-    "stevearc/aerial.nvim",
-    module = "aerial",
-    cmd = { "AerialToggle", "AerialOpen", "AerialInfo" },
-    config = function() require "configs.aerial" end,
-  },
+  -- Aerial is deprecated in neovim<8
+  --[[ { ]]
+  --[[   "stevearc/aerial.nvim", ]]
+  --[[   module = "aerial", ]]
+  --[[   cmd = { "AerialToggle", "AerialOpen", "AerialInfo" }, ]]
+  --[[   config = function() require "configs.aerial" end, ]]
+  --[[ }, ]]
 
   -- Formatting and linting
   {
