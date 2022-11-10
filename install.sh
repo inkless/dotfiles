@@ -15,13 +15,14 @@ popd
 
 echo "install .config files..."
 
-folders=(nvim tmuxinator)
+folders=(tmuxinator)
 
 pushd "$HOME/.config"
 for folder in "${folders[@]}"
 do
   ln -s "$path/$folder"
 done
+ln -s $HOME/dotfiles/zvim nvim
 popd
 
 while true; do
