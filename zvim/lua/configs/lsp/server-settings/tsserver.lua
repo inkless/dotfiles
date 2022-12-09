@@ -10,6 +10,13 @@ return {
       -- pattern = "*.tsx,*.ts,*.jsx,*.js,*.mjs,*.cjs",
       command = "EslintFixAll",
     })
+
+    vim.keymap.set(
+      "n",
+      "<leader>ce",
+      "<cmd>EslintFixAll<cr>",
+      { noremap = true, silent = true, buffer = bufnr, desc = "Eslint Fix All" }
+    )
   end,
   -- handlers = {
   --   ["textDocument/publishDiagnostics"] = function(_, _, params, client_id, _, config)
