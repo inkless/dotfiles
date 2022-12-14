@@ -44,7 +44,7 @@ zvim.lsp.on_attach = function(client, bufnr)
     { desc = "Format file with LSP" }
   )
 
-  if client.resolved_capabilities.document_highlight then
+  if client.server_capabilities.document_highlight then
     vim.api.nvim_create_augroup("lsp_document_highlight", { clear = true })
     vim.api.nvim_create_autocmd("CursorHold", {
       group = "lsp_document_highlight",
@@ -112,6 +112,6 @@ function zvim.lsp.server_settings(server_name)
   return opts
 end
 
-function zvim.lsp.disable_formatting(client) client.resolved_capabilities.document_formatting = false end
+function zvim.lsp.disable_formatting(client) client.server_capabilities.document_formatting = false end
 
 return zvim.lsp

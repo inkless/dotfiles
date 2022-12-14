@@ -46,8 +46,6 @@ vim_opts({
     -- writebackup = false, -- Disable making a backup before overwriting a file
   },
   g = {
-    do_filetype_lua = 1, -- use filetype.lua
-    did_load_filetypes = 0, -- don't use filetype.vim
     highlighturl_enabled = true, -- highlight URLs by default
     mapleader = " ", -- set leader key
     maplocalleader = ",", -- set local leader key
