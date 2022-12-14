@@ -119,11 +119,12 @@
     '((mermaid . t)
       (scheme . t)))
 
-(after! deft
-  (setq deft-directory org-directory))
+;; (after! deft
+;;   (setq deft-directory org-directory))
 
 ;; org roam
-(setq org-roam-directory "~/Dropbox/org-roam")
+;; (setq org-roam-directory "~/Dropbox/org-roam")
+(setq org-roam-directory org-directory)
 ;; (use-package! org-roam
 ;;   :init
 ;;   (add-to-list 'display-buffer-alist
