@@ -55,6 +55,12 @@ fzf_lua.setup({
       -- can also be set under 'git.status.preview_pager'
       pager           = delta_pager
     },
+    builtin = {
+      -- Notice!!!
+      -- This is causing treesitter not working when loading the actual file
+      -- comment it out for now
+      treesitter      = { enable = false },
+    },
     -- builtin = {
     --   syntax          = true,         -- preview syntax highlight?
     --   syntax_limit_l  = 0,            -- syntax limit (lines), 0=nolimit
