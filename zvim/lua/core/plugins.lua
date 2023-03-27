@@ -199,10 +199,18 @@ local plugins = {
 
   -- LSP manager
   {
-    "williamboman/nvim-lsp-installer",
+    "williamboman/mason.nvim",
     after = "nvim-lspconfig",
     config = function()
-      require "configs.nvim-lsp-installer"
+      require "configs.mason"
+    end,
+  },
+
+  {
+    "williamboman/mason-lspconfig.nvim",
+    after = "nvim-lspconfig",
+    config = function()
+      require "configs.mason-lspconfig"
       require "configs.lsp"
     end,
   },

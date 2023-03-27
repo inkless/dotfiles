@@ -8,7 +8,7 @@ end
 zvim.lsp.on_attach = function(client, bufnr)
   map("n", "K", function() vim.lsp.buf.hover() end, get_buf_opts(bufnr, "Hover symbol details"))
   map("n", "<leader>ca", function() vim.lsp.buf.code_action() end, get_buf_opts(bufnr, "LSP code action"))
-  map("n", "<leader>cf", function() vim.lsp.buf.formatting_sync() end, get_buf_opts(bufnr, "Format code"))
+  map("n", "<leader>cf", function() vim.lsp.buf.format({ async = true }) end, get_buf_opts(bufnr, "Format code"))
   map("n", "<leader>ch", function() vim.lsp.buf.signature_help() end, get_buf_opts(bufnr, "Signature help"))
   map("n", "<leader>cR", function() vim.lsp.buf.rename() end, get_buf_opts(bufnr, "Rename current symbol"))
   -- I prefer to use gR to rename
