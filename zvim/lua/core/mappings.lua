@@ -199,6 +199,7 @@ map("n", "<leader>cs",
   end,
   { desc = "Search symbols" }
 )
+map("n", "<leader>co", vim.diagnostic.open_float, { desc = "Open diagnostic window" })
 -- SymbolsOutline
 map("n", "<leader>cS", "<cmd>AerialToggle<cr>", { desc = "Symbols outline" })
 
@@ -268,7 +269,7 @@ map("n", "<leader><tab>d", "<cmd>tabclose<cr>", { desc = "Close tab" })
 -- https://github.com/nvim-treesitter/nvim-treesitter/issues/1337
 map("n", "zi", function ()
   vim.wo.foldenable = not vim.wo.foldenable
-  vim.wo.foldmethod = vim.wo.foldmethod
+  vim.wo.foldmethod = 'expr'
   map("n", "<tab>", "@=(foldlevel('.') ? 'za' : '<tab>')<CR>", { desc = "Toggle fold", buffer = true, noremap = true })
 end, { desc = "Toggle foldenable" })
 
