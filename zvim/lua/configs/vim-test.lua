@@ -3,6 +3,7 @@ local notify = require("core.utils").notify
 
 vim.g["test#strategy"] = "vimux"
 vim.g["test#python#runner"] = "nose"
+vim.g["test#python#nose#options"] = "-v --nocapture"
 
 local function test_with_watch(nearest, debug)
   if vim.fn.filereadable("node_modules/.bin/jest") == 1 then
@@ -24,16 +25,16 @@ local function test_with_watch(nearest, debug)
   notify("Test file watch not supported", "error")
 end
 
-map("n", "<leader>tN", "<cmd>TestNearest<cr>", { desc = "Test nearest", noremap = true })
-map("n", "<leader>tF", "<cmd>TestFile<cr>", { desc = "Test file", noremap = true })
+map("n", "<leader>tn", "<cmd>TestNearest<cr>", { desc = "Test nearest", noremap = true })
+map("n", "<leader>tf", "<cmd>TestFile<cr>", { desc = "Test file", noremap = true })
 map("n", "<leader>ts", "<cmd>TestSuite<cr>", { desc = "Test suite", noremap = true })
 map("n", "<leader>tl", "<cmd>TestLast<cr>", { desc = "Test last", noremap = true })
 
-map("n", "<leader>tf", function ()
+map("n", "<leader>tF", function ()
   test_with_watch(false, false)
 end, { desc = "Test file with watch", noremap = true })
 
-map("n", "<leader>tn", function ()
+map("n", "<leader>tN", function ()
   test_with_watch(true, false)
 end, { desc = "Test nearest with watch", noremap = true })
 

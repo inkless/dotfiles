@@ -40,7 +40,7 @@ zvim.lsp.on_attach = function(client, bufnr)
   vim.api.nvim_buf_create_user_command(
     bufnr,
     "Format",
-    function() vim.lsp.buf.formatting() end,
+    function() vim.lsp.buf.format({ async = true }) end,
     { desc = "Format file with LSP" }
   )
 
