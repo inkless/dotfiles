@@ -13,7 +13,7 @@ return {
 
     vim.keymap.set(
       "n",
-      "<leader>ce",
+      "<leader>cf",
       "<cmd>EslintFixAll<cr>",
       { noremap = true, silent = true, buffer = bufnr, desc = "Eslint Fix All" }
     )
