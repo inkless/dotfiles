@@ -1,3 +1,5 @@
+# zmodload zsh/zprof
+
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 export PATH=$HOME/bin:$PATH
@@ -19,7 +21,7 @@ ZSH_THEME="kolo"
 # HYPHEN_INSENSITIVE="true"
 
 # Uncomment the following line to disable bi-weekly auto-update checks.
-# DISABLE_AUTO_UPDATE="true"
+DISABLE_AUTO_UPDATE="true"
 
 # Uncomment the following line to change how often to auto-update (in days).
 # export UPDATE_ZSH_DAYS=13
@@ -53,7 +55,8 @@ ZSH_THEME="kolo"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(zsh-autosuggestions git heroku tmuxinator keevo)
+# plugins=(zsh-autosuggestions git heroku tmuxinator keevo)
+plugins=(zsh-autosuggestions git)
 # plugins=(git heroku)
 
 source $ZSH/oh-my-zsh.sh
@@ -92,7 +95,7 @@ export LANG=en_US.UTF-8
 eval "$(pyenv init -)"
 
 # rust
-source $HOME/.cargo/env
+# source $HOME/.cargo/env
 
 # fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
@@ -121,18 +124,39 @@ if [ -f ~/.dev.rc ]; then
     . ~/.dev.rc
 fi
 
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/Users/guangda.zhang/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/Users/guangda.zhang/miniconda3/etc/profile.d/conda.sh" ]; then
-        . "/Users/guangda.zhang/miniconda3/etc/profile.d/conda.sh"
-    else
-        export PATH="/Users/guangda.zhang/miniconda3/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-# <<< conda initialize <<<
+# Add any commands which depend on conda here
+lazy_conda_aliases=('conda')
 
+load_conda() {
+    for lazy_conda_alias in $lazy_conda_aliases
+    do
+        unalias $lazy_conda_alias
+    done
+
+    __conda_prefix="$HOME/.miniconda3" # Set your conda Location
+
+    # >>> conda initialize >>>
+    # !! Contents within this block are managed by 'conda init' !!
+    __conda_setup="$('/Users/guangda.zhang/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+    if [ $? -eq 0 ]; then
+        eval "$__conda_setup"
+    else
+        if [ -f "/Users/guangda.zhang/miniconda3/etc/profile.d/conda.sh" ]; then
+            . "/Users/guangda.zhang/miniconda3/etc/profile.d/conda.sh"
+        else
+            export PATH="/Users/guangda.zhang/miniconda3/bin:$PATH"
+        fi
+    fi
+    unset __conda_setup
+    # <<< conda initialize <<<
+
+    unset __conda_prefix
+    unfunction load_conda
+}
+
+for lazy_conda_alias in $lazy_conda_aliases
+do
+    alias $lazy_conda_alias="load_conda && $lazy_conda_alias"
+done
+
+# zprof

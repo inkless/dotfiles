@@ -1,14 +1,14 @@
 local status_ok, lspconfig = pcall(require, "lspconfig")
 if not status_ok then return end
 
-require "configs.lsp.handlers"
+require("configs.lsp.handlers")
 local sign_define = vim.fn.sign_define
 
 local signs = {
   { name = "DiagnosticSignError", text = "" },
-  { name = "DiagnosticSignWarn", text = "" },
-  { name = "DiagnosticSignHint", text = "" },
-  { name = "DiagnosticSignInfo", text = "" },
+  { name = "DiagnosticSignWarn",  text = "" },
+  { name = "DiagnosticSignHint",  text = "" },
+  { name = "DiagnosticSignInfo",  text = "" },
 }
 for _, sign in ipairs(signs) do
   sign_define(sign.name, { texthl = sign.name, text = sign.text, numhl = "" })
@@ -34,9 +34,9 @@ vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.s
 local installer_avail, mason_lspconfig = pcall(require, "mason-lspconfig")
 if installer_avail then
   mason_lspconfig.setup_handlers({
-    function (server_name)
+    function(server_name)
       local opts = zvim.lsp.server_settings(server_name)
       lspconfig[server_name].setup(opts)
-    end
+    end,
   })
 end
