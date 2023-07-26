@@ -3,12 +3,12 @@ local snip_status_ok, luasnip = pcall(require, "luasnip")
 if not (cmp_status_ok and snip_status_ok) then return end
 local setup = cmp.setup
 local kind_icons = {
-  Text = "",
-  Method = "",
-  Function = "",
+  Text = "󰊄",
+  Method = "",
+  Function = "󰊕",
   Constructor = "",
-  Field = "ﰠ",
-  Variable = "",
+  Field = "",
+  Variable = "󰫧",
   Class = "",
   Interface = "",
   Module = "",
@@ -16,23 +16,23 @@ local kind_icons = {
   Unit = "",
   Value = "",
   Enum = "",
-  Keyword = "",
-  Snippet = "",
+  Keyword = "",
+  Snippet = "",
   Color = "",
-  File = "",
+  File = "",
   Reference = "",
-  Folder = "",
+  Folder = "",
   EnumMember = "",
   Constant = "",
-  Struct = "פּ",
+  Struct = "",
   Event = "",
-  Operator = "",
-  TypeParameter = "",
+  Operator = "",
+  TypeParameter = "",
 }
 
 local function has_words_before()
   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-  return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match "%s" == nil
+  return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 end
 
 setup({
@@ -74,11 +74,11 @@ setup({
     ["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(1), { "i", "c" }),
     ["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
     ["<C-y>"] = cmp.config.disable,
-    ["<C-e>"] = cmp.mapping {
+    ["<C-e>"] = cmp.mapping({
       i = cmp.mapping.abort(),
       c = cmp.mapping.close(),
-    },
-    ["<CR>"] = cmp.mapping.confirm { select = false },
+    }),
+    ["<CR>"] = cmp.mapping.confirm({ select = false }),
     ["<Tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_next_item()

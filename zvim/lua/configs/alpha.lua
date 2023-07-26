@@ -26,7 +26,7 @@ end
 
 alpha.setup({
   layout = {
-    { type = "padding", val = vim.fn.max { 2, vim.fn.floor(vim.fn.winheight(0) * 0.2) } },
+    { type = "padding", val = vim.fn.max({ 2, vim.fn.floor(vim.fn.winheight(0) * 0.2) }) },
     {
       type = "text",
       val = {
@@ -44,8 +44,8 @@ alpha.setup({
       type = "group",
       val = {
         button("SPC SPC", "  Find File  "),
-        button("SPC /  ", "  Find Word  "),
-        button("SPC f r", "  Recents Files "),
+        button("SPC /  ", "󰘎  Find Word  "),
+        button("SPC f r", "  Recents Files "),
         button("SPC f n", "  New File  "),
         button("SPC f m", "  Bookmarks  "),
         button("SPC S l", "  Last Session  "),
@@ -86,4 +86,3 @@ autocmd("FileType", {
     })
   end,
 })
-
