@@ -1,14 +1,12 @@
 local create_cmd = vim.api.nvim_create_user_command
 local function map(mode, lhs, rhs, opts)
   local options = { noremap = true }
-  if opts then
-    options = vim.tbl_extend("force", options, opts)
-  end
+  if opts then options = vim.tbl_extend("force", options, opts) end
   vim.keymap.set(mode, lhs, rhs, options)
 end
 
 -- Escape --
-map("i", "jk", "<esc>", { desc = "Escape"})
+map("i", "jk", "<esc>", { desc = "Escape" })
 
 -- Normal --
 -- Standard Operations
@@ -69,12 +67,12 @@ map("n", "<leader>gt", function() require("gitsigns").stage_hunk() end, { desc =
 map("n", "<leader>gU", function() require("gitsigns").undo_stage_hunk() end, { desc = "Unstage git hunk" })
 map("n", "<leader>gd", function() require("gitsigns").diffthis() end, { desc = "View git diff" })
 -- Other git
-map("n", "<leader>gb", "<cmd>GBrowse<cr>", { desc = "Git browse" })
+map("n", "<leader>gB", "<cmd>GBrowse<cr>", { desc = "Git browse" })
 map("n", "<leader>gl", "<cmd>Git blame<cr>", { desc = "Git blame" })
 map("n", "<leader>go", "<cmd>Git checkout %<cr>", { desc = "Git checkout current file" })
 
 if vim.g.search_lib == "telescope" then
--- Telescope
+  -- Telescope
   map("n", "<leader>gf", function() require("telescope.builtin").git_files() end, { desc = "Git files" })
   map("n", "<leader>gs", function() require("telescope.builtin").git_status() end, { desc = "Git status" })
   map("n", "<leader>gb", function() require("telescope.builtin").git_branches() end, { desc = "Git branches" })
@@ -117,17 +115,16 @@ map("n", "<A-Right>", function() require("smart-splits").resize_right() end, { d
 if vim.g.search_lib == "telescope" then
   map("n", "<leader>/", function() require("telescope.builtin").live_grep() end, { desc = "Search words" })
   map("n", "<leader>fw", function() require("telescope.builtin").live_grep() end, { desc = "Search words" })
-  map("n", "<leader>fW",
-    function()
-      require("telescope.builtin").live_grep {
-        additional_args = function(args) return vim.list_extend(args, { "--hidden", "--no-ignore" }) end
-      }
-    end,
-    { desc = "Search words in all files" }
-  )
+  map("n", "<leader>fW", function()
+    require("telescope.builtin").live_grep({
+      additional_args = function(args) return vim.list_extend(args, { "--hidden", "--no-ignore" }) end,
+    })
+  end, { desc = "Search words in all files" })
   map("n", "<leader><space>", function() require("telescope.builtin").find_files() end, { desc = "Search files" })
-  map("n", "<leader>ff",
-    function() require("telescope.builtin").find_files { hidden = true } end,
+  map(
+    "n",
+    "<leader>ff",
+    function() require("telescope.builtin").find_files({ hidden = true }) end,
     { desc = "Search files (includes hidden)" }
   )
   map("n", "S", function() require("telescope.builtin").grep_string() end, { desc = "Search for word under cursor" })
@@ -138,18 +135,25 @@ if vim.g.search_lib == "telescope" then
   map("n", "<leader>fFa", "<cmd>Telescope find_files hidden=true no_ignore=true<cr>", { desc = "Search all files" })
   map("n", "<leader>fFd", ":Telescope find_files cwd=", { desc = "Search files in directory" })
   map("n", "<leader>fFD", ":Telescope find_files search_dirs=", { desc = "Search files in list of directories" })
-  map("n", "<leader>fFc", ":Telescope find_files find_command=rg,--hidden,--files", { desc = "Search files by command" })
+  map(
+    "n",
+    "<leader>fFc",
+    ":Telescope find_files find_command=rg,--hidden,--files",
+    { desc = "Search files by command" }
+  )
   map("n", "<leader>f.", function() require("telescope.builtin").resume() end, { desc = "Resume last Search" })
 end
 
 if vim.g.search_lib == "fzf" then
   map("n", "<leader>/", function() require("fzf-lua").live_grep_native() end, { desc = "Search words" })
   map("n", "<leader>fw", function() require("fzf-lua").live_grep_native() end, { desc = "Search words" })
-  map("n", "<leader>fW",
+  map(
+    "n",
+    "<leader>fW",
     function()
-      require("fzf-lua").live_grep_native {
+      require("fzf-lua").live_grep_native({
         rg_opts = "--column --line-number --no-heading --color=always --smart-case --max-columns=512 --hidden --no-ignore",
-      }
+      })
     end,
     { desc = "Search words in all files" }
   )
@@ -157,17 +161,25 @@ if vim.g.search_lib == "fzf" then
   map("n", "<leader>ff", function() require("fzf-lua").files() end, { desc = "Search files" })
   map("n", "S", function() require("fzf-lua").grep_cword() end, { desc = "Search for word under cursor" })
   map("n", "<leader>fr", function() require("fzf-lua").oldfiles() end, { desc = "Search recent files" })
-  map("n", "<leader>f/.", function () require("fzf-lua").live_grep_resume() end, { desc = "Resume last Search" })
-  map("n", "<leader>f/d", function ()
+  map("n", "<leader>f/.", function() require("fzf-lua").live_grep_resume() end, { desc = "Resume last Search" })
+  map("n", "<leader>f/d", function()
     local directory = require("fzf-lua.utils").input("Directory❯ ")
     require("fzf-lua").live_grep_native({ cwd = directory })
   end, { desc = "Search words in directory" })
-  map("n", "<leader>f/p", function () require("fzf-lua").grep() end, { desc = "Search for a pattern" })
-  map("n", "<leader>f/g", function () require("fzf-lua").live_grep_glob() end, { desc = "Search words in files with glob pattern" })
-  map("n", "<leader>fFa", function ()
-    require("fzf-lua").files({ rg_opts = "--color=never --files --hidden --no-ignore --follow -g '!.git'"})
-  end, { desc = "Search all files" })
-  map("n", "<leader>fFd", function ()
+  map("n", "<leader>f/p", function() require("fzf-lua").grep() end, { desc = "Search for a pattern" })
+  map(
+    "n",
+    "<leader>f/g",
+    function() require("fzf-lua").live_grep_glob() end,
+    { desc = "Search words in files with glob pattern" }
+  )
+  map(
+    "n",
+    "<leader>fFa",
+    function() require("fzf-lua").files({ rg_opts = "--color=never --files --hidden --no-ignore --follow -g '!.git'" }) end,
+    { desc = "Search all files" }
+  )
+  map("n", "<leader>fFd", function()
     local directory = require("fzf-lua.utils").input("Directory❯ ")
     require("fzf-lua").files({ cwd = directory })
   end, { desc = "Search words in directory" })
@@ -184,21 +196,23 @@ map("n", "<leader>fM", function() require("telescope.builtin").man_pages() end, 
 map("n", "<leader>fR", function() require("telescope.builtin").registers() end, { desc = "Search registers" })
 map("n", "<leader>fh", function() require("telescope.builtin").help_tags() end, { desc = "Search help" })
 map("n", "<leader>fk", function() require("telescope.builtin").keymaps() end, { desc = "Search keymaps" })
-map("n", "<leader>fN", function() require("telescope").extensions.notify.notify() end, { desc = "Search notifications" })
+map(
+  "n",
+  "<leader>fN",
+  function() require("telescope").extensions.notify.notify() end,
+  { desc = "Search notifications" }
+)
 map("n", "<leader>f/o", "<cmd>Telescope live_grep grep_open_files=true<cr>", { desc = "Search words in open files" })
 
 -- lsp/code related
-map("n", "<leader>cs",
-  function()
-    local aerial_avail, _ = pcall(require, "aerial")
-    if aerial_avail then
-      require("telescope").extensions.aerial.aerial()
-    else
-      require("telescope.builtin").lsp_document_symbols()
-    end
-  end,
-  { desc = "Search symbols" }
-)
+map("n", "<leader>cs", function()
+  local aerial_avail, _ = pcall(require, "aerial")
+  if aerial_avail then
+    require("telescope").extensions.aerial.aerial()
+  else
+    require("telescope.builtin").lsp_document_symbols()
+  end
+end, { desc = "Search symbols" })
 map("n", "<leader>co", vim.diagnostic.open_float, { desc = "Open diagnostic window" })
 -- SymbolsOutline
 map("n", "<leader>cS", "<cmd>AerialToggle<cr>", { desc = "Symbols outline" })
@@ -211,7 +225,12 @@ end
 
 if vim.g.lsp_qf_list == "telescope" then
   map("n", "<leader>cr", function() require("telescope.builtin").lsp_references() end, { desc = "Search references" })
-  map("n", "<leader>cd", function() require("telescope.builtin").diagnostics({ bufnr = 0 }) end, { desc = "Search current diagnostics" })
+  map(
+    "n",
+    "<leader>cd",
+    function() require("telescope.builtin").diagnostics({ bufnr = 0 }) end,
+    { desc = "Search current diagnostics" }
+  )
   map("n", "<leader>cD", function() require("telescope.builtin").diagnostics() end, { desc = "Search all diagnostics" })
 end
 
@@ -267,12 +286,11 @@ map("n", "<leader><tab>d", "<cmd>tabclose<cr>", { desc = "Close tab" })
 -- fold
 -- there is an issue with treesitter, remap zi as a workaround
 -- https://github.com/nvim-treesitter/nvim-treesitter/issues/1337
-map("n", "zi", function ()
+map("n", "zi", function()
   vim.wo.foldenable = not vim.wo.foldenable
-  vim.wo.foldmethod = 'expr'
+  vim.wo.foldmethod = "expr"
   map("n", "<tab>", "@=(foldlevel('.') ? 'za' : '<tab>')<CR>", { desc = "Toggle fold", buffer = true, noremap = true })
 end, { desc = "Toggle foldenable" })
-
 
 -- Move lines up/dowk
 map("n", "<A-j>", "<cmd>m .+1<cr>==")
@@ -288,9 +306,12 @@ vnoremap <A-k> :m '<-2<CR>gv=gv
 map("n", "<leader>vo", "<cmd>VimuxOpenRunner<cr><cmd>VimuxInspectRunner<cr>", { desc = "Vimux open runner" })
 map("n", "<leader>vp", "<cmd>VimuxPromptCommand<cr>", { desc = "Vimux prompt command" })
 map("n", "<leader>vL", "<cmd>VimuxRunLastCommand<cr>", { desc = "Run last command from VimuxRunCommand" })
-map("n", "<leader>vl", function ()
-  require("core.vimux").run_last_tmux_cmd()
-end, { desc = "Run last command from tmux" })
+map(
+  "n",
+  "<leader>vl",
+  function() require("core.vimux").run_last_tmux_cmd() end,
+  { desc = "Run last command from tmux" }
+)
 
 -- diff related
 -- nvimdiff notes
@@ -300,7 +321,7 @@ end, { desc = "Run last command from tmux" })
 -- dp          - diff put
 -- za          - toggle folded text
 -- :diffupdate - re-scan the files for differences
-map("n", "<leader>dd", function ()
+map("n", "<leader>dd", function()
   if vim.wo.diff then
     vim.cmd([[windo diffoff]])
   else
@@ -311,38 +332,45 @@ map("n", "<leader>dL", "<cmd>%diffget 2<cr>", { desc = "Get all [merge local]/[r
 map("n", "<leader>dl", "<cmd>diffget 2<cr>", { desc = "Get [merge local]/[rebase onto]" })
 map("n", "<leader>dR", "<cmd>%diffget 4<cr>", { desc = "Get all [merge remote]/[rebase current]" })
 map("n", "<leader>dr", "<cmd>diffget 4<cr>", { desc = "Get [merge remote]/[rebase current]" })
-map("n",
+map(
+  "n",
   "<leader>do",
   "<cmd>vert new | set bt=nofile | set bh=hide | r ++edit # | 0d_ | diffthis | wincmd p | diffthis<cr>",
   { desc = "Diff original file" }
 )
 
 -- dap
-    -- nnoremap <silent> <F5> <Cmd>lua require'dap'.continue()<CR>
-    -- nnoremap <silent> <F10> <Cmd>lua require'dap'.step_over()<CR>
-    -- nnoremap <silent> <F11> <Cmd>lua require'dap'.step_into()<CR>
-    -- nnoremap <silent> <F12> <Cmd>lua require'dap'.step_out()<CR>
-    -- nnoremap <silent> <Leader>b <Cmd>lua require'dap'.toggle_breakpoint()<CR>
-    -- nnoremap <silent> <Leader>B <Cmd>lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>
-    -- nnoremap <silent> <Leader>lp <Cmd>lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>
-    -- nnoremap <silent> <Leader>dr <Cmd>lua require'dap'.repl.open()<CR>
-    -- nnoremap <silent> <Leader>dl <Cmd>lua require'dap'.run_last()<CR>
-map("n", "<F8>", function () require("dap").continue() end, { desc = "Continue" })
-map("n", "<F10>", function () require("dap").step_over() end, { desc = "Step over" })
-map("n", "<F11>", function () require("dap").step_into() end, { desc = "Step into" })
-map("n", "<S-F11>", function () require("dap").step_out() end, { desc = "Step out" })
-map("n", "<leader>Db", function () require("dap").toggle_breakpoint() end, { desc = "Toggle breakpoint" })
-map("n", "<leader>DB", function ()
-  require("dap").set_breakpoint(vim.fn.input('Breakpoint condition: '))
-end, { desc = "Set breakpoint with condition" })
-map("n", "<leader>Dl", function ()
-  require("dap").set_breakpoint(nil, nil, vim.fn.input('Log point message: '))
-end, { desc = "Set breakpoint with condition" })
-map("n", "<leader>Dr", function () require("dap").repl.open() end, { desc = "Open REPL" })
-map("n", "<leader>Dl", function () require("dap").run_last() end, { desc = "Run last" })
-map("n", "<leader>Do", function () require("dapui").open() end, { desc = "Open DAP UI" })
-map("n", "<leader>Dc", function () require("dapui").close() end, { desc = "Close DAP UI" })
-map("n", "<leader>Dt", function () require("dapui").toggle() end, { desc = "Toggle DAP UI" })
+-- nnoremap <silent> <F5> <Cmd>lua require'dap'.continue()<CR>
+-- nnoremap <silent> <F10> <Cmd>lua require'dap'.step_over()<CR>
+-- nnoremap <silent> <F11> <Cmd>lua require'dap'.step_into()<CR>
+-- nnoremap <silent> <F12> <Cmd>lua require'dap'.step_out()<CR>
+-- nnoremap <silent> <Leader>b <Cmd>lua require'dap'.toggle_breakpoint()<CR>
+-- nnoremap <silent> <Leader>B <Cmd>lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>
+-- nnoremap <silent> <Leader>lp <Cmd>lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>
+-- nnoremap <silent> <Leader>dr <Cmd>lua require'dap'.repl.open()<CR>
+-- nnoremap <silent> <Leader>dl <Cmd>lua require'dap'.run_last()<CR>
+map("n", "<F8>", function() require("dap").continue() end, { desc = "Continue" })
+map("n", "<F10>", function() require("dap").step_over() end, { desc = "Step over" })
+map("n", "<F11>", function() require("dap").step_into() end, { desc = "Step into" })
+map("n", "<S-F11>", function() require("dap").step_out() end, { desc = "Step out" })
+map("n", "<leader>Db", function() require("dap").toggle_breakpoint() end, { desc = "Toggle breakpoint" })
+map(
+  "n",
+  "<leader>DB",
+  function() require("dap").set_breakpoint(vim.fn.input("Breakpoint condition: ")) end,
+  { desc = "Set breakpoint with condition" }
+)
+map(
+  "n",
+  "<leader>Dl",
+  function() require("dap").set_breakpoint(nil, nil, vim.fn.input("Log point message: ")) end,
+  { desc = "Set breakpoint with condition" }
+)
+map("n", "<leader>Dr", function() require("dap").repl.open() end, { desc = "Open REPL" })
+map("n", "<leader>Dl", function() require("dap").run_last() end, { desc = "Run last" })
+map("n", "<leader>Do", function() require("dapui").open() end, { desc = "Open DAP UI" })
+map("n", "<leader>Dc", function() require("dapui").close() end, { desc = "Close DAP UI" })
+map("n", "<leader>Dt", function() require("dapui").toggle() end, { desc = "Toggle DAP UI" })
 
 -- Improved Terminal Mappings
 -- map("t", "<esc>", "<C-\\><C-n>", { desc = "Terminal normal mode" })
@@ -352,15 +380,10 @@ map("n", "<leader>Dt", function () require("dapui").toggle() end, { desc = "Togg
 -- map("t", "<C-k>", "<c-\\><c-n><c-w>k", { desc = "Terminal up window navigation" })
 -- map("t", "<C-l>", "<c-\\><c-n><c-w>l", { desc = "Terminal right window naviation" })
 
-
 create_cmd("W", "w", {})
 create_cmd("Q", "q", {})
-create_cmd(
-  "Rg",
-  function(args)
-    local rg_opts = "--column --line-number --no-heading --color=always --smart-case --max-columns=512 --hidden "
-      .. table.concat(args.fargs, " ")
-    require("fzf-lua").live_grep_native({ rg_opts = rg_opts })
-  end,
-  { desc = "Rg", nargs = "*" }
-)
+create_cmd("Rg", function(args)
+  local rg_opts = "--column --line-number --no-heading --color=always --smart-case --max-columns=512 --hidden "
+    .. table.concat(args.fargs, " ")
+  require("fzf-lua").live_grep_native({ rg_opts = rg_opts })
+end, { desc = "Rg", nargs = "*" })

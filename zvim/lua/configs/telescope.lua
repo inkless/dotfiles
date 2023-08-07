@@ -1,14 +1,12 @@
 local status_ok, telescope = pcall(require, "telescope")
-if not status_ok then
-  return
-end
+if not status_ok then return end
 local actions = require("telescope.actions")
 
 telescope.setup({
   defaults = {
     prompt_prefix = "   ",
     selection_caret = "❯ ",
-    multi_icon = "樂",
+    -- multi_icon = "樂",
     path_display = { "truncate" },
     selection_strategy = "reset",
     sorting_strategy = "ascending",
@@ -93,12 +91,6 @@ telescope.setup({
   extensions = {},
 })
 
-if pcall(require, "notify") then
-  telescope.load_extension("notify")
-end
-if pcall(require, "aerial") then
-  telescope.load_extension("aerial")
-end
-if pcall(require, "fzf_lib") then
-  telescope.load_extension("fzf")
-end
+if pcall(require, "notify") then telescope.load_extension("notify") end
+if pcall(require, "aerial") then telescope.load_extension("aerial") end
+if pcall(require, "fzf_lib") then telescope.load_extension("fzf") end
