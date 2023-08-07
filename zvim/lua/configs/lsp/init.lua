@@ -6,9 +6,9 @@ local sign_define = vim.fn.sign_define
 
 local signs = {
   { name = "DiagnosticSignError", text = "" },
-  { name = "DiagnosticSignWarn",  text = "" },
-  { name = "DiagnosticSignHint",  text = "" },
-  { name = "DiagnosticSignInfo",  text = "" },
+  { name = "DiagnosticSignWarn", text = "" },
+  { name = "DiagnosticSignHint", text = "󰛨" },
+  { name = "DiagnosticSignInfo", text = "" },
 }
 for _, sign in ipairs(signs) do
   sign_define(sign.name, { texthl = sign.name, text = sign.text, numhl = "" })
