@@ -5,10 +5,10 @@ neotree.setup({
   popup_border_style = "rounded",
   enable_diagnostics = false,
   default_component_configs = {
-    indent = {
-      padding = 0,
-      with_expanders = false,
-    },
+    -- indent = {
+    --   padding = 0,
+    --   with_expanders = false,
+    -- },
     icon = {
       folder_closed = "",
       folder_open = "",
@@ -31,17 +31,17 @@ neotree.setup({
   },
   window = {
     width = 30,
-    mappings = {
-      ["<c-x>"] = "open_split",
-      ["<c-v>"] = "open_vsplit",
-      ["<c-t>"] = "open_tabnew",
-    },
+    -- mappings = {
+    --   ["S"] = "open_split",
+    --   ["s"] = "open_vsplit",
+    --   ["t"] = "open_tabnew",
+    -- },
   },
   filesystem = {
     filtered_items = {
       visible = false,
       hide_dotfiles = true,
-      hide_gitignored = false,
+      hide_gitignored = true,
       hide_by_name = {
         ".DS_Store",
         "thumbs.db",
@@ -49,8 +49,12 @@ neotree.setup({
         "__pycache__",
       },
     },
-    follow_current_file = false,
-    hijack_netrw_behavior = "open_current",
+    -- follow_current_file = {
+    --   enabled = false, -- This will find and focus the file in the active buffer every time
+    --   --               -- the current file is changed while the tree is open.
+    --   leave_dirs_open = false, -- `false` closes auto expanded dirs, such as with `:Neotree reveal`
+    -- },
+    -- hijack_netrw_behavior = "open_current",
     use_libuv_file_watcher = true,
     window = {
       mappings = {
@@ -63,12 +67,12 @@ neotree.setup({
       },
     },
   },
-  git_status = {
-    window = {
-      position = "float",
-    },
-  },
-  event_handlers = {
-    { event = "neo_tree_buffer_enter", handler = function(_) vim.opt_local.signcolumn = "auto" end },
-  },
+  -- git_status = {
+  --   window = {
+  --     position = "float",
+  --   },
+  -- },
+  -- event_handlers = {
+  --   { event = "neo_tree_buffer_enter", handler = function(_) vim.opt_local.signcolumn = "auto" end },
+  -- },
 })

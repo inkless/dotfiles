@@ -70,7 +70,7 @@ local plugins = {
 
   -- Icons
   {
-    "kyazdani42/nvim-web-devicons",
+    "nvim-tree/nvim-web-devicons",
     event = "VimEnter",
     config = function() require("configs.icons") end,
   },
@@ -90,11 +90,11 @@ local plugins = {
   -- File explorer
   {
     "nvim-neo-tree/neo-tree.nvim",
-    branch = "v2.x",
+    branch = "v3.x",
     module = "neo-tree",
     cmd = "Neotree",
-    requires = { "MunifTanjim/nui.nvim", "nvim-lua/plenary.nvim" },
-    setup = function() vim.g.neo_tree_remove_legacy_commands = true end,
+    requires = { "MunifTanjim/nui.nvim", "nvim-lua/plenary.nvim", "nvim-tree/nvim-web-devicons" },
+    -- setup = function() vim.g.neo_tree_remove_legacy_commands = true end,
     config = function() require("configs.neo-tree") end,
   },
 
