@@ -18,6 +18,7 @@ alias google-chrome='/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chr
 
 alias shome='ssh inkless@`curl -u inkless:homeip@123 https://www.zhangguangda.com/home_ip/thinkpad-p50` -p 58422'
 
-alias emc="emacsclient -nc"
+# alias emc="emacsclient -nc"
+alias emc="xauth -f $XDG_RUNTIME_DIR/gdm/Xauthority merge .Xauthority && emacsclient -c"
 alias em="emacsclient -n"
 alias dosbox="$HOME/dosbox-x/dosbox-x/dosbox-x.app/Contents/MacOS/dosbox-x > /dev/null 2>&1 &"
