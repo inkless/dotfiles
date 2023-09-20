@@ -226,9 +226,12 @@ local plugins = {
 
   -- Formatting and linting
   {
-    "jose-elias-alvarez/null-ls.nvim",
-    event = { "BufRead", "BufNewFile" },
-    config = function() require("configs.null-ls") end,
+    "mfussenegger/nvim-lint",
+    config = function() require("configs.nvim-lint") end,
+  },
+  {
+    "mhartington/formatter.nvim",
+    config = function() require("configs.formatter") end,
   },
 
   -- Fuzzy finder
