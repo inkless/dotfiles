@@ -261,7 +261,6 @@ local plugins = {
   "tpope/vim-rhubarb", -- Github extension for vim fugitive
   {
     "lewis6991/gitsigns.nvim",
-    event = "BufEnter",
     config = function() require("configs.gitsigns") end,
   },
 

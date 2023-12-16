@@ -31,10 +31,10 @@ treesitter.setup({
     enable = true,
     additional_vim_regex_highlighting = false,
   },
-  context_commentstring = {
-    enable = true,
-    enable_autocmd = false,
-  },
+  -- context_commentstring = {
+  --   enable = true,
+  --   enable_autocmd = false,
+  -- },
   -- rainbow = {
   --   enable = true,
   --   disable = { "html" },
