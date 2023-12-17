@@ -10,5 +10,16 @@ mason.setup({
       package_pending = "⟳",
     },
   },
-  ensure_installed = { "lua-language-server", "typescript-language-server", "eslint-lsp", "pyright" },
+  ensure_installed = {
+    "lua-language-server",
+    "typescript-language-server",
+    "eslint-lsp",
+    "pyright",
+    "bash-language-server",
+    "css-lsp",
+    "html-lsp",
+    "json-lsp",
+    "markdownlint",
+    "rust_analyzer",
+  },
 })
