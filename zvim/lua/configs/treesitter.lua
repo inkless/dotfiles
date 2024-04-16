@@ -22,6 +22,8 @@ treesitter.setup({
     "toml",
     "solidity",
     "vim",
+    "vimdoc",
+    "query",
     "dockerfile",
   },
   sync_install = false,
@@ -30,6 +32,7 @@ treesitter.setup({
   highlight = {
     enable = true,
     additional_vim_regex_highlighting = false,
+    disable = { "lua" },
   },
   -- context_commentstring = {
   --   enable = true,
