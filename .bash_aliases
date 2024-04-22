@@ -22,3 +22,4 @@ alias shome='ssh inkless@`curl -u inkless:homeip@123 https://www.zhangguangda.co
 alias emc="xauth -f $XDG_RUNTIME_DIR/gdm/Xauthority merge .Xauthority && emacsclient -c"
 alias em="emacsclient -n"
 alias dosbox="$HOME/dosbox-x/dosbox-x/dosbox-x.app/Contents/MacOS/dosbox-x > /dev/null 2>&1 &"
+alias rsl="cd /var/lib/resilio-sync"
