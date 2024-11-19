@@ -20,7 +20,7 @@ treesitter.setup({
     "bash",
     "sql",
     "toml",
-    "solidity",
+    -- "solidity",
     "vim",
     "vimdoc",
     "query",

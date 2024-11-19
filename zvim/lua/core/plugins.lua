@@ -315,6 +315,8 @@ local plugins = {
   {
     "folke/which-key.nvim",
     module = "which-key",
+    event = "VimEnter",
+    after = "nvim-treesitter",
     config = function() require("configs.which-key") end,
   },
 
