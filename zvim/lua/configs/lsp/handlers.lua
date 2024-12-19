@@ -57,8 +57,8 @@ zvim.lsp.on_attach = function(client, bufnr)
       function() require("telescope.builtin").lsp_definitions() end,
       get_buf_opts(bufnr, "Show the definition of current symbol")
     )
-    map("n", "gr", "<cmd>TroubleToggle lsp_references<cr>", get_buf_opts(bufnr, "References of current symbol"))
-    map("n", "gD", "<cmd>TroubleToggle lsp_type_definitions<cr>", get_buf_opts(bufnr, "References of current symbol"))
+    map("n", "gr", "<cmd>Trouble lsp_references<cr>", get_buf_opts(bufnr, "References of current symbol"))
+    map("n", "gD", "<cmd>Trouble lsp_type_definitions<cr>", get_buf_opts(bufnr, "References of current symbol"))
   end
 
   -- vim.api.nvim_buf_create_user_command(

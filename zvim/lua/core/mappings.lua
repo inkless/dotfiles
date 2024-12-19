@@ -235,10 +235,12 @@ if vim.g.lsp_qf_list == "telescope" then
 end
 
 if vim.g.lsp_qf_list == "trouble" then
-  map("n", "<leader>cr", "<cmd>TroubleToggle lsp_references<cr>", { desc = "Search references" })
-  map("n", "<leader>cd", "<cmd>TroubleToggle document_diagnostics<cr>", { desc = "Search current diagnostics" })
-  map("n", "<leader>cD", "<cmd>TroubleToggle workspace_diagnostics<cr>", { desc = "Search all diagnostics" })
-  map("n", "<leader>ot", "<cmd>TroubleToggle<cr>", { desc = "Toggle trouble" })
+  map("n", "<leader>cr", "<cmd>Trouble lsp toggle focus=false<cr>", { desc = "Search references" })
+  map("n", "<leader>cd", "<cmd>Trouble diagnostics toggle filter.buf=0<cr>", { desc = "Search current diagnostics" })
+  map("n", "<leader>cD", "<cmd>Trouble diagnostics toggle<cr>", { desc = "Search all diagnostics" })
+  map("n", "<leader>cl", "<cmd>Trouble loclist toggle<cr>", { desc = "Location List (Trouble)" })
+  map("n", "<leader>cq", "<cmd>Trouble qflist toggle<cr>", { desc = "Quickfix List (Trouble)" })
+  -- map("n", "<leader>ot", "<cmd>TroubleToggle<cr>", { desc = "Toggle trouble" })
 end
 
 map("n", "<leader>c\\", "<cmd>%s/\\s\\+$//<cr><cmd>let @/=''<cr>", { desc = "Strip trailing whitespaces" })
