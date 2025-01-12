@@ -13,3 +13,6 @@ end
 
 -- Escape --
 map("i", "jk", "<esc>", { desc = "Escape" })
+
+-- Buffer --
+-- map("n", "<leader>br", "<cmd>e!<cr><cmd>redraw<cr>", { desc = "Reload buffer" })
