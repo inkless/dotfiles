@@ -16,3 +16,12 @@ map("i", "jk", "<esc>", { desc = "Escape" })
 
 -- Buffer --
 -- map("n", "<leader>br", "<cmd>e!<cr><cmd>redraw<cr>", { desc = "Reload buffer" })
+
+-- Resize window using <ctrl> arrow keys
+map("n", "<A-Up>", "<cmd>resize +2<cr>", { desc = "Increase Window Height" })
+map("n", "<A-Down>", "<cmd>resize -2<cr>", { desc = "Decrease Window Height" })
+map("n", "<A-Left>", "<cmd>vertical resize -2<cr>", { desc = "Decrease Window Width" })
+map("n", "<A-Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase Window Width" })
+
+-- Git --
+map("n", "<leader>go", "<cmd>!git checkout %<cr>", { desc = "Git checkout current file" })
