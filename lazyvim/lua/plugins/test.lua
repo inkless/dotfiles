@@ -34,8 +34,22 @@ return {
         ["neotest-jest"] = {
           jestCommand = "npm test --",
           jestConfigFile = "custom.jest.config.js",
+          -- jestConfigFile = function(file)
+          --   if string.find(file, "/packages/") or string.find(file, "/apps/") then
+          --     return string.match(file, "(.-/[^/]+/)src") .. "jest.config.ts"
+          --   end
+          --
+          --   return vim.fn.getcwd() .. "/jest.config.ts"
+          -- end,
           env = { CI = true },
-          cwd = function()
+          -- cwd = function()
+          --   return vim.fn.getcwd()
+          -- end,
+          cwd = function(file)
+            -- for monorepo, we need to use the package root
+            if string.find(file, "/packages/") or string.find(file, "/apps/") then
+              return LazyVim.root()
+            end
             return vim.fn.getcwd()
           end,
         },

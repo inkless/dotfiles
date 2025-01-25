@@ -13,6 +13,7 @@ end
 
 -- Escape --
 map("i", "jk", "<esc>", { desc = "Escape" })
+map("t", "jk", "<C-\\><C-n>", { desc = "Escape" })
 
 -- Buffer --
 -- map("n", "<leader>br", "<cmd>e!<cr><cmd>redraw<cr>", { desc = "Reload buffer" })
@@ -24,4 +25,4 @@ map("n", "<A-Left>", "<cmd>vertical resize -2<cr>", { desc = "Decrease Window Wi
 map("n", "<A-Right>", "<cmd>vertical resize +2<cr>", { desc = "Increase Window Width" })
 
 -- Git --
-map("n", "<leader>go", "<cmd>!git checkout %<cr>", { desc = "Git checkout current file" })
+map("n", "<leader>go", "<cmd>Git checkout %<cr>", { desc = "Git checkout current file" })

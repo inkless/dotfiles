@@ -19,17 +19,18 @@
   smudge = git media smudge %f
 [merge]
   # tool = diffmerge
-  tool = nvimdiff
+  tool = nvimdiff4
   # conflictstyle = diff3
 [mergetool]
   prompt = false
 [diff]
   # tool = diffmerge
   tool = nvimdiff
-[mergetool "nvimdiff"]
+[mergetool "nvimdiff4"]
   prompt = false
+  ; layout = "LOCAL,BASE,REMOTE / MERGED"
   cmd = "nvim -f -c \"Gvdiffsplit!\" \"$MERGED\""
-  # cmd = "nvim -d \"$LOCAL\" \"$MERGED\" \"$REMOTE\""
+  ; cmd = nvim -d $LOCAL $BASE $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
 [difftool "nvimdiff"]
   prompt = false
   cmd = "nvim -d \"$LOCAL\" \"$REMOTE\""
